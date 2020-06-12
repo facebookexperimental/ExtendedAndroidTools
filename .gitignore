@@ -1,0 +1,13 @@
+# -*- mode: gitignore; -*-
+
+# editors' temp files
+*~
+\#*\#
+.\#*
+
+# build files
+/build/
+/out/
+
+# sources
+/projects/*/sources
