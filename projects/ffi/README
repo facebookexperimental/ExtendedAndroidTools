@@ -1,0 +1,8 @@
+libffi
+github: https://github.com/libffi/libffi
+
+Default version: v3.3-rc0
+https://github.com/libffi/libffi/tree/v3.3-rc0
+First (to be) release which fixes behavior on Android: malloc should not be used
+to acquire memory for executable code, and if it is we need to call mprotect
+to make it executeble.
