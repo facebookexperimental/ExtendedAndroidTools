@@ -1,0 +1,19 @@
+libarpg sources
+Libargp is part of gnulib: http://savannah.gnu.org/projects/gnulib.
+In order to extract argp from gnulib you need to run gnulib-tool tool which is
+distributed together with gnulib sources. In order to extract libargp to
+<destination-directory> run gnulib-tool like this:
+  cd <gnulib dir>
+  ./gnulib-tool --create-testdir --lib="libargp" --dir=<destination-dir> argp
+
+Building:
+gnulib-tool produces autotools like package with the regular configure script.
+However, there are a few problems:
+- `make install` target seems not to do its job, we need to copy libargp.a and
+  libargp.h manually.
+- libargp.h depends on few macros that are defined in the generated config.h.
+  To work around that we have a wrapper header that defines minimalistic
+  versions of these macros and includes the actual header
+- configure script modifies Makefile.in (in some environments). To avoid having
+  to deal with that we copy all the sources to the build directory before
+  invoking configure
