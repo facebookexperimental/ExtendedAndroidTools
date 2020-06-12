@@ -5,13 +5,16 @@
 \#*\#
 .\#*
 
-# Vagrant files
-.vagrant/
-ubuntu-bionic-18.04-cloudimg-console.log
-
 # build files
 /build/
 /out/
 
+# ndk
+/ndk/
+
 # sources
 /projects/*/sources
+
+# Vagrant files
+.vagrant/
+ubuntu-bionic-18.04-cloudimg-console.log
