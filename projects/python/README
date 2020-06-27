@@ -1,0 +1,16 @@
+python
+Home page: https://www.python.org/
+
+Default version: v3.6.8
+https://github.com/python/cpython/tree/v3.6.8
+
+Building:
+- configure scripts needs to be told explicitely what the build environment is
+  (--build=x86_64)
+- to build shared library and relocatable python binary we pass
+  `--enable-shared` flag and set LINKFORSHARED="-pie" environment
+  variable when invoking configure script
+- due to lack of libs we need to disable ipv6 (--disable-ipv6)
+- python/config.site contains additional configuration configure script
+  complains about and needs to be passed to configure script via
+  CONFIG_SITE env variable

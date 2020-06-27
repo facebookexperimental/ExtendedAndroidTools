@@ -1,0 +1,17 @@
+BPF Compiler Collection (BCC)
+github:https://github.com/iovisor/bcc
+Toolkit for creating BPF based tracing tools.
+
+Default version: v0.14.0
+
+Building:
+- cmake depends on flex binary, which needs to stay in sync with flex header
+  and library we built for Android (using host flex won't work). We build
+  flex for host from the same sources as we do for android and we override
+  the binary used by cmake with -DFLEX_EXECUTABLE
+- bps is linked against librt, which on Android is not available and instead
+  librt functions are probided by bionic
+- bits/reg.h header is missing on Android and we provide a stub defining
+  __WORDSIZE
+- stl we're building against provides implementation of std::make_unique,
+  __cpp_lib_make_unique needs to be defined

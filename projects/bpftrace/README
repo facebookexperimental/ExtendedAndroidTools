@@ -1,0 +1,15 @@
+bpftrace
+High-level tracing language for Linux eBPF
+github: https://github.com/iovisor/bpftrace
+
+Default version: 954049043568350af934275202d4414f0f800db7
+Before 954049043568350af934275202d4414f0f800db7 bpftrace would limit its VA
+to 1GB in order to curb llvm's allocations. This causes problems with Android R
+emulators, where bpftrace process starts with over 1GB of VA.
+
+Building:
+- bpftrace depends on bcc and needs to be told where to look for headers
+  (cmake's -DLIBBCC_INCLUDE_DIRS)
+- we need to tell cmake to use flex version that matches the lib and
+  headers we have for Android. We set FLEX_EXECUTABLE to point to
+  host executable built from the same sources as we use for Android.

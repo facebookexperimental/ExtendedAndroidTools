@@ -1,0 +1,23 @@
+# -*- mode: gitignore; -*-
+
+# editors' temp files
+*~
+\#*\#
+.\#*
+
+# build files
+/build/
+/out/
+
+# ndk
+/ndk/
+
+# sources
+/projects/*/sources
+
+# Vagrant files
+.vagrant/
+ubuntu-bionic-18.04-cloudimg-console.log
+
+bpftools-arm64.tar.gz
+bpftools-x86_64.tar.gz

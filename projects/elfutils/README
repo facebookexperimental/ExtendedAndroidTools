@@ -1,0 +1,23 @@
+elfutils
+elfutils can be found here: https://www.sourceware.org/elfutils/
+It provides utils for working with elf files and includes bpf specific backed.
+
+Default version: 0.176
+Most recent elfutils release available here:
+http://sourceware.org/pub/elfutils/0.176/elfutils-0.176.tar.bz2
+
+Building:
+Elfutils is packaged with autotools, you need to run included configure script
+and then delegate to make. Issues we need to work around:
+- elfutils depends on argp (or gnulibc) and configure scripts enforces this
+  dependency. We build libargp.a exactly for this reason
+- elfutils depend on a number of gnu extensions. libelf requires only a few
+  though and we're able to provide necessary "compatibility layer" for it
+  without building gnulib or glibc:
+  - few functions from `libint.h` header
+    android_fixups/libint.h provides no-op versions of those functions
+  - `program_invocation_short_name` variable
+    we define macro named `program_invocation_short_name` which resolves to
+    "no-program_invocation_short_name"
+  We don't bother with remaining dependencies, so utils like readelf are not
+  compiled.

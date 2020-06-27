@@ -1,0 +1,8 @@
+flex
+flex is the fast lexical analyzer generator: https://github.com/westes/flex
+
+Default version: 98018e3f58d79e082216d406866942841d4bdf8a
+
+Building
+flex is packaged with autoconf and builds without major problems. The only catch
+is that autoreconf is required.
