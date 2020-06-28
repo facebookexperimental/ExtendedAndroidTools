@@ -17,6 +17,7 @@ apt-get install -y \
      help2man \
      libtool \
      make \
+     pkg-config \
      po4a \
      python \
      python3-distutils \

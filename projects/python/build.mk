@@ -11,8 +11,8 @@ endif
 
 PYTHON_CONFIG_SITE = $(abspath projects/python/config.site)
 PYTHON_EXTRA_ENV_DEFS += CONFIG_SITE=$(PYTHON_CONFIG_SITE)
-PYTHON_EXTRA_ENV_DEFS += PKG_CONFIG_LIBDIR=$(abspath out/android/lib/pkgconfig)
-PYTHON_EXTRA_ENV_DEFS += LDFLAGS=-L$(abspath out/android/lib64)
+PYTHON_EXTRA_ENV_DEFS += PKG_CONFIG_LIBDIR=$(abspath $(ANDROID_OUT_DIR)/lib/pkgconfig)
+PYTHON_EXTRA_ENV_DEFS += LDFLAGS=-L$(abspath $(ANDROID_OUT_DIR)/lib64)
 PYTHON_EXTRA_CONFIG_OPTIONS = --build=x86_64 --disable-ipv6 --without-ensurepip --with-system-ffi
 
 $(ANDROID_BUILD_DIR)/python.done: $(ANDROID_BUILD_DIR)/python
