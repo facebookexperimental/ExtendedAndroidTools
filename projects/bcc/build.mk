@@ -48,10 +48,11 @@ $(ANDROID_BUILD_DIR)/bcc: | $(ANDROID_BUILD_DIR)
 		-DBPS_LINK_RT=OFF \
 		-DPYTHON_CMD=python3.6
 
-BCC_BRANCH_OR_TAG = v0.14.0
+BCC_COMMIT = 581b198cffb55a7dd6486e54007df25e57feb466
 BCC_REPO = https://github.com/iovisor/bcc
 projects/bcc/sources:
-	git clone $(BCC_REPO) $@ --depth=1 -b $(BCC_BRANCH_OR_TAG)
+	git clone $(BCC_REPO) $@
+	cd $@ && git checkout $(BCC_COMMIT)
 
 .PHONY: remove-bcc-sources
 remove-bcc-sources:

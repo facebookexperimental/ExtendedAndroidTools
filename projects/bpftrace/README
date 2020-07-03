@@ -2,10 +2,14 @@ bpftrace
 High-level tracing language for Linux eBPF
 github: https://github.com/iovisor/bpftrace
 
-Default version: 954049043568350af934275202d4414f0f800db7
-Before 954049043568350af934275202d4414f0f800db7 bpftrace would limit its VA
-to 1GB in order to curb llvm's allocations. This causes problems with Android R
-emulators, where bpftrace process starts with over 1GB of VA.
+Default version: 7175447d8dfad8e431bf224847242cc7307ba0da
+Master as of 7/2/2020. We're building master rather than the most recent release
+to work around following issues:
+- before 954049043568350af934275202d4414f0f800db7 bpftrace would limit its VA
+  to 1GB in order to curb llvm's allocations. This causes problems with Android
+  R emulators, where bpftrace process starts with over 1GB of VA.
+- 766209727bad36af75bb1095a623c535b933ab85 fixes compilation against master bcc
+  which we need to work around other Android specific issues
 
 Building:
 - bpftrace depends on bcc and needs to be told where to look for headers

@@ -2,7 +2,10 @@ BPF Compiler Collection (BCC)
 github:https://github.com/iovisor/bcc
 Toolkit for creating BPF based tracing tools.
 
-Default version: v0.14.0
+Default version: 581b198cffb55a7dd6486e54007df25e57feb466
+Master as of 7/2/2020. We're choosing master over most recent release in order
+to work around the following issues:
+- 581b198cffb55a7dd6486e54007df25e57feb466 fixes memleak on Android
 
 Building:
 - cmake depends on flex binary, which needs to stay in sync with flex header
