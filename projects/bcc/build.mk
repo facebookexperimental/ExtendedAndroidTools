@@ -48,7 +48,7 @@ $(ANDROID_BUILD_DIR)/bcc: | $(ANDROID_BUILD_DIR)
 		-DBPS_LINK_RT=OFF \
 		-DPYTHON_CMD=python3.6
 
-BCC_COMMIT = 581b198cffb55a7dd6486e54007df25e57feb466
+BCC_COMMIT = be277421add33cb348ae1092d3ab926c1f609328
 BCC_REPO = https://github.com/iovisor/bcc
 projects/bcc/sources:
 	git clone $(BCC_REPO) $@
