@@ -2,14 +2,10 @@ bpftrace
 High-level tracing language for Linux eBPF
 github: https://github.com/iovisor/bpftrace
 
-Default version: 7175447d8dfad8e431bf224847242cc7307ba0da
-Master as of 7/2/2020. We're building master rather than the most recent release
-to work around following issues:
-- before 954049043568350af934275202d4414f0f800db7 bpftrace would limit its VA
-  to 1GB in order to curb llvm's allocations. This causes problems with Android
-  R emulators, where bpftrace process starts with over 1GB of VA.
-- 766209727bad36af75bb1095a623c535b933ab85 fixes compilation against master bcc
-  which we need to work around other Android specific issues
+Default version: e6bbb9a925e405c1ec87790490d81227ac122032
+Master as of 11/03/2020. We're building master rather than the most recent
+release to work around problems with probe_read and probe_read_str not being
+able to read userspace memory (1ab30bc872bc9fd078a9f65be86e7de495a40aa7).
 
 Building:
 - bpftrace depends on bcc and needs to be told where to look for headers
@@ -17,3 +13,7 @@ Building:
 - we need to tell cmake to use flex version that matches the lib and
   headers we have for Android. We set FLEX_EXECUTABLE to point to
   host executable built from the same sources as we use for Android.
+- bpftrace links against stdc++fs which is not available in NDK yet.
+  Fortunately there are some experimental headers available and we can work
+  around this problem by providing toy implementation of stdc++fs providing
+  minimal functionality making bpftrace work
