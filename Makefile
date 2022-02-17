@@ -34,11 +34,6 @@ $(ANDROID_OUT_DIR) $(HOST_OUT_DIR):
 	mkdir $@/include
 	mkdir $@/lib
 
-# we need to copy libc++_shared.so, it's part of the toolchain but it's not
-# present on android system
-$(ANDROID_OUT_DIR)/lib/libc++_shared.so: $(ANDROID_STANDALONE_TOOLCHAIN_DIR) | $(ANDROID_OUT_DIR)
-	find $(ANDROID_STANDALONE_TOOLCHAIN_DIR) -name libc++_shared.so -exec cp {} $(ANDROID_OUT_DIR)/lib \;
-
 clean:
 	-rm -fr $(BUILD_DIR)
 	-rm -fr $(OUT_DIR)

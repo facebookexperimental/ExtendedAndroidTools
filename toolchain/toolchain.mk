@@ -5,10 +5,10 @@ NDK_PATH = /opt/ndk/android-ndk-r17c
 
 ifeq ($(NDK_ARCH), arm64)
 ANDROID_TRIPLE = aarch64-linux-android
-CMAKE_ABI = arm64-v8a
+NDK_ABI = arm64-v8a
 else ifeq ($(NDK_ARCH), x86_64)
 ANDROID_TRIPLE = x86_64-linux-android
-CMAKE_ABI = x86_64
+NDK_ABI = x86_64
 else
 $(error unknown abi $(NDK_ARCH))
 endif
@@ -36,6 +36,9 @@ $(ANDROID_STANDALONE_TOOLCHAIN_DIR):
 $(ANDROID_CMAKE_TOOLCHAIN_FILE): toolchain/toolchain.cmake
 	mkdir -p $(ANDROID_BUILD_DIR)
 	cp $< $@
-	@sed -ibkp -e "s+<ABI>+$(CMAKE_ABI)+" $@
+	@sed -ibkp -e "s+<ABI>+$(NDK_ABI)+" $@
 	@sed -ibkp -e "s+<TOOLCHAIN_PATH>+$(abspath $(ANDROID_STANDALONE_TOOLCHAIN_DIR))+" $@
 	@sed -ibkp -e "s+<FIND_ROOT_PATH>+$(abspath $(ANDROID_OUT_DIR))+" $@
+
+$(ANDROID_OUT_DIR)/lib/libc++_shared.so: | $(ANDROID_OUT_DIR)
+	cp $(NDK_PATH)/sources/cxx-stl/llvm-libc++/libs/$(NDK_ABI)/libc++_shared.so $@
