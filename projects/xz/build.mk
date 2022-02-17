@@ -15,7 +15,7 @@ $(ANDROID_BUILD_DIR)/xz.done: $(ANDROID_BUILD_DIR)/xz
 
 $(ANDROID_BUILD_DIR)/xz: $(ANDROID_CONFIG_SITE) | $(ANDROID_BUILD_DIR)
 	mkdir -p $@
-	cd $@ && $(XZ_SOURCES)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS) LDFLAGS="-pie"
+	cd $@ && $(XZ_SOURCES)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
 
 XZ_BRANCH_OR_TAG = v5.2.5
 XZ_REPO = https://git.tukaani.org/xz.git

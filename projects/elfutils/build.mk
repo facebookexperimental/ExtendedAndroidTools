@@ -9,12 +9,8 @@ ELFUTILS_SOURCES = $(abspath projects/elfutils/sources)
 $(ANDROID_BUILD_DIR)/elfutils: projects/elfutils/sources
 endif
 
-ELFUTILS_EXTRA_CFLAGS = -I$(abspath $(ANDROID_OUT_DIR)/include)
 ELFUTILS_EXTRA_CFLAGS += -I$(abspath projects/elfutils/android_fixups)
 ELFUTILS_EXTRA_CFLAGS += -Dprogram_invocation_short_name=\\\"no-program_invocation_short_name\\\"
-
-ELFUTILS_EXTRA_LDFLAGS = -L$(abspath $(ANDROID_OUT_DIR)/lib)
-ELFUTILS_EXTRA_ENV_DEFS = CFLAGS="$(ELFUTILS_EXTRA_CFLAGS)" LDFLAGS="$(ELFUTILS_EXTRA_LDFLAGS)"
 
 $(ANDROID_BUILD_DIR)/elfutils.done: $(ANDROID_BUILD_DIR)/elfutils
 	cd $(ANDROID_BUILD_DIR)/elfutils/lib && make -j $(THREADS)
@@ -25,7 +21,7 @@ $(ANDROID_BUILD_DIR)/elfutils: $(ANDROID_CONFIG_SITE)
 $(ANDROID_BUILD_DIR)/elfutils: argp
 $(ANDROID_BUILD_DIR)/elfutils: | $(ANDROID_BUILD_DIR)
 	-mkdir $@
-	cd $@ && $(ELFUTILS_EXTRA_ENV_DEFS) $(ELFUTILS_SOURCES)/configure \
+	cd $@ && EXTRA_CFLAGS="$(ELFUTILS_EXTRA_CFLAGS)" $(ELFUTILS_SOURCES)/configure \
 		$(ANDROID_EXTRA_CONFIGURE_FLAGS)
 
 ELFUTILS_VERSION = 0.176

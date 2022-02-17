@@ -46,5 +46,6 @@ $(ANDROID_OUT_DIR)/lib/libc++_shared.so: | $(ANDROID_OUT_DIR)
 
 $(ANDROID_CONFIG_SITE): $(ANDROID_STANDALONE_TOOLCHAIN_DIR) | $(ANDROID_OUT_DIR)
 	cp toolchain/config.site.template $@
-	@sed -ibkp -e "s+<BIN_PATH>+$(abspath $(ANDROID_TOOLCHAIN_PATH))+" $@
-	@sed -ibkp -e "s+<TRIPLE>+$(ANDROID_TRIPLE)+" $@
+	@sed -ibkp -e "s+<BIN_PATH>+$(abspath $(ANDROID_TOOLCHAIN_PATH))+g" $@
+	@sed -ibkp -e "s+<TRIPLE>+$(ANDROID_TRIPLE)+g" $@
+	@sed -ibkp -e "s+<SITE_PATH>+$(abspath $(ANDROID_OUT_DIR))+g" $@
