@@ -16,7 +16,7 @@ $(ANDROID_BUILD_DIR)/flex.done: $(ANDROID_BUILD_DIR)/flex
 	cd $(ANDROID_BUILD_DIR)/flex/src && make install-libLTLIBRARIES install-binPROGRAMS install-includeHEADERS
 	touch $@
 
-$(ANDROID_BUILD_DIR)/flex: $(ANDROID_STANDALONE_TOOLCHAIN_DIR) | $(ANDROID_BUILD_DIR)
+$(ANDROID_BUILD_DIR)/flex: $(ANDROID_CONFIG_SITE) | $(ANDROID_BUILD_DIR)
 	-mkdir $@
 	cd $@ && $(FLEX_SOURCES)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
 

@@ -16,7 +16,10 @@ endif
 CMAKE = cmake
 
 ANDROID_STANDALONE_TOOLCHAIN_DIR = ndk/$(NDK_ARCH)
+ANDROID_TOOLCHAIN_PATH = $(abspath $(ANDROID_STANDALONE_TOOLCHAIN_DIR)/bin)
+ANDROID_CONFIG_SITE := $(ANDROID_OUT_DIR)/share/config.site
 ANDROID_CMAKE_TOOLCHAIN_FILE = $(ANDROID_BUILD_DIR)/toolchain-$(NDK_ARCH).cmake
+
 ANDROID_EXTRA_CMAKE_FLAGS = -DCMAKE_TOOLCHAIN_FILE=$(abspath $(ANDROID_CMAKE_TOOLCHAIN_FILE))
 ANDROID_EXTRA_CMAKE_FLAGS += -DCMAKE_INSTALL_PREFIX=$(abspath $(ANDROID_OUT_DIR))
 ANDROID_EXTRA_CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
@@ -27,8 +30,6 @@ ANDROID_CMAKE_CXXFLAGS = -I $(abspath $(ANDROID_OUT_DIR))/include
 ANDROID_CMAKE_LDFLAGS = -L $(abspath $(ANDROID_OUT_DIR))/lib
 ANDROID_CMAKE_LDFLAGS += -Wl,-rpath-link -Wl,$(abspath $(ANDROID_OUT_DIR))/lib
 ANDROID_CMAKE_LDFLAGS += "-pie"
-
-export PATH := $(abspath $(ANDROID_STANDALONE_TOOLCHAIN_DIR))/bin:$(PATH)
 
 $(ANDROID_STANDALONE_TOOLCHAIN_DIR):
 	$(NDK_PATH)/build/tools/make_standalone_toolchain.py --arch $(NDK_ARCH) --api $(NDK_API) --install-dir $@
@@ -42,3 +43,8 @@ $(ANDROID_CMAKE_TOOLCHAIN_FILE): toolchain/toolchain.cmake
 
 $(ANDROID_OUT_DIR)/lib/libc++_shared.so: | $(ANDROID_OUT_DIR)
 	cp $(NDK_PATH)/sources/cxx-stl/llvm-libc++/libs/$(NDK_ABI)/libc++_shared.so $@
+
+$(ANDROID_CONFIG_SITE): $(ANDROID_STANDALONE_TOOLCHAIN_DIR) | $(ANDROID_OUT_DIR)
+	cp toolchain/config.site.template $@
+	@sed -ibkp -e "s+<BIN_PATH>+$(abspath $(ANDROID_TOOLCHAIN_PATH))+" $@
+	@sed -ibkp -e "s+<TRIPLE>+$(ANDROID_TRIPLE)+" $@

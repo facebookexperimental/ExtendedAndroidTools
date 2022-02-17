@@ -1,0 +1,8 @@
+test -z "$AR" && AR=<BIN_PATH>/<TRIPLE>-ar
+test -z "$AS" && AS=<BIN_PATH>/<TRIPLE>-as
+test -z "$CC" && CC=<BIN_PATH>/<TRIPLE>-gcc
+test -z "$CXX" && CXX=<BIN_PATH>/<TRIPLE>-g++
+test -z "$LD" && LD=<BIN_PATH>/<TRIPLE>-ld
+test -z "$RANLIB" && RANLIB=<BIN_PATH>/<TRIPLE>-ranlib
+test -z "$READELF" && READELF=<BIN_PATH>/<TRIPLE>-readelf
+test -z "$STRIP" && STRIP=<BIN_PATH>/<TRIPLE>-strip

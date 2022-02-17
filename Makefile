@@ -33,6 +33,7 @@ $(ANDROID_OUT_DIR) $(HOST_OUT_DIR):
 	mkdir $@/bin
 	mkdir $@/include
 	mkdir $@/lib
+	mkdir $@/share
 
 clean:
 	-rm -fr $(BUILD_DIR)

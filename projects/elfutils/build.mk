@@ -21,7 +21,7 @@ $(ANDROID_BUILD_DIR)/elfutils.done: $(ANDROID_BUILD_DIR)/elfutils
 	cd $(ANDROID_BUILD_DIR)/elfutils/libelf && make install -j $(THREADS)
 	touch $@
 
-$(ANDROID_BUILD_DIR)/elfutils: $(ANDROID_STANDALONE_TOOLCHAIN_DIR)
+$(ANDROID_BUILD_DIR)/elfutils: $(ANDROID_CONFIG_SITE)
 $(ANDROID_BUILD_DIR)/elfutils: argp
 $(ANDROID_BUILD_DIR)/elfutils: | $(ANDROID_BUILD_DIR)
 	-mkdir $@

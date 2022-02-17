@@ -9,11 +9,11 @@ PYTHON_SOURCES = $(abspath projects/python/sources)
 $(ANDROID_BUILD_DIR)/python: projects/python/sources
 endif
 
-PYTHON_CONFIG_SITE = $(abspath projects/python/config.site)
-PYTHON_EXTRA_ENV_DEFS += CONFIG_SITE=$(PYTHON_CONFIG_SITE)
 PYTHON_EXTRA_ENV_DEFS += PKG_CONFIG_LIBDIR=$(abspath $(ANDROID_OUT_DIR)/lib/pkgconfig)
 PYTHON_EXTRA_ENV_DEFS += LDFLAGS=-L$(abspath $(ANDROID_OUT_DIR)/lib64)
 PYTHON_EXTRA_CONFIG_OPTIONS = --build=x86_64 --disable-ipv6 --without-ensurepip --with-system-ffi
+PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptmx=no
+PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptc=no
 
 $(ANDROID_BUILD_DIR)/python.done: $(ANDROID_BUILD_DIR)/python
 	cd $(ANDROID_BUILD_DIR)/python && make install -j $(THREADS)
