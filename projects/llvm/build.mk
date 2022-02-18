@@ -32,11 +32,9 @@ endif
 $(ANDROID_BUILD_DIR)/llvm: $(HOST_OUT_DIR)/bin/llvm-config
 $(ANDROID_BUILD_DIR)/llvm: $(HOST_OUT_DIR)/bin/llvm-tblgen
 $(ANDROID_BUILD_DIR)/llvm: $(HOST_OUT_DIR)/bin/clang-tblgen
-$(ANDROID_BUILD_DIR)/llvm: $(ANDROID_CMAKE_DEPS)
 $(ANDROID_BUILD_DIR)/llvm: | $(ANDROID_BUILD_DIR)
 	-mkdir $@
-	cd $@ && CXXFLAGS="$(ANDROID_CMAKE_CXXFLAGS)" LDFLAGS="$(ANDROID_CMAKE_LDFLAGS)" \
-		$(CMAKE) $(LLVM_SOURCES) \
+	cd $@ && $(CMAKE) $(LLVM_SOURCES) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		$(LLVM_EXTRA_CMAKE_FLAGS) \
 		-DLLVM_CONFIG_PATH=$(abspath $(HOST_OUT_DIR)/bin/llvm-config) \

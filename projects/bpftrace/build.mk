@@ -17,11 +17,9 @@ $(ANDROID_OUT_DIR)/bin/bpftrace: $(ANDROID_BUILD_DIR)/bpftrace | $(ANDROID_OUT_D
 $(ANDROID_BUILD_DIR)/bpftrace: bcc elfutils flex flex-host llvm stdc++fs
 $(ANDROID_BUILD_DIR)/bpftrace: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 $(ANDROID_BUILD_DIR)/bpftrace: $(HOST_OUT_DIR)/bin/flex
-$(ANDROID_BUILD_DIR)/bpftrace: $(ANDROID_CMAKE_DEPS)
 $(ANDROID_BUILD_DIR)/bpftrace: | $(ANDROID_BUILD_DIR)
 	-mkdir $@
-	cd $@ && CXXFLAGS="$(ANDROID_CMAKE_CXXFLAGS)" LDFLAGS="$(ANDROID_CMAKE_LDFLAGS)" \
-		$(CMAKE) $(BPFTRACE_SOURCES) \
+	cd $@ && $(CMAKE) $(BPFTRACE_SOURCES) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		-DLIBBCC_INCLUDE_DIRS=$(abspath $(ANDROID_OUT_DIR)/include) \
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \

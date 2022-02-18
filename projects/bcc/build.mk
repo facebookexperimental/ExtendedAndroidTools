@@ -37,13 +37,12 @@ endif
 # generates bcc build files for Android
 $(ANDROID_BUILD_DIR)/bcc: llvm flex flex-host elfutils
 $(ANDROID_BUILD_DIR)/bcc: $(HOST_OUT_DIR)/bin/flex
-$(ANDROID_BUILD_DIR)/bcc: $(ANDROID_CMAKE_DEPS)
 $(ANDROID_BUILD_DIR)/bcc: | $(ANDROID_BUILD_DIR)
 	-mkdir $@
-	cd $@ && CXXFLAGS="$(ANDROID_CMAKE_CXXFLAGS) $(BCC_EXTRA_CFLAGS)" \
-		CFLAGS="$(BCC_EXTRA_CFLAGS)" LDFLAGS="$(ANDROID_CMAKE_LDFLAGS)" \
-		$(CMAKE) $(BCC_SOURCES) \
+	cd $@ && $(CMAKE) $(BCC_SOURCES) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
+		-DCMAKE_C_FLAGS="$(BCC_EXTRA_CFLAGS)" \
+		-DCMAKE_CXX_FLAGS="$(BCC_EXTRA_CFLAGS)" \
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
 		-DBPS_LINK_RT=OFF \
 		-DPYTHON_CMD=python3.6
