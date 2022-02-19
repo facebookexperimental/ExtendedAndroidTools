@@ -21,12 +21,8 @@ $(ANDROID_BUILD_DIR)/argp: | $(ANDROID_BUILD_DIR)
 	-mkdir $@
 	cd $@ && $(ARGP_SOURCES)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
 
-GNULIB_COMMIT_HASH = cd46bf0ca5083162f3ac564ebbdeb6371085df45
-GNULIB_REPO = https://git.savannah.gnu.org/git/gnulib.git
-projects/argp/sources: | $(DOWNLOADS_DIR)
-	-git clone $(GNULIB_REPO) $(DOWNLOADS_DIR)/gnulib
-	cd $(DOWNLOADS_DIR)/gnulib && git checkout $(GNULIB_COMMIT_HASH)
-	cd $(DOWNLOADS_DIR)/gnulib && ./gnulib-tool --create-testdir \
+projects/argp/sources: projects/gnulib/sources
+	cd $(GNULIB_SOURCES) && ./gnulib-tool --create-testdir \
 		--lib="libargp" --dir=$(abspath $@) argp
 
 .PHONY: remove-argp-sources
