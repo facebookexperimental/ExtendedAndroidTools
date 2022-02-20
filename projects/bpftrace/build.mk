@@ -1,25 +1,17 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 
-bpftrace: $(ANDROID_OUT_DIR)/bin/bpftrace
-bpftrace: $(ANDROID_OUT_DIR)/share/bpftrace/tools
-fetch-sources: projects/bpftrace/sources
-remove-sources: remove-bpftrace-sources
+BPFTRACE_ANDROID_DEPS = bcc elfutils flex llvm stdc++fs
+BPFTRACE_HOST_DEPS = flex
+$(eval $(call project-define,bpftrace))
 
-ifeq ($(BPFTRACE_SOURCES),)
-BPFTRACE_SOURCES = $(abspath projects/bpftrace/sources)
-$(ANDROID_BUILD_DIR)/bpftrace: projects/bpftrace/sources
-endif
+$(BPFTRACE_ANDROID): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
+	cd $(BPFTRACE_ANDROID_BUILD_DIR) && $(MAKE) bpftrace -j $(THREADS)
+	cp $(BPFTRACE_ANDROID_BUILD_DIR)/src/bpftrace $(ANDROID_OUT_DIR)/bin/.
+	touch $@
 
-$(ANDROID_OUT_DIR)/bin/bpftrace: $(ANDROID_BUILD_DIR)/bpftrace | $(ANDROID_OUT_DIR)
-	cd $(ANDROID_BUILD_DIR)/bpftrace && $(MAKE) bpftrace -j $(THREADS)
-	cp $(ANDROID_BUILD_DIR)/bpftrace/src/bpftrace $@
-
-$(ANDROID_BUILD_DIR)/bpftrace: bcc elfutils flex flex-host llvm stdc++fs
-$(ANDROID_BUILD_DIR)/bpftrace: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
-$(ANDROID_BUILD_DIR)/bpftrace: $(HOST_OUT_DIR)/bin/flex
-$(ANDROID_BUILD_DIR)/bpftrace: | $(ANDROID_BUILD_DIR)
+$(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 	-mkdir $@
-	cd $@ && $(CMAKE) $(BPFTRACE_SOURCES) \
+	cd $@ && $(CMAKE) $(BPFTRACE_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		-DLIBBCC_INCLUDE_DIRS=$(abspath $(ANDROID_OUT_DIR)/include) \
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
@@ -34,7 +26,3 @@ BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@
 	cd $@ && git checkout $(BPFTRACE_COMMIT)
-
-.PHONY: remove-bpftrace-sources
-remove-bpftrace-sources:
-	rm -rf projects/bpftrace/sources

@@ -1,25 +1,19 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 
-python: $(ANDROID_BUILD_DIR)/python.done
-fetch-sources: projects/python/sources
-remove-sources: remove-python-sources
-
-ifeq ($(PYTHON_SOURCES),)
-PYTHON_SOURCES = $(abspath projects/python/sources)
-$(ANDROID_BUILD_DIR)/python: projects/python/sources
-endif
+PYTHON_ANDROID_DEPS = ffi
+$(eval $(call project-define,python))
 
 PYTHON_EXTRA_CONFIG_OPTIONS = --build=x86_64 --disable-ipv6 --without-ensurepip --with-system-ffi
 PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptmx=no
 PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptc=no
 
-$(ANDROID_BUILD_DIR)/python.done: $(ANDROID_BUILD_DIR)/python
-	cd $(ANDROID_BUILD_DIR)/python && make install -j $(THREADS)
+$(PYTHON_ANDROID):
+	cd $(PYTHON_ANDROID_BUILD_DIR) && make install -j $(THREADS)
 	touch $@
 
-$(ANDROID_BUILD_DIR)/python: $(ANDROID_TOOLCHAIN_DIR) ffi | $(ANDROID_BUILD_DIR)
+$(PYTHON_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 	mkdir -p $@
-	cd $@ && $(PYTHON_SOURCES)/configure \
+	cd $@ && $(PYTHON_SRCS)/configure \
 		$(ANDROID_EXTRA_CONFIGURE_FLAGS) \
 		$(PYTHON_EXTRA_CONFIG_OPTIONS)
 
@@ -27,7 +21,3 @@ PYTHON_BRANCH_OR_TAG = v3.6.8
 PYTHON_REPO = https://github.com/python/cpython.git
 projects/python/sources:
 	git clone $(PYTHON_REPO) $@ --depth=1 -b $(PYTHON_BRANCH_OR_TAG)
-
-.PHONY: remove-python-sources
-remove-python-sources:
-	rm -rf projects/python/sources

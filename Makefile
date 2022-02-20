@@ -44,5 +44,6 @@ clean:
 .PHONY: clean fetch-sources remove-sources install uninstall
 .DELETE_ON_ERROR:
 
+include projects/project.mk
 include projects/*/build.mk
 include sysroot/*.mk

@@ -1,13 +1,8 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 
-bcc: $(ANDROID_BUILD_DIR)/bcc.done
-fetch-sources: bcc/sources
-remove-sources: remove-bcc-sources
-
-ifeq ($(BCC_SOURCES),)
-BCC_SOURCES = $(abspath projects/bcc/sources)
-$(ANDROID_BUILD_DIR)/bcc: projects/bcc/sources
-endif
+BCC_ANDROID_DEPS = llvm flex elfutils
+BCC_HOST_DEPS = flex
+$(eval $(call project-define,bcc))
 
 # bionic and libbpf (built as part of bcc) both provide linux/compiler.h header.
 # In case of bionic the header defines empty __user macro which is used in many
@@ -26,7 +21,7 @@ BCC_EXTRA_CFLAGS += "-I$(abspath projects/bcc/android_fixups)"
 # stl we're building with provides std::make_unique, do not redefine it
 BCC_EXTRA_CFLAGS += "-D__cpp_lib_make_unique"
 
-$(ANDROID_BUILD_DIR)/bcc.done: $(ANDROID_BUILD_DIR)/bcc
+$(BCC_ANDROID):
 ifeq ($(BUILD_TYPE), Debug)
 	cd $(ANDROID_BUILD_DIR)/bcc && $(MAKE) install -j $(THREADS)
 else
@@ -35,11 +30,9 @@ endif
 	touch $@
 
 # generates bcc build files for Android
-$(ANDROID_BUILD_DIR)/bcc: llvm flex flex-host elfutils
-$(ANDROID_BUILD_DIR)/bcc: $(HOST_OUT_DIR)/bin/flex
-$(ANDROID_BUILD_DIR)/bcc: | $(ANDROID_BUILD_DIR)
+$(BCC_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 	-mkdir $@
-	cd $@ && $(CMAKE) $(BCC_SOURCES) \
+	cd $@ && $(CMAKE) $(BCC_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		-DCMAKE_C_FLAGS="$(BCC_EXTRA_CFLAGS)" \
 		-DCMAKE_CXX_FLAGS="$(BCC_EXTRA_CFLAGS)" \
@@ -52,7 +45,3 @@ BCC_REPO = https://github.com/iovisor/bcc
 projects/bcc/sources:
 	git clone $(BCC_REPO) $@
 	cd $@ && git checkout $(BCC_COMMIT)
-
-.PHONY: remove-bcc-sources
-remove-bcc-sources:
-	rm -rf projects/bcc/sources
