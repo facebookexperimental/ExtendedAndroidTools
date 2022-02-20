@@ -10,6 +10,8 @@ $(eval $(call project-define,bcc))
 # that macro and we get many build errors when including not-overriden headers.
 # Let's fix it by definiting __user on our own.
 BCC_EXTRA_CFLAGS += "-D__user="
+BCC_EXTRA_CFLAGS += "-D__force="
+BCC_EXTRA_CFLAGS += "-D__poll_t=unsigned"
 
 # Tests are built as part of regular bcc build and those tests depend on
 # symbols that are not provided by bionic.

@@ -14,8 +14,9 @@ ANDROID_EXTRA_CONFIGURE_FLAGS = --host=$(ANDROID_TRIPLE) --prefix=$(abspath $(AN
 $(ANDROID_OUT_DIR)/lib/libc++_shared.so: | $(ANDROID_OUT_DIR)
 	cp $(NDK_PATH)/sources/cxx-stl/llvm-libc++/libs/$(CMAKE_ABI)/libc++_shared.so $@
 
-$(ANDROID_CONFIG_SITE): $(ANDROID_STANDALONE_TOOLCHAIN_DIR) | $(ANDROID_OUT_DIR)
+$(ANDROID_CONFIG_SITE): | $(ANDROID_OUT_DIR)
 	cp toolchain/config.site.template $@
 	@sed -ibkp -e "s+<BIN_PATH>+$(abspath $(ANDROID_TOOLCHAIN_PATH))+g" $@
 	@sed -ibkp -e "s+<TRIPLE>+$(ANDROID_TRIPLE)+g" $@
 	@sed -ibkp -e "s+<SITE_PATH>+$(abspath $(ANDROID_OUT_DIR))+g" $@
+	@sed -ibkp -e "s+<API>+$(NDK_API)+g" $@

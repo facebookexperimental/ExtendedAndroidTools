@@ -1,12 +1,12 @@
-test -z "$AR" && AR=<BIN_PATH>/<TRIPLE>-ar
-test -z "$AS" && AS=<BIN_PATH>/<TRIPLE>-as
-test -z "$CC" && CC=<BIN_PATH>/<TRIPLE>-gcc
-test -z "$CXX" && CXX=<BIN_PATH>/<TRIPLE>-g++
-test -z "$LD" && LD=<BIN_PATH>/<TRIPLE>-ld
-test -z "$RANLIB" && RANLIB=<BIN_PATH>/<TRIPLE>-ranlib
-test -z "$READELF" && READELF=<BIN_PATH>/<TRIPLE>-readelf
-test -z "$STRIP" && STRIP=<BIN_PATH>/<TRIPLE>-strip
+test -z "$AR" && AR=<BIN_PATH>/llvm-ar
+test -z "$AS" && AS=<BIN_PATH>/<TRIPLE><API>-clang
+test -z "$CC" && CC=<BIN_PATH>/<TRIPLE><API>-clang
+test -z "$CXX" && CXX=<BIN_PATH>/<TRIPLE><API>-clang++
+test -z "$LD" && LD=<BIN_PATH>/ld
+test -z "$RANLIB" && RANLIB=<BIN_PATH>/llvm-ranlib
+test -z "$READELF" && READELF=<BIN_PATH>/llvm-readelf
+test -z "$STRIP" && STRIP=<BIN_PATH>/llvm-strip
 
 test -z "$PKG_CONFIG_LIBDIR" && PKG_CONFIG_LIBDIR=<SITE_PATH>/lib/pkgconfig
-test -z "$CFLAGS" && CFLAGS="-I<SITE_PATH>/include $EXTRA_CFLAGS"
-test -z "$LDFLAGS" && LDFLAGS="-pie -L<SITE_PATH>/lib -L<SITE_PATH>/lib64 $EXTRA_LDFLAGS"
+test -z "$CFLAGS" && CFLAGS="-fPIC -I<SITE_PATH>/include $EXTRA_CFLAGS"
+test -z "$LDFLAGS" && LDFLAGS="-L<SITE_PATH>/lib -L<SITE_PATH>/lib64 $EXTRA_LDFLAGS"

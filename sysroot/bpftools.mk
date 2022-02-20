@@ -36,9 +36,7 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	cp $(ANDROID_OUT_DIR)/lib/libfl* $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/liblzma.so $@/lib/
 	cp -a $(ANDROID_OUT_DIR)/lib/python3* $@/lib/
-
-	mkdir -p $@/lib64
-	cp $(ANDROID_OUT_DIR)/lib64/libffi* $@/lib64/
+	cp $(ANDROID_OUT_DIR)/lib/libffi* $@/lib/
 
 	mkdir -p $@/share
 	cp -a $(ANDROID_OUT_DIR)/share/bcc $@/share/
