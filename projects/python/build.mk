@@ -11,6 +11,8 @@ $(PYTHON_ANDROID):
 	cd $(PYTHON_ANDROID_BUILD_DIR) && make install -j $(THREADS)
 	touch $@
 
+$(PYTHON_ANDROID_BUILD_DIR): \
+    export PKG_CONFIG_LIBDIR=$(abspath $(ANDROID_OUT_DIR)/lib/pkgconfig)
 $(PYTHON_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 	mkdir -p $@
 	cd $@ && $(PYTHON_SRCS)/configure \
