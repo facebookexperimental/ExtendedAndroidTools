@@ -11,9 +11,6 @@ endif
 ANDROID_CONFIG_SITE = $(ANDROID_OUT_DIR)/share/config.site
 ANDROID_EXTRA_CONFIGURE_FLAGS = --host=$(ANDROID_TRIPLE) --prefix=$(abspath $(ANDROID_OUT_DIR))
 
-$(ANDROID_OUT_DIR)/lib/libc++_shared.so: | $(ANDROID_OUT_DIR)
-	cp $(NDK_PATH)/sources/cxx-stl/llvm-libc++/libs/$(CMAKE_ABI)/libc++_shared.so $@
-
 $(ANDROID_CONFIG_SITE): | $(ANDROID_OUT_DIR)
 	cp toolchain/config.site.template $@
 	@sed -ibkp -e "s+<BIN_PATH>+$(abspath $(ANDROID_TOOLCHAIN_PATH))+g" $@
