@@ -18,7 +18,11 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_SYSROOTS_OUT_DIR)
 $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: sysroot/setup.sh
 $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: sysroot/run.sh
 $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: sysroot/wrapper.sh.template
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: bcc bpftrace python xz $(ANDROID_OUT_DIR)/lib/libc++_shared.so
+$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,bcc)
+$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,bpftrace)
+$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,python)
+$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,xz)
+$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	mkdir -p $@/bin
 	cp $(ANDROID_OUT_DIR)/bin/bpftrace $@/bin/
 	cp -P $(ANDROID_OUT_DIR)/bin/python* $@/bin/
@@ -32,9 +36,7 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: bcc bpftrace python xz $(ANDROID_OUT_DIR)/
 	cp $(ANDROID_OUT_DIR)/lib/libfl* $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/liblzma.so $@/lib/
 	cp -a $(ANDROID_OUT_DIR)/lib/python3* $@/lib/
-
-	mkdir -p $@/lib64
-	cp $(ANDROID_OUT_DIR)/lib64/libffi* $@/lib64/
+	cp $(ANDROID_OUT_DIR)/lib/libffi* $@/lib/
 
 	mkdir -p $@/share
 	cp -a $(ANDROID_OUT_DIR)/share/bcc $@/share/

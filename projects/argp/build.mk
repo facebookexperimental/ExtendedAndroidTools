@@ -1,34 +1,18 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 
-argp: $(ANDROID_BUILD_DIR)/argp.done
-fetch-sources: projects/argp/sources
-remove-sources: remove-argp-sources
+$(eval $(call project-define,argp))
 
-ifeq ($(ARGP_SOURCES),)
-ARGP_SOURCES = $(abspath projects/argp/sources)
-$(ANDROID_BUILD_DIR)/argp: projects/argp/sources
-endif
-
-$(ANDROID_BUILD_DIR)/argp.done: $(ANDROID_BUILD_DIR)/argp | $(ANDROID_OUT_DIR)
-	cd $(ANDROID_BUILD_DIR)/argp && make -j $(THREADS)
-	cp $(ANDROID_BUILD_DIR)/argp/gllib/libargp.a $(ANDROID_OUT_DIR)/lib/.
+$(ARGP_ANDROID):
+	cd $(ARGP_ANDROID_BUILD_DIR) && make -j $(THREADS)
+	cp $(ARGP_ANDROID_BUILD_DIR)/gllib/libargp.a $(ANDROID_OUT_DIR)/lib/.
 	cp projects/argp/headers/argp-wrapper.h $(ANDROID_OUT_DIR)/include/argp.h
-	cp $(ARGP_SOURCES)/gllib/argp.h $(ANDROID_OUT_DIR)/include/argp-real.h
+	cp $(ARGP_SRCS)/gllib/argp.h $(ANDROID_OUT_DIR)/include/argp-real.h
 	touch $@
 
-$(ANDROID_BUILD_DIR)/argp: $(ANDROID_STANDALONE_TOOLCHAIN_DIR)
-$(ANDROID_BUILD_DIR)/argp: | $(ANDROID_BUILD_DIR)
+$(ARGP_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 	-mkdir $@
-	cd $@ && $(ARGP_SOURCES)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
+	cd $@ && $(ARGP_SRCS)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
 
-GNULIB_COMMIT_HASH = cd46bf0ca5083162f3ac564ebbdeb6371085df45
-GNULIB_REPO = https://git.savannah.gnu.org/git/gnulib.git
-projects/argp/sources: | $(DOWNLOADS_DIR)
-	-git clone $(GNULIB_REPO) $(DOWNLOADS_DIR)/gnulib
-	cd $(DOWNLOADS_DIR)/gnulib && git checkout $(GNULIB_COMMIT_HASH)
-	cd $(DOWNLOADS_DIR)/gnulib && ./gnulib-tool --create-testdir \
+projects/argp/sources: $(call project-optional-sources-target,gnulib)
+	cd $(call project-sources,gnulib) && ./gnulib-tool --create-testdir \
 		--lib="libargp" --dir=$(abspath $@) argp
-
-.PHONY: remove-argp-sources
-remove-argp-sources:
-	rm -rf projects/argp/sources

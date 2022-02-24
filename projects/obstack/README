@@ -1,0 +1,7 @@
+libobstack
+Libobstack is part of gnulib: http://savannah.gnu.org/projects/gnulib.
+In order to extract libobsack from gnulib you need to run gnulib-tool tool which
+is distributed together with gnulib sources. In order to extract libobstack to
+<destination-directory> run gnulib-tool like this:
+  cd <gnulib dir>
+  ./gnulib-tool --create-testdir --lib="libobstack" --dir=<destination-dir> obstack

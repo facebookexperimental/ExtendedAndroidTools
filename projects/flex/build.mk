@@ -1,34 +1,25 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 
-flex: $(ANDROID_BUILD_DIR)/flex.done
-flex-host: $(HOST_OUT_DIR)/bin/flex
-fetch-sources: projects/flex/sources
-remove-sources: remove-flex-sources
+$(eval $(call project-define,flex))
 
-ifeq ($(FLEX_SOURCES),)
-FLEX_SOURCES = $(abspath projects/flex/sources)
-$(HOST_BUILD_DIR)/flex: projects/flex/sources
-$(ANDROID_BUILD_DIR)/flex: projects/flex/sources
-endif
-
-$(ANDROID_BUILD_DIR)/flex.done: $(ANDROID_BUILD_DIR)/flex
-	cd $(ANDROID_BUILD_DIR)/flex && make -j $(THREADS)
-	cd $(ANDROID_BUILD_DIR)/flex/src && make install-libLTLIBRARIES install-binPROGRAMS install-includeHEADERS
+$(FLEX_ANDROID):
+	cd $(FLEX_ANDROID_BUILD_DIR) && make -j $(THREADS)
+	cd $(FLEX_ANDROID_BUILD_DIR)/src && make install-libLTLIBRARIES install-binPROGRAMS install-includeHEADERS
 	touch $@
 
-$(ANDROID_BUILD_DIR)/flex: $(ANDROID_STANDALONE_TOOLCHAIN_DIR) | $(ANDROID_BUILD_DIR)
+$(FLEX_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 	-mkdir $@
-	cd $@ && $(FLEX_SOURCES)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
+	cd $@ && $(FLEX_SRCS)/configure $(ANDROID_EXTRA_CONFIGURE_FLAGS)
 
-$(HOST_OUT_DIR)/bin/flex: $(HOST_BUILD_DIR)/flex.done
+$(HOST_OUT_DIR)/bin/flex: $(FLEX_HOST)
 
-$(HOST_BUILD_DIR)/flex.done: $(HOST_BUILD_DIR)/flex
-	cd $(HOST_BUILD_DIR)/flex && make install -j $(THREADS)
+$(FLEX_HOST):
+	cd $(FLEX_HOST_BUILD_DIR) && make install -j $(THREADS)
 	touch $@
 
-$(HOST_BUILD_DIR)/flex: | $(HOST_BUILD_DIR)
+$(FLEX_HOST_BUILD_DIR):
 	-mkdir $@
-	cd $@ && $(FLEX_SOURCES)/configure --prefix=$(abspath $(HOST_OUT_DIR))
+	cd $@ && $(FLEX_SRCS)/configure --prefix=$(abspath $(HOST_OUT_DIR))
 
 FLEX_COMMIT_HASH = 98018e3f58d79e082216d406866942841d4bdf8a
 FLEX_REPO = https://github.com/westes/flex.git
@@ -43,7 +34,3 @@ else
 	cd $@ && git checkout $(FLEX_COMMIT_HASH)
 	cd $@ && autoreconf -i -f
 endif
-
-.PHONY: remove-flex-sources
-remove-flex-sources:
-	rm -rf projects/flex/sources
