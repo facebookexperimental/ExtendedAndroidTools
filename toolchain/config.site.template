@@ -1,4 +1,4 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 test -z "$AR" && AR=<BIN_PATH>/llvm-ar
 test -z "$AS" && AS=<BIN_PATH>/<TRIPLE><API>-clang

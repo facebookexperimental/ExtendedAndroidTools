@@ -1,5 +1,5 @@
 #!/system/bin/env sh
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 SYSROOT=$(realpath $(dirname $_))
 

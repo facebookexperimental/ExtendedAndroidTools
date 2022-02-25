@@ -1,4 +1,4 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 # Definitions of macros and functions facilitating creation of build.mk files
 # according to the convention used in ExtendedAndroidTools.

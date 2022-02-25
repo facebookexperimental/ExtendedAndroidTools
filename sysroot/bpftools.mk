@@ -1,4 +1,4 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 ifeq ($(NDK_ARCH), arm64)
 TARGET_ARCH_ENV_VAR = arm64

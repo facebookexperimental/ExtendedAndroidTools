@@ -1,4 +1,4 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"

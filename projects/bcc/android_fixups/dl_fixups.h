@@ -1,4 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
+// Copyright (c) Meta Platforms, Inc. and affiliates.
 
 // stub definitions for compiling tests with bionic
 
