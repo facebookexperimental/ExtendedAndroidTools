@@ -1,5 +1,5 @@
 #! /bin/bash
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 dest="${1:-$(cwd)}"
 echo "downloading ndk to ${dest}..."

@@ -1,4 +1,4 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 BCC_ANDROID_DEPS = llvm flex elfutils
 BCC_HOST_DEPS = flex

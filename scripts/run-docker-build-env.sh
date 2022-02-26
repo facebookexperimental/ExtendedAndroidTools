@@ -1,4 +1,4 @@
 #! /bin/bash
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 docker run -it --rm -v $(pwd):/ExtendedAndroidTools extended-android-tools

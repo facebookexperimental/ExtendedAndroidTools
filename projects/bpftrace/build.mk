@@ -1,4 +1,4 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 BPFTRACE_ANDROID_DEPS = bcc elfutils flex llvm stdc++fs
 BPFTRACE_HOST_DEPS = flex

@@ -1,4 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
+// Copyright (c) Meta Platforms, Inc. and affiliates.
 
 #ifndef ARGP_WRAPPER_H
 #define ARGP_WRAPPER_H
