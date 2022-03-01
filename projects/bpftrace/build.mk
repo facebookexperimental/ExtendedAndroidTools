@@ -1,8 +1,10 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
 BPFTRACE_ANDROID_DEPS = bcc elfutils flex llvm stdc++fs
-BPFTRACE_HOST_DEPS = flex
+BPFTRACE_HOST_DEPS = cmake flex
 $(eval $(call project-define,bpftrace))
+
+BPFTRACE_EXTRA_LDFLAGS = "-L$(abspath $(ANDROID_OUT_DIR))/lib"
 
 $(BPFTRACE_ANDROID): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 ifeq ($(BUILD_TYPE), Debug)
@@ -14,7 +16,7 @@ endif
 
 $(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 	-mkdir $@
-	cd $@ && $(CMAKE) $(BPFTRACE_SRCS) \
+	cd $@ && LDFLAGS="$(BPFTRACE_EXTRA_LDFLAGS)" $(CMAKE) $(BPFTRACE_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		-DBUILD_TESTING=OFF \
 		-DLIBBCC_INCLUDE_DIRS=$(abspath $(ANDROID_OUT_DIR)/include) \

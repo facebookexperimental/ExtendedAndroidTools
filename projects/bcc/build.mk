@@ -1,7 +1,7 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
 BCC_ANDROID_DEPS = llvm flex elfutils
-BCC_HOST_DEPS = flex
+BCC_HOST_DEPS = cmake flex
 $(eval $(call project-define,bcc))
 
 # bionic and libbpf (built as part of bcc) both provide linux/compiler.h header.
@@ -23,6 +23,8 @@ BCC_EXTRA_CFLAGS += "-I$(abspath projects/bcc/android_fixups)"
 # stl we're building with provides std::make_unique, do not redefine it
 BCC_EXTRA_CFLAGS += "-D__cpp_lib_make_unique"
 
+BCC_EXTRA_LDFLAGS = "-L$(abspath $(ANDROID_OUT_DIR))/lib"
+
 $(BCC_ANDROID):
 ifeq ($(BUILD_TYPE), Debug)
 	cd $(ANDROID_BUILD_DIR)/bcc && $(MAKE) install -j $(THREADS)
@@ -34,7 +36,7 @@ endif
 # generates bcc build files for Android
 $(BCC_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 	-mkdir $@
-	cd $@ && $(CMAKE) $(BCC_SRCS) \
+	cd $@ && LDFLAGS="$(BCC_EXTRA_LDFLAGS)" $(CMAKE) $(BCC_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		-DCMAKE_C_FLAGS="$(BCC_EXTRA_CFLAGS)" \
 		-DCMAKE_CXX_FLAGS="$(BCC_EXTRA_CFLAGS)" \

@@ -1,5 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
+LLVM_HOST_DEPS = cmake
 $(eval $(call project-define,llvm))
 
 ifeq ($(NDK_ARCH), arm64)

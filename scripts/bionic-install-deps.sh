@@ -9,12 +9,12 @@ apt-get install -y \
      automake \
      autopoint \
      bison \
-     cmake \
      flex \
      g++ \
      gettext \
      git \
      help2man \
+     libssl-dev \
      libtool \
      make \
      pkg-config \
