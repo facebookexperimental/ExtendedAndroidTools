@@ -30,6 +30,7 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 
 	mkdir -p $@/lib
 	cp $(ANDROID_OUT_DIR)/lib/libbcc.so $@/lib/
+	cp $(ANDROID_OUT_DIR)/lib/libbcc_bpf.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libclang.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libc++_shared.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libelf* $@/lib/
