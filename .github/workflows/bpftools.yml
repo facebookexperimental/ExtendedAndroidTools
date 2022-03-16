@@ -1,0 +1,30 @@
+name: Build bpftools archives
+
+on: [push, pull_request]
+
+jobs:
+  build_bpftools:
+    name: Build bpftools archive
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        env:
+        - NAME: arm64
+          NDK_ARCH: arm64
+          OUTPUT: bpftools-arm64.tar.gz
+        - NAME: x86_64
+          NDK_ARCH: x86_64
+          OUTPUT: bpftools-x86_64.tar.gz
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install deps
+      run: sudo ./scripts/bionic-install-deps.sh
+    - name: Setup ndk
+      run: ./scripts/download-ndk.sh
+    - name: Build
+      env: ${{matrix.env}}
+      run: make bpftools NDK_PATH=`pwd`/android-ndk-r23b NDK_ARCH=$NDK_ARCH
+    - uses: actions/upload-artifact@v3
+      with:
+        name: bpftools
+        path: ${{ matrix.env['OUTPUT'] }}
