@@ -36,7 +36,8 @@ $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/clang-tblgen
 		-DLLVM_ENABLE_RTTI=yes \
 		-DLLVM_INCLUDE_TESTS=OFF \
 		-DLLVM_INCLUDE_GO_TESTS=OFF \
-		-DCLANG_BUILD_TOOLS=OFF
+		-DCLANG_BUILD_TOOLS=OFF \
+		-DLLVM_ENABLE_LIBXML2=OFF
 
 # rules building host llvm-tblgen and clang-tblgen binaries necessary to
 # cross compile llvm and clang for Android
