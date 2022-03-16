@@ -33,7 +33,10 @@ $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/clang-tblgen
 		-DLLVM_TABLEGEN=$(abspath $(HOST_OUT_DIR)/bin/llvm-tblgen) \
 		-DCLANG_TABLEGEN=$(abspath $(HOST_OUT_DIR)/bin/clang-tblgen) \
 		-DLLVM_HOST_TRIPLE=$(LLVM_HOST_TRIPLE) \
-		-DLLVM_ENABLE_RTTI=yes
+		-DLLVM_ENABLE_RTTI=yes \
+		-DLLVM_INCLUDE_TESTS=OFF \
+		-DLLVM_INCLUDE_GO_TESTS=OFF \
+		-DCLANG_BUILD_TOOLS=OFF
 
 # rules building host llvm-tblgen and clang-tblgen binaries necessary to
 # cross compile llvm and clang for Android
