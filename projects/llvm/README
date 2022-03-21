@@ -1,5 +1,8 @@
 LLVM and Clang sources.
+
 github: https://github.com/llvm/llvm-project
+license: Apache 2.0
+license url: https://releases.llvm.org/10.0.0/LICENSE.TXT
 
 Default version: v10.0.0
 

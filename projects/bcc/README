@@ -1,6 +1,9 @@
 BPF Compiler Collection (BCC)
-github:https://github.com/iovisor/bcc
 Toolkit for creating BPF based tracing tools.
+
+github: https://github.com/iovisor/bcc
+license: Apache 2.0
+license url: https://github.com/iovisor/bcc/blob/master/LICENSE.txt
 
 Default version: v0.24.0
 

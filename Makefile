@@ -34,6 +34,7 @@ $(ANDROID_OUT_DIR) $(HOST_OUT_DIR):
 	mkdir $@/include
 	mkdir $@/lib
 	mkdir $@/share
+	mkdir $@/licenses
 
 clean:
 	-rm -fr $(BUILD_DIR)
@@ -45,5 +46,6 @@ clean:
 .DELETE_ON_ERROR:
 
 include projects/project.mk
+include projects/licenses.mk
 include projects/*/build.mk
 include sysroot/*.mk

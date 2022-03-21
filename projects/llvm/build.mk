@@ -20,6 +20,8 @@ ifeq ($(BUILD_TYPE), Debug)
 else
 	cd $(LLVM_ANDROID_BUILD_DIR) && $(MAKE) install/strip -j $(THREADS)
 endif
+	cp $(LLVM_SRCS)/clang/LICENSE.TXT $(ANDROID_OUT_DIR)/licenses/clang
+	cp $(LLVM_SRCS)/llvm/LICENSE.TXT $(ANDROID_OUT_DIR)/licenses/llvm
 	touch $@
 
 $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/llvm-config

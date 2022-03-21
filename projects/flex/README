@@ -1,5 +1,9 @@
 flex
-flex is the fast lexical analyzer generator: https://github.com/westes/flex
+flex is the fast lexical analyzer generator
+
+github: https://github.com/westes/flex
+license: modified BSD
+license url: https://github.com/westes/flex/blob/master/COPYING
 
 Default version: 98018e3f58d79e082216d406866942841d4bdf8a
 

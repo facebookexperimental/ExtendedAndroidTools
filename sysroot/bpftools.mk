@@ -50,3 +50,5 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	chmod +x $@/python3
 	sed -e "s+<BIN>+xzcat+" sysroot/wrapper.sh.template > $@/xzcat
 	chmod +x $@/xzcat
+
+	cp -r $(ANDROID_OUT_DIR)/licenses $@/licenses

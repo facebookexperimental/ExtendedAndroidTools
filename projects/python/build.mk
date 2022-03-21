@@ -9,6 +9,7 @@ PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptc=no
 
 $(PYTHON_ANDROID):
 	cd $(PYTHON_ANDROID_BUILD_DIR) && make install -j $(THREADS)
+	cp $(PYTHON_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/python
 	touch $@
 
 $(PYTHON_ANDROID_BUILD_DIR): \

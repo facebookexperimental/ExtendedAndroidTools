@@ -5,6 +5,7 @@ $(eval $(call project-define,flex))
 $(FLEX_ANDROID):
 	cd $(FLEX_ANDROID_BUILD_DIR) && make -j $(THREADS)
 	cd $(FLEX_ANDROID_BUILD_DIR)/src && make install-libLTLIBRARIES install-binPROGRAMS install-includeHEADERS
+	cp $(FLEX_SRCS)/COPYING $(ANDROID_OUT_DIR)/licenses/flex
 	touch $@
 
 $(FLEX_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)

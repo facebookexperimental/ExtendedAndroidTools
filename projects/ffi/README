@@ -1,5 +1,7 @@
 libffi
+
 github: https://github.com/libffi/libffi
+license url: https://github.com/libffi/libffi/blob/master/LICENSE
 
 Default version: v3.3-rc0
 https://github.com/libffi/libffi/tree/v3.3-rc0

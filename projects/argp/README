@@ -1,4 +1,8 @@
-libarpg sources
+libarpg
+
+license: LGPLv3
+license url: https://www.gnu.org/licenses/lgpl-3.0.txt
+
 Libargp is part of gnulib: http://savannah.gnu.org/projects/gnulib.
 In order to extract argp from gnulib you need to run gnulib-tool tool which is
 distributed together with gnulib sources. In order to extract libargp to

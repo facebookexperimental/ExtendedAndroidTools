@@ -1,6 +1,9 @@
 bpftrace
 High-level tracing language for Linux eBPF
+
 github: https://github.com/iovisor/bpftrace
+license: Apache 2.0
+license url: https://github.com/iovisor/bpftrace/blob/master/LICENSE
 
 Default version: f94e0188ace7fe999f5032e6bbf696b5078f6918
 Master as of 03/09/2022.
