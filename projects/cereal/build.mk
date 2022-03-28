@@ -5,6 +5,7 @@ $(eval $(call project-define,cereal))
 
 $(CEREAL_ANDROID):
 	cd $(CEREAL_ANDROID_BUILD_DIR) && make install -j $(THREADS)
+	cp $(CEREAL_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/cereal
 	touch $@
 
 $(CEREAL_ANDROID_BUILD_DIR):

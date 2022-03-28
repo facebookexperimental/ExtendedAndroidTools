@@ -4,6 +4,7 @@ $(eval $(call project-define,ffi))
 
 $(FFI_ANDROID):
 	cd $(FFI_ANDROID_BUILD_DIR) && make install -j $(THREADS)
+	cp $(FFI_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/ffi
 	touch $@
 
 $(FFI_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)

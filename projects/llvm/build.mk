@@ -20,6 +20,8 @@ ifeq ($(BUILD_TYPE), Debug)
 else
 	cd $(LLVM_ANDROID_BUILD_DIR) && $(MAKE) install/strip -j $(THREADS)
 endif
+	cp $(LLVM_SRCS)/clang/LICENSE.TXT $(ANDROID_OUT_DIR)/licenses/clang
+	cp $(LLVM_SRCS)/llvm/LICENSE.TXT $(ANDROID_OUT_DIR)/licenses/llvm
 	touch $@
 
 $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/llvm-config
@@ -36,7 +38,8 @@ $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/clang-tblgen
 		-DLLVM_ENABLE_RTTI=yes \
 		-DLLVM_INCLUDE_TESTS=OFF \
 		-DLLVM_INCLUDE_GO_TESTS=OFF \
-		-DCLANG_BUILD_TOOLS=OFF
+		-DCLANG_BUILD_TOOLS=OFF \
+		-DLLVM_ENABLE_LIBXML2=OFF
 
 # rules building host llvm-tblgen and clang-tblgen binaries necessary to
 # cross compile llvm and clang for Android

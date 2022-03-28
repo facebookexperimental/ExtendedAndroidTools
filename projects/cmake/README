@@ -1,4 +1,7 @@
 cmake
 https://cmake.org/
 
+license: BSD 3-clause
+license url: https://cmake.org/licensing/
+
 Default version: 3.22.2

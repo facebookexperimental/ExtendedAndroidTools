@@ -4,6 +4,7 @@ $(eval $(call project-define,xz))
 
 $(XZ_ANDROID):
 	cd $(XZ_ANDROID_BUILD_DIR) && make install -j $(THREADS)
+	cp $(XZ_SRCS)/COPYING $(ANDROID_OUT_DIR)/licenses/xz
 	touch $@
 
 $(XZ_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)

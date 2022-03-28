@@ -9,6 +9,7 @@ ELFUTILS_EXTRA_CFLAGS += -Dprogram_invocation_short_name=\\\"no-program_invocati
 $(ELFUTILS_ANDROID):
 	cd $(ELFUTILS_ANDROID_BUILD_DIR)/lib && make -j $(THREADS)
 	cd $(ELFUTILS_ANDROID_BUILD_DIR)/libelf && make install -j $(THREADS)
+	cp $(ELFUTILS_SRCS)/COPYING-LGPLV3 $(ANDROID_OUT_DIR)/licenses/elfutils-libs
 	touch $@
 
 $(ANDROID_BUILD_DIR)/elfutils: $(ANDROID_CONFIG_SITE)

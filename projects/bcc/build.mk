@@ -21,6 +21,7 @@ ifeq ($(BUILD_TYPE), Debug)
 else
 	cd $(ANDROID_BUILD_DIR)/bcc && $(MAKE) install/strip -j $(THREADS)
 endif
+	cp $(BCC_SRCS)/LICENSE.txt $(ANDROID_OUT_DIR)/licenses/bcc
 	touch $@
 
 # generates bcc build files for Android

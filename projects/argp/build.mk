@@ -7,6 +7,7 @@ $(ARGP_ANDROID):
 	cp $(ARGP_ANDROID_BUILD_DIR)/gllib/libargp.a $(ANDROID_OUT_DIR)/lib/.
 	cp projects/argp/headers/argp-wrapper.h $(ANDROID_OUT_DIR)/include/argp.h
 	cp $(ARGP_SRCS)/gllib/argp.h $(ANDROID_OUT_DIR)/include/argp-real.h
+	$(call fetch-license,argp,LGPL)
 	touch $@
 
 $(ARGP_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
@@ -15,4 +16,4 @@ $(ARGP_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 
 projects/argp/sources: $(call project-optional-sources-target,gnulib)
 	cd $(call project-sources,gnulib) && ./gnulib-tool --create-testdir \
-		--lib="libargp" --dir=$(abspath $@) argp
+		--lgpl --lib="libargp" --dir=$(abspath $@) argp

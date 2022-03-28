@@ -1,5 +1,8 @@
 cereal
 A C++11 library for serialization
-https://uscilab.github.io/cereal/
+
+github: https://github.com/USCiLab/cereal
+license: BSD 3-clause
+license url: https://github.com/USCiLab/cereal/blob/master/LICENSE
 
 Default version: v1.3.2
