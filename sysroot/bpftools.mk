@@ -41,6 +41,7 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 
 	mkdir -p $@/share
 	cp -a $(ANDROID_OUT_DIR)/share/bcc $@/share/
+	cp -a $(ANDROID_OUT_DIR)/share/bpftrace $@/share/
 
 	cp -r sysroot/run.sh $@/
 	sed -e "s+<TARGET_ARCH_ENV_VAR>+$(TARGET_ARCH_ENV_VAR)+" sysroot/setup.sh > $@/setup.sh
