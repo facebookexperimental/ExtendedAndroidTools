@@ -25,6 +25,7 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,xz)
 $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	mkdir -p $@/bin
 	cp $(ANDROID_OUT_DIR)/bin/bpftrace $@/bin/
+	cp $(ANDROID_OUT_DIR)/bin/bpftrace-aotrt $@/bin/
 	cp -P $(ANDROID_OUT_DIR)/bin/python* $@/bin/
 	cp $(ANDROID_OUT_DIR)/bin/xzcat $@/bin/
 
@@ -47,6 +48,8 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	sed -e "s+<TARGET_ARCH_ENV_VAR>+$(TARGET_ARCH_ENV_VAR)+" sysroot/setup.sh > $@/setup.sh
 	sed -e "s+<BIN>+bpftrace+" sysroot/wrapper.sh.template > $@/bpftrace
 	chmod +x $@/bpftrace
+	sed -e "s+<BIN>+bpftrace-aotrt+" sysroot/wrapper.sh.template > $@/bpftrace-aotrt
+	chmod +x $@/bpftrace-aotrt
 	sed -e "s+<BIN>+python3.6m+" sysroot/wrapper.sh.template > $@/python3
 	chmod +x $@/python3
 	sed -e "s+<BIN>+xzcat+" sysroot/wrapper.sh.template > $@/xzcat
