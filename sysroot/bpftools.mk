@@ -8,21 +8,34 @@ else
 $(error unknown abi $(NDK_ARCH))
 endif
 
-bpftools: bpftools-$(NDK_ARCH).tar.gz
+GEN_SETUP_SCRIPT = sed -e "s+<TARGET_ARCH_ENV_VAR>+$(TARGET_ARCH_ENV_VAR)+" sysroot/setup.sh > $@/setup.sh
+gen-wrapper = sed -e "s+<BIN>+$(1)+" sysroot/wrapper.sh.template > $@/$(1) && chmod +x $@/$(1)
 
-bpftools-$(NDK_ARCH).tar.gz: $(ANDROID_SYSROOTS_OUT_DIR)/bpftools
+BPFTOOLS = $(ANDROID_SYSROOTS_OUT_DIR)/bpftools
+BPFTOOLS_TAR = bpftools-$(NDK_ARCH).tar.gz
+bpftools: $(BPFTOOLS_TAR)
+
+BPFTOOLS_MIN = $(ANDROID_SYSROOTS_OUT_DIR)/bpftools-min
+BPFTOOLS_MIN_TAR = bpftools-min-$(NDK_ARCH).tar.gz
+bpftools-min: $(BPFTOOLS_MIN_TAR)
+
+$(BPFTOOLS_TAR): $(BPFTOOLS)
+$(BPFTOOLS_MIN_TAR): $(BPFTOOLS_MIN)
+$(BPFTOOLS_TAR) $(BPFTOOLS_MIN_TAR):
 	tar -zcf $@ $^ --owner=0 --group=0 \
 		--transform="s|^$(ANDROID_SYSROOTS_OUT_DIR)/||"
 
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_SYSROOTS_OUT_DIR)
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: sysroot/setup.sh
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: sysroot/run.sh
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: sysroot/wrapper.sh.template
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,bcc)
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,bpftrace)
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,python)
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(call project-android-target,xz)
-$(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
+$(BPFTOOLS) $(BPFTOOLS_MIN): $(ANDROID_SYSROOTS_OUT_DIR)
+$(BPFTOOLS) $(BPFTOOLS_MIN): sysroot/setup.sh
+$(BPFTOOLS) $(BPFTOOLS_MIN): sysroot/run.sh
+$(BPFTOOLS) $(BPFTOOLS_MIN): sysroot/wrapper.sh.template
+$(BPFTOOLS) $(BPFTOOLS_MIN): $(call project-android-target,bcc)
+$(BPFTOOLS) $(BPFTOOLS_MIN): $(call project-android-target,bpftrace)
+$(BPFTOOLS) $(BPFTOOLS_MIN): $(call project-android-target,xz)
+$(BPFTOOLS) $(BPFTOOLS_MIN): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
+$(BPFTOOLS): $(call project-android-target,python)
+
+$(BPFTOOLS):
 	mkdir -p $@/bin
 	cp $(ANDROID_OUT_DIR)/bin/bpftrace $@/bin/
 	cp $(ANDROID_OUT_DIR)/bin/bpftrace-aotrt $@/bin/
@@ -45,14 +58,33 @@ $(ANDROID_SYSROOTS_OUT_DIR)/bpftools: $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	cp -a $(ANDROID_OUT_DIR)/share/bpftrace $@/share/
 
 	cp -r sysroot/run.sh $@/
-	sed -e "s+<TARGET_ARCH_ENV_VAR>+$(TARGET_ARCH_ENV_VAR)+" sysroot/setup.sh > $@/setup.sh
-	sed -e "s+<BIN>+bpftrace+" sysroot/wrapper.sh.template > $@/bpftrace
-	chmod +x $@/bpftrace
-	sed -e "s+<BIN>+bpftrace-aotrt+" sysroot/wrapper.sh.template > $@/bpftrace-aotrt
-	chmod +x $@/bpftrace-aotrt
-	sed -e "s+<BIN>+python3.6m+" sysroot/wrapper.sh.template > $@/python3
-	chmod +x $@/python3
-	sed -e "s+<BIN>+xzcat+" sysroot/wrapper.sh.template > $@/xzcat
-	chmod +x $@/xzcat
+	$(GEN_SETUP_SCRIPT)
+	$(call gen-wrapper,bpftrace)
+	$(call gen-wrapper,bpftrace-aotrt)
+	$(call gen-wrapper,python3.6m)
+	cp $@/python3.6m $@/python3
+	$(call gen-wrapper,xzcat)
+
+	cp -r $(ANDROID_OUT_DIR)/licenses $@/licenses
+
+$(BPFTOOLS_MIN):
+	mkdir -p $@/bin
+	cp $(ANDROID_OUT_DIR)/bin/bpftrace $@/bin/
+	cp $(ANDROID_OUT_DIR)/bin/xzcat $@/bin/
+
+	mkdir -p $@/lib
+	cp $(ANDROID_OUT_DIR)/lib/libbcc_bpf.so $@/lib/
+	cp $(ANDROID_OUT_DIR)/lib/libclang.so $@/lib/
+	cp $(ANDROID_OUT_DIR)/lib/libc++_shared.so $@/lib/
+	cp $(ANDROID_OUT_DIR)/lib/libelf*.so* $@/lib/
+	cp $(ANDROID_OUT_DIR)/lib/liblzma.so $@/lib/
+
+	mkdir -p $@/share
+	cp -a $(ANDROID_OUT_DIR)/share/bpftrace $@/share/
+
+	cp -r sysroot/run.sh $@/
+	$(GEN_SETUP_SCRIPT)
+	$(call gen-wrapper,bpftrace)
+	$(call gen-wrapper,xzcat)
 
 	cp -r $(ANDROID_OUT_DIR)/licenses $@/licenses
