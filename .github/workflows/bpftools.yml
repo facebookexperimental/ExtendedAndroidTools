@@ -11,10 +11,20 @@ jobs:
         env:
         - NAME: arm64
           NDK_ARCH: arm64
+          TARGET: bpftools
           OUTPUT: bpftools-arm64.tar.gz
         - NAME: x86_64
           NDK_ARCH: x86_64
+          TARGET: bpftools
           OUTPUT: bpftools-x86_64.tar.gz
+        - NAME: arm64
+          NDK_ARCH: arm64
+          TARGET: bpftools-min
+          OUTPUT: bpftools-min-arm64.tar.gz
+        - NAME: x86_64
+          NDK_ARCH: x86_64
+          TARGET: bpftools-min
+          OUTPUT: bpftools-min-x86_64.tar.gz
     steps:
     - uses: actions/checkout@v3
     - name: Install deps
@@ -23,7 +33,7 @@ jobs:
       run: ./scripts/download-ndk.sh
     - name: Build
       env: ${{matrix.env}}
-      run: make bpftools NDK_PATH=`pwd`/android-ndk-r23b NDK_ARCH=$NDK_ARCH
+      run: make $TARGET NDK_PATH=`pwd`/android-ndk-r23b NDK_ARCH=$NDK_ARCH
     - uses: actions/upload-artifact@v3
       with:
         name: bpftools
