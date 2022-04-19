@@ -1,7 +1,7 @@
 #!/system/bin/env sh
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-SYSROOT=$(realpath $(dirname $_))
+SYSROOT=$(realpath $(dirname $0))
 
 echo "setting up sysroot installed at $SYSROOT"
 
