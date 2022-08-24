@@ -39,8 +39,6 @@ $(ANDROID_OUT_DIR) $(HOST_OUT_DIR):
 clean:
 	-rm -fr $(BUILD_DIR)
 	-rm -fr $(OUT_DIR)
-	-rm -fr $(ANDROID_STANDALONE_TOOLCHAIN_DIR)
-	-rm -fr $(ANDROID_SYSROOTS_OUT_DIR)
 
 .PHONY: clean fetch-sources remove-sources install uninstall
 .DELETE_ON_ERROR:
