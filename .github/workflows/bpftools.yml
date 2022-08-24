@@ -17,11 +17,11 @@ jobs:
           NDK_ARCH: x86_64
           TARGET: bpftools
           OUTPUT: bpftools-x86_64.tar.gz
-        - NAME: arm64
+        - NAME: arm64-min
           NDK_ARCH: arm64
           TARGET: bpftools-min
           OUTPUT: bpftools-min-arm64.tar.gz
-        - NAME: x86_64
+        - NAME: x86_64-min
           NDK_ARCH: x86_64
           TARGET: bpftools-min
           OUTPUT: bpftools-min-x86_64.tar.gz
