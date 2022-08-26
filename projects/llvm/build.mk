@@ -36,10 +36,12 @@ $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/clang-tblgen
 		-DCLANG_TABLEGEN=$(abspath $(HOST_OUT_DIR)/bin/clang-tblgen) \
 		-DLLVM_HOST_TRIPLE=$(LLVM_HOST_TRIPLE) \
 		-DLLVM_ENABLE_RTTI=yes \
-		-DLLVM_INCLUDE_TESTS=OFF \
 		-DLLVM_INCLUDE_GO_TESTS=OFF \
+		-DLLVM_INCLUDE_TESTS=OFF \
+		-DLLVM_INCLUDE_UTILS=OFF \
 		-DCLANG_BUILD_TOOLS=OFF \
-		-DLLVM_ENABLE_LIBXML2=OFF
+		-DLLVM_ENABLE_LIBXML2=OFF \
+		-DLLVM_TOOL_LLVM_RTDYLD_BUILD=OFF
 
 # rules building host llvm-tblgen and clang-tblgen binaries necessary to
 # cross compile llvm and clang for Android
@@ -57,7 +59,7 @@ $(LLVM_HOST_BUILD_DIR):
 		$(LLVM_EXTRA_CMAKE_FLAGS) \
 		$(LLVM_EXTRA_HOST_FLAGS)
 
-LLVM_BRANCH_OR_TAG = llvmorg-10.0.0
+LLVM_BRANCH_OR_TAG = llvmorg-14.0.6
 LLVM_REPO = https://github.com/llvm/llvm-project
 projects/llvm/sources:
 	git clone $(LLVM_REPO) $@ --depth=1 -b $(LLVM_BRANCH_OR_TAG)
