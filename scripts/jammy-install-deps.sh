@@ -19,7 +19,7 @@ apt-get install -y \
      make \
      pkg-config \
      po4a \
-     python \
+     python3 \
      python3-distutils \
      texinfo \
      unzip \
