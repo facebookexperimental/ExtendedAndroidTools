@@ -1,6 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-LLVM_HOST_DEPS = cmake
+LLVM_HOST_DEPS = cmake python
 $(eval $(call project-define,llvm))
 
 ifeq ($(NDK_ARCH), arm64)
@@ -41,7 +41,8 @@ $(LLVM_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/clang-tblgen
 		-DLLVM_INCLUDE_UTILS=OFF \
 		-DCLANG_BUILD_TOOLS=OFF \
 		-DLLVM_ENABLE_LIBXML2=OFF \
-		-DLLVM_TOOL_LLVM_RTDYLD_BUILD=OFF
+		-DLLVM_TOOL_LLVM_RTDYLD_BUILD=OFF \
+		-DPython3_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/python3.10)
 
 # rules building host llvm-tblgen and clang-tblgen binaries necessary to
 # cross compile llvm and clang for Android

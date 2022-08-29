@@ -19,8 +19,6 @@ apt-get install -y \
      make \
      pkg-config \
      po4a \
-     python3 \
-     python3-distutils \
      texinfo \
      unzip \
      wget

@@ -20,6 +20,8 @@ ANDROID_OUT_DIR = $(OUT_DIR)/android/$(NDK_ARCH)
 ANDROID_SYSROOTS_OUT_DIR = $(OUT_DIR)/sysroots/$(NDK_ARCH)
 HOST_OUT_DIR = $(OUT_DIR)/host
 
+export PATH:=$(abspath $(HOST_OUT_DIR)/bin):$(PATH)
+
 all:
 	@echo "Choose a project to build"
 
