@@ -14,5 +14,13 @@
 #  define _GL_INLINE_HEADER_END
 #endif
 
+#ifndef _GL_ATTRIBUTE_FORMAT
+#  define _GL_ATTRIBUTE_FORMAT(spec) __attribute__ ((__format__ spec))
+#endif
+
+#ifndef _GL_ATTRIBUTE_SPEC_PRINTF_SYSTEM
+#  define _GL_ATTRIBUTE_SPEC_PRINTF_SYSTEM __printf__
+#endif
+
 #include "argp-real.h"
 #endif
