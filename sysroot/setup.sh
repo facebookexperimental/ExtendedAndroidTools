@@ -32,4 +32,6 @@ export BPFTRACE_CACHE_USER_SYMBOLS=0
 # tell python where to find bcc in case we built the package on ubuntu/debian
 export PYTHONPATH=$SYSROOT/lib/python3/dist-packages:$PYTHONPATH
 
+export TMPDIR=/data/local/tmp
+
 echo "done"
