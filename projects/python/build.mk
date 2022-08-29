@@ -20,7 +20,7 @@ $(PYTHON_ANDROID_BUILD_DIR): $(ANDROID_CONFIG_SITE)
 		$(ANDROID_EXTRA_CONFIGURE_FLAGS) \
 		$(PYTHON_EXTRA_CONFIG_OPTIONS)
 
-PYTHON_BRANCH_OR_TAG = v3.6.8
+PYTHON_BRANCH_OR_TAG = v3.10.6
 PYTHON_REPO = https://github.com/python/cpython.git
 projects/python/sources:
 	git clone $(PYTHON_REPO) $@ --depth=1 -b $(PYTHON_BRANCH_OR_TAG)
