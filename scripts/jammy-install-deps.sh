@@ -21,6 +21,7 @@ apt-get install -y \
      po4a \
      texinfo \
      unzip \
-     wget
+     wget \
+     zlib1g-dev
 
 echo "done"
