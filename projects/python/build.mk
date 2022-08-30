@@ -13,9 +13,15 @@ $(PYTHON_ANDROID):
 	cp $(PYTHON_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/python
 	touch $@
 
-$(PYTHON_HOST):
+$(PYTHON_HOST): $(HOST_OUT_DIR)/bin/python3.10-no--install-layout
 	cd $(PYTHON_HOST_BUILD_DIR) && make install -j $(THREADS)
 	touch $@
+
+$(HOST_OUT_DIR)/bin/python3.10-no--install-layout: projects/python/no--install-layout.template
+$(HOST_OUT_DIR)/bin/python3.10-no--install-layout: | $(HOST_OUT_DIR)
+	sed -e "s+<HOST_OUT_DIR>+$(abspath $(HOST_OUT_DIR))+" \
+		projects/python/no--install-layout.template > $@
+	chmod +x $@
 
 $(PYTHON_ANDROID_BUILD_DIR): \
     export PKG_CONFIG_LIBDIR=$(abspath $(ANDROID_OUT_DIR)/lib/pkgconfig)

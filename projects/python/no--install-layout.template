@@ -1,0 +1,42 @@
+#!<HOST_OUT_DIR>/bin/python3.10
+
+import itertools
+import os
+import sys
+import typing
+
+
+INTERPRETER = "<HOST_OUT_DIR>/bin/python3.10"
+INSTALL_LAYOUT = "--install-layout"
+
+
+def filter_install_layout(
+    args: typing.Sequence[str],
+) -> typing.List[str]:
+    return [
+        arg
+        for (prev_arg, arg) in zip(
+            itertools.chain([""], args),
+            args,
+        )
+        if arg != INSTALL_LAYOUT
+        if prev_arg != INSTALL_LAYOUT
+    ]
+
+
+def main():
+    match sys.argv:
+        case [binary, "setup.py", "install", *rest]:
+            args = [
+                INTERPRETER,
+                "setup.py",
+                "install",
+            ] + filter_install_layout(rest)
+        case _:
+            args = [INTERPRETER] + sys.argv[1:]
+
+    os.execv(INTERPRETER, args)
+
+
+if __name__ == "__main__":
+    main()
