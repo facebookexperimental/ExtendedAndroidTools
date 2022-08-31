@@ -1,0 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+test -z "$PKG_CONFIG_LIBDIR" && PKG_CONFIG_LIBDIR=<SITE_PATH>/lib/pkgconfig
+test -z "$CFLAGS" && CFLAGS="-fPIC -I<SITE_PATH>/include $EXTRA_CFLAGS"
+test -z "$LDFLAGS" && LDFLAGS="-L<SITE_PATH>/lib -L<SITE_PATH>/lib64 $EXTRA_LDFLAGS"

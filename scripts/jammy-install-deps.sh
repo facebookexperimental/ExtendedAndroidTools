@@ -19,10 +19,9 @@ apt-get install -y \
      make \
      pkg-config \
      po4a \
-     python \
-     python3-distutils \
      texinfo \
      unzip \
-     wget
+     wget \
+     zlib1g-dev
 
 echo "done"

@@ -1,11 +1,11 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-FROM ubuntu:bionic
+FROM ubuntu:jammy
 
-COPY bionic-install-deps.sh /
+COPY jammy-install-deps.sh /
 COPY download-ndk.sh /
 
-RUN bash -c "/bionic-install-deps.sh" && \
+RUN bash -c "/jammy-install-deps.sh" && \
     bash -c "/download-ndk.sh /opt/ndk"
 
 WORKDIR /ExtendedAndroidTools

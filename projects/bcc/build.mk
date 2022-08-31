@@ -1,7 +1,7 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-BCC_ANDROID_DEPS = llvm flex elfutils
-BCC_HOST_DEPS = cmake flex
+BCC_ANDROID_DEPS = llvm flex elfutils python
+BCC_HOST_DEPS = cmake flex python
 $(eval $(call project-define,bcc))
 
 # bionic and libbpf (built as part of bcc) both provide linux/compiler.h header.
@@ -34,7 +34,7 @@ $(BCC_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
 		-DBPS_LINK_RT=OFF \
 		-DENABLE_TESTS=OFF \
-		-DPYTHON_CMD=python3.6
+		-DPYTHON_CMD=$(abspath $(HOST_OUT_DIR)/bin/python3.10-no--install-layout)
 
 BCC_COMMIT = v0.24.0
 BCC_REPO = https://github.com/iovisor/bcc

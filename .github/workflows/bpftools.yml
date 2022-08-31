@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build_bpftools:
     name: Build bpftools archive
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         env:
@@ -28,7 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install deps
-      run: sudo ./scripts/bionic-install-deps.sh
+      run: sudo ./scripts/jammy-install-deps.sh
     - name: Setup ndk
       run: ./scripts/download-ndk.sh
     - name: Build
