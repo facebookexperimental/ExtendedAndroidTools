@@ -45,10 +45,10 @@ $(BPFTOOLS):
 	mkdir -p $@/lib
 	cp $(ANDROID_OUT_DIR)/lib/libbcc.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libbcc_bpf.so $@/lib/
-	cp $(ANDROID_OUT_DIR)/lib/libbpf.so* $@/lib/
+	cp -a $(ANDROID_OUT_DIR)/lib/libbpf.so* $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libclang.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libc++_shared.so $@/lib/
-	cp $(ANDROID_OUT_DIR)/lib/libelf*.so* $@/lib/
+	cp -a $(ANDROID_OUT_DIR)/lib/libelf*.so* $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libfl.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/liblzma.so $@/lib/
 	cp -a $(ANDROID_OUT_DIR)/lib/python3* $@/lib/
@@ -75,10 +75,10 @@ $(BPFTOOLS_MIN):
 
 	mkdir -p $@/lib
 	cp $(ANDROID_OUT_DIR)/lib/libbcc_bpf.so $@/lib/
-	cp $(ANDROID_OUT_DIR)/lib/libbpf.so* $@/lib/
+	cp -a $(ANDROID_OUT_DIR)/lib/libbpf.so* $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libclang.so $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/libc++_shared.so $@/lib/
-	cp $(ANDROID_OUT_DIR)/lib/libelf*.so* $@/lib/
+	cp -a $(ANDROID_OUT_DIR)/lib/libelf*.so* $@/lib/
 	cp $(ANDROID_OUT_DIR)/lib/liblzma.so $@/lib/
 
 	mkdir -p $@/share
