@@ -5,8 +5,8 @@ github: https://github.com/iovisor/bpftrace
 license: Apache 2.0
 license url: https://github.com/iovisor/bpftrace/blob/master/LICENSE
 
-Default version: 9382ad1c89e9cf6cd382997e1c0e7b1b7cfcc740
-Master as of 04/01/2022.
+Default version: v0.16.0
+Master as of 08/31/2022.
 
 Building:
 - we need to tell cmake to use flex version that matches the lib and

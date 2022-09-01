@@ -35,6 +35,7 @@ $(ANDROID_OUT_DIR) $(HOST_OUT_DIR):
 	mkdir $@/bin
 	mkdir $@/include
 	mkdir $@/lib
+	mkdir $@/lib/pkgconfig
 	mkdir $@/share
 	mkdir $@/licenses
 
