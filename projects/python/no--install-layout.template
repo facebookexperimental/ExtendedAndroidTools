@@ -1,4 +1,5 @@
 #!<HOST_OUT_DIR>/bin/python3.10
+# Copyright (c) Meta Platforms, Inc. and affiliates.
 
 import itertools
 import os
