@@ -5,7 +5,11 @@ github: https://github.com/iovisor/bcc
 license: Apache 2.0
 license url: https://github.com/iovisor/bcc/blob/master/LICENSE.txt
 
-Default version: v0.24.0
+Default version: dcd8a9adf9972d819505cbf1c0957f06f528b131
+- dcd8a9adf9972d819505cbf1c0957f06f528b131 makes bcc use /sys/kernel/tracing
+  when /sys/kernel/debug/tracing is not available
+- aa1f7cbfc276896b08f94ebe1a1436b8c7019406 makes bcc extract kernel headers
+  to /data/local/tmp/... instead of /tmp/...
 
 Building:
 - cmake depends on flex binary, which needs to stay in sync with flex header
