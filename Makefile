@@ -52,7 +52,10 @@ clean:
 	-rm -fr $(BUILD_DIR)
 	-rm -fr $(OUT_DIR)
 
-.PHONY: clean fetch-sources remove-sources install uninstall
+setup-env:
+	@echo "export PATH=\"$(PATH)\""
+
+.PHONY: clean fetch-sources remove-sources install uninstall setup-env
 .DELETE_ON_ERROR:
 
 include projects/project.mk
