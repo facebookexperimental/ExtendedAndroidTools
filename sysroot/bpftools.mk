@@ -4,6 +4,8 @@ ifeq ($(NDK_ARCH), arm64)
 TARGET_ARCH_ENV_VAR = arm64
 else ifeq ($(NDK_ARCH), x86_64)
 TARGET_ARCH_ENV_VAR = x86
+else ifeq ($(NDK_ARCH), armv7)
+TARGET_ARCH_ENV_VAR = arm
 else
 $(error unknown abi $(NDK_ARCH))
 endif

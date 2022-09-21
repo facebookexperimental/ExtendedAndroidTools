@@ -7,6 +7,8 @@ ifeq ($(NDK_ARCH), arm64)
 LLVM_HOST_TRIPLE = aarch64-none-linux-gnu
 else ifeq ($(NDK_ARCH), x86_64)
 LLVM_HOST_TRIPLE = x86_64-none-linux-gnu
+else ifeq ($(NDK_ARCH), armv7)
+LLVM_HOST_TRIPLE = armv7a-none-linux-gnueabi
 else
 $(error unknown abi $(NDK_ARCH))
 endif

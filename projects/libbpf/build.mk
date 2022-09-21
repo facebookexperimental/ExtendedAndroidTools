@@ -6,6 +6,7 @@ $(eval $(call project-define,libbpf))
 LIBBPF_EXTRA_CFLAGS += "-D__user="
 LIBBPF_EXTRA_CFLAGS += "-D__force="
 LIBBPF_EXTRA_CFLAGS += "-D__poll_t=unsigned"
+LIBBPF_EXTRA_CFLAGS += "-Wno-tautological-constant-out-of-range-compare"
 
 $(LIBBPF_ANDROID): \
     export PKG_CONFIG_LIBDIR=$(abspath $(ANDROID_OUT_DIR)/lib/pkgconfig)

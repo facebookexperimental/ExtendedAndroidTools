@@ -4,7 +4,7 @@
 # option.
 THREADS = 4
 
-# arch: arm64 or x86_64
+# arch: arm64, armv7, or x86_64
 NDK_ARCH = arm64
 
 # Release or Debug
