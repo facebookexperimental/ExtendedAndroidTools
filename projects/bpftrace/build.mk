@@ -22,7 +22,7 @@ $(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
 		-DALLOW_UNSAFE_PROBE=ON
 
-BPFTRACE_COMMIT = 959970cedef280a408ff9f2a09938a23a6c826b5
+BPFTRACE_COMMIT = 5d181c82acba400ec64e8d95c57cdb509f7cc57a
 BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@
