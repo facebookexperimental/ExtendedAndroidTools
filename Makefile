@@ -10,6 +10,10 @@ NDK_ARCH = arm64
 # Release or Debug
 BUILD_TYPE = Release
 
+# For tools that support it, statically link against non-NDK dependencies to
+# produce a self-contained binary.
+STATIC_LINKING = false
+
 BUILD_DIR = build
 ANDROID_BUILD_DIR = $(BUILD_DIR)/android/$(NDK_ARCH)
 HOST_BUILD_DIR = $(BUILD_DIR)/host
