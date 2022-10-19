@@ -7,6 +7,10 @@ $(eval $(call project-define,bpftrace))
 BPFTRACE_EXTRA_LDFLAGS = "-L$(abspath $(ANDROID_OUT_DIR))/lib"
 BPFTRACE_EXTRA_CFLAGS = "-I$(abspath $(ANDROID_OUT_DIR))/include"
 
+ifeq ($(STATIC_LINKING),true)
+BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON
+endif
+
 $(BPFTRACE_ANDROID): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
 	cd $(BPFTRACE_ANDROID_BUILD_DIR) && $(MAKE) install -j $(THREADS)
 	cp $(BPFTRACE_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/bpftrace
@@ -16,13 +20,14 @@ $(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 	-mkdir $@
 	cd $@ && LDFLAGS="$(BPFTRACE_EXTRA_LDFLAGS)" $(CMAKE) $(BPFTRACE_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
+		$(BPFTRACE_EXTRA_CMAKE_FLAGS) \
 		-DCMAKE_C_FLAGS="$(BPFTRACE_EXTRA_CFLAGS)" \
 		-DBUILD_TESTING=OFF \
 		-DENABLE_MAN=OFF \
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
 		-DALLOW_UNSAFE_PROBE=ON
 
-BPFTRACE_COMMIT = 959970cedef280a408ff9f2a09938a23a6c826b5
+BPFTRACE_COMMIT = 5d181c82acba400ec64e8d95c57cdb509f7cc57a
 BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@
