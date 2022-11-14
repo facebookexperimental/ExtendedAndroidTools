@@ -1,6 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-BCC_ANDROID_DEPS = llvm libbpf flex elfutils python
+BCC_ANDROID_DEPS = llvm libbpf flex elfutils python xz
 BCC_HOST_DEPS = cmake flex python
 $(eval $(call project-define,bcc))
 
