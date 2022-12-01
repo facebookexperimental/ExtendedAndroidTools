@@ -14,6 +14,11 @@ BUILD_TYPE = Release
 # produce a self-contained binary.
 STATIC_LINKING = false
 
+# Only enable support for the BPF target in LLVM. This reduces the code size,
+# but note that not all tools may work (in particular, bcc's rwengine also
+# requires support for the $NDK_ARCH target)
+LLVM_BPF_ONLY = false
+
 BUILD_DIR = build
 ANDROID_BUILD_DIR = $(BUILD_DIR)/android/$(NDK_ARCH)
 HOST_BUILD_DIR = $(BUILD_DIR)/host
