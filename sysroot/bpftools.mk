@@ -40,7 +40,7 @@ $(BPFTOOLS): $(call project-android-target,python)
 $(BPFTOOLS):
 	mkdir -p $@/bin
 	cp $(ANDROID_OUT_DIR)/bin/bpftrace $@/bin/
-	cp $(ANDROID_OUT_DIR)/bin/bpftrace-aotrt $@/bin/
+	cp $(ANDROID_OUT_DIR)/bin/bpftrace-aotrt $@/bin/ || true
 	cp -P $(ANDROID_OUT_DIR)/bin/python* $@/bin/
 	cp $(ANDROID_OUT_DIR)/bin/xzcat $@/bin/
 

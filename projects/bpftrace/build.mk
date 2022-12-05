@@ -1,6 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-BPFTRACE_ANDROID_DEPS = bcc cereal elfutils flex libbpf llvm stdc++fs
+BPFTRACE_ANDROID_DEPS = bcc cereal elfutils flex libbpf llvm stdc++fs xz
 BPFTRACE_HOST_DEPS = cmake flex
 $(eval $(call project-define,bpftrace))
 
@@ -9,6 +9,12 @@ BPFTRACE_EXTRA_CFLAGS = "-I$(abspath $(ANDROID_OUT_DIR))/include"
 
 ifeq ($(STATIC_LINKING),true)
 BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON
+
+# XXX: As od 925127c5 ("Make bcc depend on liblzma") we're building libbcc
+# with lzma support, but bpftrace currently doesn't have a way to detect this
+# dependency, which causes undefined symbol errors when linking statically.
+# This fixes it by adding liblzma to the link line.
+BPFTRACE_EXTRA_LDFLAGS += "$(abspath $(ANDROID_OUT_DIR))/lib/liblzma.a"
 endif
 
 $(BPFTRACE_ANDROID): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
