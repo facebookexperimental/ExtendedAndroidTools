@@ -4,10 +4,13 @@ LLVM_HOST_DEPS = cmake python
 $(eval $(call project-define,llvm))
 
 ifeq ($(NDK_ARCH), arm64)
+LLVM_DEFAULT_TARGET = AArch64
 LLVM_HOST_TRIPLE = aarch64-none-linux-gnu
 else ifeq ($(NDK_ARCH), x86_64)
+LLVM_DEFAULT_TARGET = X86
 LLVM_HOST_TRIPLE = x86_64-none-linux-gnu
 else ifeq ($(NDK_ARCH), armv7)
+LLVM_DEFAULT_TARGET = ARM
 LLVM_HOST_TRIPLE = armv7a-none-linux-gnueabi
 else
 $(error unknown abi $(NDK_ARCH))
@@ -22,6 +25,8 @@ endif
 
 ifeq ($(LLVM_BPF_ONLY),true)
 LLVM_EXTRA_CMAKE_FLAGS += -DLLVM_TARGETS_TO_BUILD=BPF
+else
+LLVM_EXTRA_CMAKE_FLAGS += -DLLVM_TARGETS_TO_BUILD="$(LLVM_DEFAULT_TARGET);BPF"
 endif
 
 $(LLVM_ANDROID):
