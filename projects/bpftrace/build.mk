@@ -17,12 +17,18 @@ BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON
 BPFTRACE_EXTRA_LDFLAGS += "$(abspath $(ANDROID_OUT_DIR))/lib/liblzma.a"
 endif
 
+STRIP_THUNK = $(HOST_OUT_DIR)/bpftrace-strip-thunk
+
 $(BPFTRACE_ANDROID): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
+ifeq ($(BUILD_TYPE), Debug)
 	cd $(BPFTRACE_ANDROID_BUILD_DIR) && $(MAKE) install -j $(THREADS)
+else
+	cd $(BPFTRACE_ANDROID_BUILD_DIR) && $(MAKE) install/strip -j $(THREADS)
+endif
 	cp $(BPFTRACE_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/bpftrace
 	touch $@
 
-$(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
+$(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex $(STRIP_THUNK)
 	-mkdir $@
 	cd $@ && LDFLAGS="$(BPFTRACE_EXTRA_LDFLAGS)" $(CMAKE) $(BPFTRACE_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
@@ -32,7 +38,12 @@ $(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 		-DENABLE_MAN=OFF \
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
 		-DUSE_SYSTEM_BPF_BCC=ON \
-		-DALLOW_UNSAFE_PROBE=ON
+		-DALLOW_UNSAFE_PROBE=ON \
+		-DCMAKE_STRIP=$(abspath $(STRIP_THUNK))
+
+$(STRIP_THUNK): projects/bpftrace/strip-thunk | $(HOST_OUT_DIR)
+	@sed -e "s+<STRIP_PATH>+$(ANDROID_TOOLCHAIN_STRIP_PATH)+g" $< > $@
+	chmod +x $@
 
 BPFTRACE_COMMIT = 58bd61287de61ff14136cf0a7e1946db87121f5f
 BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/

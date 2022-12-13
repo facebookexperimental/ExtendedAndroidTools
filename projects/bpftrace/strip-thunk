@@ -1,0 +1,4 @@
+#! /bin/bash
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+<STRIP_PATH> --keep-symbol BEGIN_trigger --keep-symbol END_trigger "$@"
