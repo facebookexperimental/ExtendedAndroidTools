@@ -1,0 +1,845 @@
+mkdir -p out/host
+mkdir out/host/bin
+mkdir out/host/include
+mkdir out/host/lib
+mkdir out/host/lib/pkgconfig
+mkdir out/host/share
+mkdir out/host/licenses
+sed -e "s+<HOST_OUT_DIR>+/ExtendedAndroidTools/out/host+" \
+	projects/python/no--install-layout.template > out/host/bin/python3.10-no--install-layout
+chmod +x out/host/bin/python3.10-no--install-layout
+cp toolchain/config.site.host.template out/host/share/config.site
+mkdir -p build/host
+mkdir -p build/host/ffi
+cd build/host/ffi && /ExtendedAndroidTools/projects/ffi/sources/configure --prefix=/ExtendedAndroidTools/out/host
+configure: loading site script /ExtendedAndroidTools/out/host/share/config.site
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking target system type... x86_64-pc-linux-gnu
+checking for gsed... sed
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for gawk... no
+checking for mawk... mawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to enable C11 features... none needed
+checking whether gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of gcc... gcc3
+checking for g++... g++
+checking whether the compiler supports GNU C++... yes
+checking whether g++ accepts -g... yes
+checking for g++ option to enable C++11 features... none needed
+checking dependency style of g++... gcc3
+checking dependency style of gcc... gcc3
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for mt... no
+checking if : is a manifest tool... no
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking how to run the C++ preprocessor... g++ -E
+checking for ld used by g++... /usr/bin/ld -m elf_x86_64
+checking if the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking for g++ option to produce PIC... -fPIC -DPIC
+checking if g++ PIC flag -fPIC -DPIC works... yes
+checking if g++ static flag -static works... yes
+checking if g++ supports -c -o file.o... yes
+checking if g++ supports -c -o file.o... (cached) yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking dynamic linker characteristics... (cached) GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking size of size_t... 8
+checking for C compiler vendor... gnu
+checking whether C compiler accepts -fstrict-aliasing... yes
+checking whether C compiler accepts -ffast-math... yes
+checking for gcc architecture flag... 
+checking for x86 cpuid 0 output... 16:756e6547:6c65746e:49656e69
+checking for x86 cpuid 1 output... a0652:9100800:fefa3223:1f8bfbff
+checking whether C compiler accepts -march=core2... yes
+checking for gcc architecture flag... -march=core2
+checking whether C compiler accepts -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2... yes
+checking CFLAGS for maximum warnings... -Wall
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking for sys/mman.h... yes
+checking for mmap... yes
+checking for mkostemp... yes
+checking for sys/mman.h... (cached) yes
+checking for mmap... (cached) yes
+checking whether read-only mmap of a plain file works... yes
+checking whether mmap from /dev/zero works... yes
+checking for MAP_ANON(YMOUS)... yes
+checking whether mmap with MAP_ANON(YMOUS) works... yes
+checking for egrep... (cached) /usr/bin/grep -E
+checking for memcpy... yes
+checking for size_t... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking size of double... 8
+checking size of long double... 16
+checking whether byte ordering is bigendian... no
+checking assembler .cfi pseudo-op support... yes
+checking assembler supports pc related relocs... yes
+checking for _ prefix in compiled symbols... no
+checking toolchain supports unwind section type... yes
+checking whether .eh_frame section should be read-only... yes
+checking for __attribute__((visibility("hidden")))... yes
+checking for ld used by gcc... (cached) /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... (cached) yes
+checking for shared libgcc... yes
+configure: versioning on shared library symbols is gnu
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating include/Makefile
+config.status: creating include/ffi.h
+config.status: creating Makefile
+config.status: creating testsuite/Makefile
+config.status: creating man/Makefile
+config.status: creating doc/Makefile
+config.status: creating libffi.pc
+config.status: creating fficonfig.h
+config.status: executing buildir commands
+config.status: skipping top_srcdir/Makefile - not created
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing include commands
+config.status: executing src commands
+cd build/host/ffi && make install -j 4
+make[1]: Entering directory '/ExtendedAndroidTools/build/host/ffi'
+Making install in include
+make[2]: Entering directory '/ExtendedAndroidTools/build/host/ffi/include'
+make[3]: Entering directory '/ExtendedAndroidTools/build/host/ffi/include'
+make[3]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/ExtendedAndroidTools/out/host/include'
+ /usr/bin/install -c -m 644 ffi.h ffitarget.h '/ExtendedAndroidTools/out/host/include'
+make[3]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/include'
+make[2]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/include'
+Making install in testsuite
+make[2]: Entering directory '/ExtendedAndroidTools/build/host/ffi/testsuite'
+make[3]: Entering directory '/ExtendedAndroidTools/build/host/ffi/testsuite'
+make[3]: Nothing to be done for 'install-exec-am'.
+make[3]: Nothing to be done for 'install-data-am'.
+make[3]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/testsuite'
+make[2]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/testsuite'
+Making install in man
+make[2]: Entering directory '/ExtendedAndroidTools/build/host/ffi/man'
+make[3]: Entering directory '/ExtendedAndroidTools/build/host/ffi/man'
+make[3]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/ExtendedAndroidTools/out/host/share/man/man3'
+ /usr/bin/install -c -m 644 /ExtendedAndroidTools/projects/ffi/sources/man/ffi.3 /ExtendedAndroidTools/projects/ffi/sources/man/ffi_call.3 /ExtendedAndroidTools/projects/ffi/sources/man/ffi_prep_cif.3 /ExtendedAndroidTools/projects/ffi/sources/man/ffi_prep_cif_var.3 '/ExtendedAndroidTools/out/host/share/man/man3'
+make[3]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/man'
+make[2]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/man'
+Making install in doc
+make[2]: Entering directory '/ExtendedAndroidTools/build/host/ffi/doc'
+make[3]: Entering directory '/ExtendedAndroidTools/build/host/ffi/doc'
+make[3]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/ExtendedAndroidTools/out/host/share/info'
+ /usr/bin/install -c -m 644 /ExtendedAndroidTools/projects/ffi/sources/doc/libffi.info '/ExtendedAndroidTools/out/host/share/info'
+make[3]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/doc'
+make[2]: Leaving directory '/ExtendedAndroidTools/build/host/ffi/doc'
+make[2]: Entering directory '/ExtendedAndroidTools/build/host/ffi'
+gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -DX86_64 -E -x assembler-with-cpp -o libffi.map /ExtendedAndroidTools/projects/ffi/sources/libffi.map.in
+depbase=`echo src/prep_cif.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/prep_cif.lo -MD -MP -MF $depbase.Tpo -c -o src/prep_cif.lo /ExtendedAndroidTools/projects/ffi/sources/src/prep_cif.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo src/types.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/types.lo -MD -MP -MF $depbase.Tpo -c -o src/types.lo /ExtendedAndroidTools/projects/ffi/sources/src/types.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo src/raw_api.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/raw_api.lo -MD -MP -MF $depbase.Tpo -c -o src/raw_api.lo /ExtendedAndroidTools/projects/ffi/sources/src/raw_api.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo src/java_raw_api.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/java_raw_api.lo -MD -MP -MF $depbase.Tpo -c -o src/java_raw_api.lo /ExtendedAndroidTools/projects/ffi/sources/src/java_raw_api.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/types.lo -MD -MP -MF src/.deps/types.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/types.c  -fPIC -DPIC -o src/.libs/types.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/raw_api.lo -MD -MP -MF src/.deps/raw_api.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/raw_api.c  -fPIC -DPIC -o src/.libs/raw_api.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/prep_cif.lo -MD -MP -MF src/.deps/prep_cif.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/prep_cif.c  -fPIC -DPIC -o src/.libs/prep_cif.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/java_raw_api.lo -MD -MP -MF src/.deps/java_raw_api.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/java_raw_api.c  -fPIC -DPIC -o src/.libs/java_raw_api.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/types.lo -MD -MP -MF src/.deps/types.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/types.c -o src/types.o >/dev/null 2>&1
+depbase=`echo src/closures.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/closures.lo -MD -MP -MF $depbase.Tpo -c -o src/closures.lo /ExtendedAndroidTools/projects/ffi/sources/src/closures.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/raw_api.lo -MD -MP -MF src/.deps/raw_api.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/raw_api.c -o src/raw_api.o >/dev/null 2>&1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/java_raw_api.lo -MD -MP -MF src/.deps/java_raw_api.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/java_raw_api.c -o src/java_raw_api.o >/dev/null 2>&1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/closures.lo -MD -MP -MF src/.deps/closures.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/closures.c  -fPIC -DPIC -o src/.libs/closures.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/prep_cif.lo -MD -MP -MF src/.deps/prep_cif.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/prep_cif.c -o src/prep_cif.o >/dev/null 2>&1
+depbase=`echo src/x86/ffi64.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi64.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/ffi64.lo /ExtendedAndroidTools/projects/ffi/sources/src/x86/ffi64.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo src/x86/unix64.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -fPIC -I/ExtendedAndroidTools/out/host/include  -MT src/x86/unix64.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/unix64.lo /ExtendedAndroidTools/projects/ffi/sources/src/x86/unix64.S &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi64.lo -MD -MP -MF src/x86/.deps/ffi64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/ffi64.c  -fPIC -DPIC -o src/x86/.libs/ffi64.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -fPIC -I/ExtendedAndroidTools/out/host/include -MT src/x86/unix64.lo -MD -MP -MF src/x86/.deps/unix64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/unix64.S  -fPIC -DPIC -o src/x86/.libs/unix64.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -fPIC -I/ExtendedAndroidTools/out/host/include -MT src/x86/unix64.lo -MD -MP -MF src/x86/.deps/unix64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/unix64.S -o src/x86/unix64.o >/dev/null 2>&1
+depbase=`echo src/x86/ffiw64.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffiw64.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/ffiw64.lo /ExtendedAndroidTools/projects/ffi/sources/src/x86/ffiw64.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo src/x86/win64.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src  -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -fPIC -I/ExtendedAndroidTools/out/host/include  -MT src/x86/win64.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/win64.lo /ExtendedAndroidTools/projects/ffi/sources/src/x86/win64.S &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffiw64.lo -MD -MP -MF src/x86/.deps/ffiw64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/ffiw64.c  -fPIC -DPIC -o src/x86/.libs/ffiw64.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -fPIC -I/ExtendedAndroidTools/out/host/include -MT src/x86/win64.lo -MD -MP -MF src/x86/.deps/win64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/win64.S  -fPIC -DPIC -o src/x86/.libs/win64.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -fPIC -I/ExtendedAndroidTools/out/host/include -MT src/x86/win64.lo -MD -MP -MF src/x86/.deps/win64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/win64.S -o src/x86/win64.o >/dev/null 2>&1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffiw64.lo -MD -MP -MF src/x86/.deps/ffiw64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/ffiw64.c -o src/x86/ffiw64.o >/dev/null 2>&1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi64.lo -MD -MP -MF src/x86/.deps/ffi64.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/x86/ffi64.c -o src/x86/ffi64.o >/dev/null 2>&1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/ExtendedAndroidTools/projects/ffi/sources -I. -I/ExtendedAndroidTools/projects/ffi/sources/include -Iinclude -I/ExtendedAndroidTools/projects/ffi/sources/src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/closures.lo -MD -MP -MF src/.deps/closures.Tpo -c /ExtendedAndroidTools/projects/ffi/sources/src/closures.c -o src/closures.o >/dev/null 2>&1
+/bin/bash ./libtool  --tag=CC   --mode=link gcc  -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions  -L/ExtendedAndroidTools/out/host/lib -L/ExtendedAndroidTools/out/host/lib64  -o libffi_convenience.la  src/prep_cif.lo src/types.lo src/raw_api.lo src/java_raw_api.lo src/closures.lo   src/x86/ffi64.lo src/x86/unix64.lo src/x86/ffiw64.lo src/x86/win64.lo 
+/bin/bash ./libtool  --tag=CC   --mode=link gcc  -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -no-undefined -version-info `grep -v '^#' /ExtendedAndroidTools/projects/ffi/sources/libtool-version` -Wl,--version-script,libffi.map  '-L/ExtendedAndroidTools/out/host/lib' '-L/ExtendedAndroidTools/out/host/lib64'  -L/ExtendedAndroidTools/out/host/lib -L/ExtendedAndroidTools/out/host/lib64  -o libffi.la -rpath /ExtendedAndroidTools/out/host/lib/../lib src/prep_cif.lo src/types.lo src/raw_api.lo src/java_raw_api.lo src/closures.lo  src/x86/ffi64.lo src/x86/unix64.lo src/x86/ffiw64.lo src/x86/win64.lo 
+libtool: link: ar cr .libs/libffi_convenience.a src/.libs/prep_cif.o src/.libs/types.o src/.libs/raw_api.o src/.libs/java_raw_api.o src/.libs/closures.o src/x86/.libs/ffi64.o src/x86/.libs/unix64.o src/x86/.libs/ffiw64.o src/x86/.libs/win64.o 
+libtool: link: ranlib .libs/libffi_convenience.a
+libtool: link: gcc -shared  -fPIC -DPIC  src/.libs/prep_cif.o src/.libs/types.o src/.libs/raw_api.o src/.libs/java_raw_api.o src/.libs/closures.o src/x86/.libs/ffi64.o src/x86/.libs/unix64.o src/x86/.libs/ffiw64.o src/x86/.libs/win64.o   -L/ExtendedAndroidTools/out/host/lib -L/ExtendedAndroidTools/out/host/lib64  -O3 -march=core2 -Wl,--version-script -Wl,libffi.map   -Wl,-soname -Wl,libffi.so.7 -o .libs/libffi.so.7.1.0
+libtool: link: ( cd ".libs" && rm -f "libffi_convenience.la" && ln -s "../libffi_convenience.la" "libffi_convenience.la" )
+libtool: link: (cd ".libs" && rm -f "libffi.so.7" && ln -s "libffi.so.7.1.0" "libffi.so.7")
+libtool: link: (cd ".libs" && rm -f "libffi.so" && ln -s "libffi.so.7.1.0" "libffi.so")
+libtool: link: ar cr .libs/libffi.a  src/prep_cif.o src/types.o src/raw_api.o src/java_raw_api.o src/closures.o src/x86/ffi64.o src/x86/unix64.o src/x86/ffiw64.o src/x86/win64.o
+libtool: link: ranlib .libs/libffi.a
+libtool: link: ( cd ".libs" && rm -f "libffi.la" && ln -s "../libffi.la" "libffi.la" )
+make[3]: Entering directory '/ExtendedAndroidTools/build/host/ffi'
+ /usr/bin/mkdir -p '/ExtendedAndroidTools/out/host/lib/../lib'
+ /usr/bin/mkdir -p '/ExtendedAndroidTools/out/host/lib/pkgconfig'
+ /bin/bash ./libtool   --mode=install /usr/bin/install -c   libffi.la '/ExtendedAndroidTools/out/host/lib/../lib'
+ /usr/bin/install -c -m 644 libffi.pc '/ExtendedAndroidTools/out/host/lib/pkgconfig'
+libtool: install: /usr/bin/install -c .libs/libffi.so.7.1.0 /ExtendedAndroidTools/out/host/lib/../lib/libffi.so.7.1.0
+libtool: install: (cd /ExtendedAndroidTools/out/host/lib/../lib && { ln -s -f libffi.so.7.1.0 libffi.so.7 || { rm -f libffi.so.7 && ln -s libffi.so.7.1.0 libffi.so.7; }; })
+libtool: install: (cd /ExtendedAndroidTools/out/host/lib/../lib && { ln -s -f libffi.so.7.1.0 libffi.so || { rm -f libffi.so && ln -s libffi.so.7.1.0 libffi.so; }; })
+libtool: install: /usr/bin/install -c .libs/libffi.lai /ExtendedAndroidTools/out/host/lib/../lib/libffi.la
+libtool: install: /usr/bin/install -c .libs/libffi.a /ExtendedAndroidTools/out/host/lib/../lib/libffi.a
+libtool: install: chmod 644 /ExtendedAndroidTools/out/host/lib/../lib/libffi.a
+libtool: install: ranlib /ExtendedAndroidTools/out/host/lib/../lib/libffi.a
+libtool: finish: PATH="/ExtendedAndroidTools/out/host/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin" ldconfig -n /ExtendedAndroidTools/out/host/lib/../lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /ExtendedAndroidTools/out/host/lib/../lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+make[3]: Leaving directory '/ExtendedAndroidTools/build/host/ffi'
+make[2]: Leaving directory '/ExtendedAndroidTools/build/host/ffi'
+make[1]: Leaving directory '/ExtendedAndroidTools/build/host/ffi'
+touch build/host/ffi.done
+mkdir -p build/host/python
+cd build/host/python && /ExtendedAndroidTools/projects/python/sources/configure \
+	--prefix=/ExtendedAndroidTools/out/host \
+	--with-system-ffi
+configure: loading site script /ExtendedAndroidTools/out/host/share/config.site
+checking for git... found
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking for python3.10... no
+checking for python3... no
+checking for python... no
+checking for --enable-universalsdk... no
+checking for --with-universal-archs... no
+checking MACHDEP... "linux"
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for --with-cxx-main=<compiler>... no
+checking for g++... no
+configure:
+
+  By default, distutils will build C++ extension modules with "g++".
+  If this is not intended, then set CXX on the configure command line.
+  
+checking for the platform triplet based on compiler characteristics... x86_64-linux-gnu
+checking for multiarch... x86_64-linux-gnu
+checking for -Wl,--no-as-needed... yes
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking for the Android API level... not Android
+checking for --with-suffix... 
+checking for case-insensitive build directory... no
+checking LIBRARY... libpython$(VERSION)$(ABIFLAGS).a
+checking LINKCC... $(PURIFY) $(MAINCC)
+checking EXPORTSYMS... 
+checking for GNU ld... yes
+checking for --enable-shared... no
+checking for --enable-profiling... no
+checking LDLIBRARY... libpython$(VERSION)$(ABIFLAGS).a
+checking for ar... ar
+checking for readelf... readelf
+checking for a BSD-compatible install... /usr/bin/install -c
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for --with-pydebug... no
+checking for --with-trace-refs... no
+checking for --with-assertions... no
+checking for --enable-optimizations... no
+checking PROFILE_TASK... -m test --pgo --timeout=$(TESTTIMEOUT)
+checking for --with-lto... no
+checking for llvm-profdata... no
+checking for -Wextra... yes
+checking whether gcc accepts and needs -fno-strict-aliasing... no
+checking if we can turn off gcc unused result warning... yes
+checking if we can turn off gcc unused parameter warning... yes
+checking if we can turn off gcc missing field initializers warning... yes
+checking if we can turn on gcc mixed sign comparison warning... yes
+checking if we can turn on gcc unreachable code warning... no
+checking if we can turn on gcc strict-prototypes warning... no
+checking if we can make implicit function declaration an error in gcc... yes
+checking if we can use visibility in gcc... yes
+checking whether pthreads are available without options... yes
+checking whether g++ also accepts flags for thread support... no
+checking for ANSI C header files... (cached) yes
+checking asm/types.h usability... yes
+checking asm/types.h presence... yes
+checking for asm/types.h... yes
+checking crypt.h usability... yes
+checking crypt.h presence... yes
+checking for crypt.h... yes
+checking conio.h usability... no
+checking conio.h presence... no
+checking for conio.h... no
+checking direct.h usability... no
+checking direct.h presence... no
+checking for direct.h... no
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking errno.h usability... yes
+checking errno.h presence... yes
+checking for errno.h... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking grp.h usability... yes
+checking grp.h presence... yes
+checking for grp.h... yes
+checking ieeefp.h usability... no
+checking ieeefp.h presence... no
+checking for ieeefp.h... no
+checking io.h usability... no
+checking io.h presence... no
+checking for io.h... no
+checking langinfo.h usability... yes
+checking langinfo.h presence... yes
+checking for langinfo.h... yes
+checking libintl.h usability... yes
+checking libintl.h presence... yes
+checking for libintl.h... yes
+checking process.h usability... no
+checking process.h presence... no
+checking for process.h... no
+checking pthread.h usability... yes
+checking pthread.h presence... yes
+checking for pthread.h... yes
+checking sched.h usability... yes
+checking sched.h presence... yes
+checking for sched.h... yes
+checking shadow.h usability... yes
+checking shadow.h presence... yes
+checking for shadow.h... yes
+checking signal.h usability... yes
+checking signal.h presence... yes
+checking for signal.h... yes
+checking stropts.h usability... no
+checking stropts.h presence... no
+checking for stropts.h... no
+checking termios.h usability... yes
+checking termios.h presence... yes
+checking for termios.h... yes
+checking utime.h usability... yes
+checking utime.h presence... yes
+checking for utime.h... yes
+checking poll.h usability... yes
+checking poll.h presence... yes
+checking for poll.h... yes
+checking sys/devpoll.h usability... no
+checking sys/devpoll.h presence... no
+checking for sys/devpoll.h... no
+checking sys/epoll.h usability... yes
+checking sys/epoll.h presence... yes
+checking for sys/epoll.h... yes
+checking sys/poll.h usability... yes
+checking sys/poll.h presence... yes
+checking for sys/poll.h... yes
+checking sys/audioio.h usability... no
+checking sys/audioio.h presence... no
+checking for sys/audioio.h... no
+checking sys/xattr.h usability... yes
+checking sys/xattr.h presence... yes
+checking for sys/xattr.h... yes
+checking sys/bsdtty.h usability... no
+checking sys/bsdtty.h presence... no
+checking for sys/bsdtty.h... no
+checking sys/event.h usability... no
+checking sys/event.h presence... no
+checking for sys/event.h... no
+checking sys/file.h usability... yes
+checking sys/file.h presence... yes
+checking for sys/file.h... yes
+checking sys/ioctl.h usability... yes
+checking sys/ioctl.h presence... yes
+checking for sys/ioctl.h... yes
+checking sys/kern_control.h usability... no
+checking sys/kern_control.h presence... no
+checking for sys/kern_control.h... no
+checking sys/loadavg.h usability... no
+checking sys/loadavg.h presence... no
+checking for sys/loadavg.h... no
+checking sys/lock.h usability... no
+checking sys/lock.h presence... no
+checking for sys/lock.h... no
+checking sys/mkdev.h usability... no
+checking sys/mkdev.h presence... no
+checking for sys/mkdev.h... no
+checking sys/modem.h usability... no
+checking sys/modem.h presence... no
+checking for sys/modem.h... no
+checking sys/param.h usability... yes
+checking sys/param.h presence... yes
+checking for sys/param.h... yes
+checking sys/random.h usability... yes
+checking sys/random.h presence... yes
+checking for sys/random.h... yes
+checking sys/select.h usability... yes
+checking sys/select.h presence... yes
+checking for sys/select.h... yes
+checking sys/sendfile.h usability... yes
+checking sys/sendfile.h presence... yes
+checking for sys/sendfile.h... yes
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking sys/statvfs.h usability... yes
+checking sys/statvfs.h presence... yes
+checking for sys/statvfs.h... yes
+checking for sys/stat.h... (cached) yes
+checking sys/syscall.h usability... yes
+checking sys/syscall.h presence... yes
+checking for sys/syscall.h... yes
+checking sys/sys_domain.h usability... no
+checking sys/sys_domain.h presence... no
+checking for sys/sys_domain.h... no
+checking sys/termio.h usability... no
+checking sys/termio.h presence... no
+checking for sys/termio.h... no
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking sys/times.h usability... yes
+checking sys/times.h presence... yes
+checking for sys/times.h... yes
+checking for sys/types.h... (cached) yes
+checking sys/uio.h usability... yes
+checking sys/uio.h presence... yes
+checking for sys/uio.h... yes
+checking sys/un.h usability... yes
+checking sys/un.h presence... yes
+checking for sys/un.h... yes
+checking sys/utsname.h usability... yes
+checking sys/utsname.h presence... yes
+checking for sys/utsname.h... yes
+checking sys/wait.h usability... yes
+checking sys/wait.h presence... yes
+checking for sys/wait.h... yes
+checking pty.h usability... yes
+checking pty.h presence... yes
+checking for pty.h... yes
+checking libutil.h usability... no
+checking libutil.h presence... no
+checking for libutil.h... no
+checking sys/resource.h usability... yes
+checking sys/resource.h presence... yes
+checking for sys/resource.h... yes
+checking netpacket/packet.h usability... yes
+checking netpacket/packet.h presence... yes
+checking for netpacket/packet.h... yes
+checking sysexits.h usability... yes
+checking sysexits.h presence... yes
+checking for sysexits.h... yes
+checking bluetooth.h usability... no
+checking bluetooth.h presence... no
+checking for bluetooth.h... no
+checking linux/tipc.h usability... yes
+checking linux/tipc.h presence... yes
+checking for linux/tipc.h... yes
+checking linux/random.h usability... yes
+checking linux/random.h presence... yes
+checking for linux/random.h... yes
+checking spawn.h usability... yes
+checking spawn.h presence... yes
+checking for spawn.h... yes
+checking util.h usability... no
+checking util.h presence... no
+checking for util.h... no
+checking alloca.h usability... yes
+checking alloca.h presence... yes
+checking for alloca.h... yes
+checking endian.h usability... yes
+checking endian.h presence... yes
+checking for endian.h... yes
+checking sys/endian.h usability... no
+checking sys/endian.h presence... no
+checking for sys/endian.h... no
+checking sys/sysmacros.h usability... yes
+checking sys/sysmacros.h presence... yes
+checking for sys/sysmacros.h... yes
+checking linux/auxvec.h usability... yes
+checking linux/auxvec.h presence... yes
+checking for linux/auxvec.h... yes
+checking sys/auxv.h usability... yes
+checking sys/auxv.h presence... yes
+checking for sys/auxv.h... yes
+checking linux/memfd.h usability... yes
+checking linux/memfd.h presence... yes
+checking for linux/memfd.h... yes
+checking linux/wait.h usability... yes
+checking linux/wait.h presence... yes
+checking for linux/wait.h... yes
+checking sys/memfd.h usability... no
+checking sys/memfd.h presence... no
+checking for sys/memfd.h... no
+checking sys/mman.h usability... yes
+checking sys/mman.h presence... yes
+checking for sys/mman.h... yes
+checking sys/eventfd.h usability... yes
+checking sys/eventfd.h presence... yes
+checking for sys/eventfd.h... yes
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking whether sys/types.h defines makedev... no
+checking for sys/mkdev.h... (cached) no
+checking for sys/sysmacros.h... (cached) yes
+checking bluetooth/bluetooth.h usability... no
+checking bluetooth/bluetooth.h presence... no
+checking for bluetooth/bluetooth.h... no
+checking for net/if.h... yes
+checking for linux/netlink.h... yes
+checking for linux/qrtr.h... yes
+checking for linux/vm_sockets.h... yes
+checking for linux/can.h... yes
+checking for linux/can/bcm.h... yes
+checking for linux/can/j1939.h... yes
+checking for linux/can/raw.h... yes
+checking for clock_t in time.h... yes
+checking for makedev... yes
+checking for le64toh... yes
+checking for mode_t... yes
+checking for off_t... yes
+checking for pid_t... yes
+checking for size_t... yes
+checking for uid_t in sys/types.h... yes
+checking for ssize_t... yes
+checking for __uint128_t... yes
+checking size of int... 4
+checking size of long... 8
+checking alignment of long... 8
+checking size of long long... 8
+checking size of void *... 8
+checking size of short... 2
+checking size of float... 4
+checking size of double... 8
+checking size of fpos_t... 16
+checking size of size_t... 8
+checking alignment of size_t... 8
+checking size of pid_t... 4
+checking size of uintptr_t... 8
+checking for long double... yes
+checking size of long double... 16
+checking size of _Bool... 1
+checking size of off_t... 8
+checking whether to enable large file support... no
+checking size of time_t... 8
+checking for pthread_t... yes
+checking size of pthread_t... 8
+checking size of pthread_key_t... 4
+checking whether pthread_key_t is compatible with int... yes
+checking for --enable-framework... no
+checking for dyld... no
+checking for --with-address-sanitizer... no
+checking for --with-memory-sanitizer... no
+checking for --with-undefined-behavior-sanitizer... no
+checking the extension of shared libraries... .so
+checking LDSHARED... $(CC) -shared
+checking CCSHARED... -fPIC
+checking LINKFORSHARED... -Xlinker -export-dynamic
+checking CFLAGSFORSHARED... 
+checking SHLIBS... $(LIBS)
+checking for sendfile in -lsendfile... no
+checking for dlopen in -ldl... yes
+checking for shl_load in -ldld... no
+checking uuid/uuid.h usability... no
+checking uuid/uuid.h presence... no
+checking for uuid/uuid.h... no
+checking uuid.h usability... no
+checking uuid.h presence... no
+checking for uuid.h... no
+checking for uuid_generate_time_safe... no
+checking for uuid_generate_time in -luuid... no
+checking for uuid_create... no
+checking for uuid_enc_be... no
+checking for library containing sem_init... none required
+checking for textdomain in -lintl... no
+checking aligned memory access is required... no
+checking for --with-hash-algorithm... default
+checking for --with-tzpath... "/usr/share/zoneinfo:/usr/lib/zoneinfo:/usr/share/lib/zoneinfo:/etc/zoneinfo"
+checking for t_open in -lnsl... no
+checking for socket in -lsocket... no
+checking for --with-libs... no
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for --with-system-expat... no
+checking for --with-system-ffi... yes
+checking for --with-system-libmpdec... no
+checking for --with-decimal-contextvar... yes
+checking for --enable-loadable-sqlite-extensions... no
+checking for --with-tcltk-includes... default
+checking for --with-tcltk-libs... default
+checking for --with-dbmliborder... 
+checking if PTHREAD_SCOPE_SYSTEM is supported... yes
+checking for pthread_sigmask... yes
+checking for pthread_getcpuclockid... yes
+checking if --enable-ipv6 is specified... yes
+checking if RFC2553 API is available... yes
+checking ipv6 stack type... linux-glibc
+checking for CAN_RAW_FD_FRAMES... yes
+checking for CAN_RAW_JOIN_FILTERS... yes
+checking for --with-doc-strings... yes
+checking for --with-pymalloc... yes
+checking for --with-c-locale-coercion... yes
+checking for --with-valgrind... no
+checking for --with-dtrace... no
+checking for dlopen... yes
+checking DYNLOADFILE... dynload_shlib.o
+checking MACHDEP_OBJS... none
+checking for alarm... yes
+checking for accept4... yes
+checking for setitimer... yes
+checking for getitimer... yes
+checking for bind_textdomain_codeset... yes
+checking for chown... yes
+checking for clock... yes
+checking for confstr... yes
+checking for close_range... yes
+checking for copy_file_range... yes
+checking for ctermid... yes
+checking for dup3... yes
+checking for execv... yes
+checking for explicit_bzero... yes
+checking for explicit_memset... no
+checking for faccessat... yes
+checking for fchmod... yes
+checking for fchmodat... yes
+checking for fchown... yes
+checking for fchownat... yes
+checking for fdwalk... no
+checking for fexecve... yes
+checking for fdopendir... yes
+checking for fork... yes
+checking for fpathconf... yes
+checking for fstatat... yes
+checking for ftime... yes
+checking for ftruncate... yes
+checking for futimesat... yes
+checking for futimens... yes
+checking for futimes... yes
+checking for gai_strerror... yes
+checking for getentropy... yes
+checking for getgrgid_r... yes
+checking for getgrnam_r... yes
+checking for getgrouplist... yes
+checking for getgroups... yes
+checking for getlogin... yes
+checking for getloadavg... yes
+checking for getpeername... yes
+checking for getpgid... yes
+checking for getpid... yes
+checking for getpriority... yes
+checking for getresuid... yes
+checking for getresgid... yes
+checking for getpwent... yes
+checking for getpwnam_r... yes
+checking for getpwuid_r... yes
+checking for getspnam... yes
+checking for getspent... yes
+checking for getsid... yes
+checking for getwd... yes
+checking for if_nameindex... yes
+checking for initgroups... yes
+checking for kill... yes
+checking for killpg... yes
+checking for lchown... yes
+checking for lockf... yes
+checking for linkat... yes
+checking for lstat... yes
+checking for lutimes... yes
+checking for mmap... yes
+checking for memrchr... yes
+checking for mbrtowc... yes
+checking for mkdirat... yes
+checking for mkfifo... yes
+checking for madvise... yes
+checking for mkfifoat... yes
+checking for mknod... yes
+checking for mknodat... yes
+checking for mktime... yes
+checking for mremap... yes
+checking for nice... yes
+checking for openat... yes
+checking for pathconf... yes
+checking for pause... yes
+checking for pipe2... yes
+checking for plock... no
+checking for poll... yes
+checking for posix_fallocate... yes
+checking for posix_fadvise... yes
+checking for posix_spawn... yes
+checking for posix_spawnp... yes
+checking for pread... yes
+checking for preadv... yes
+checking for preadv2... yes
+checking for pthread_condattr_setclock... yes
+checking for pthread_init... no
+checking for pthread_kill... yes
+checking for pwrite... yes
+checking for pwritev... yes
+checking for pwritev2... yes
+checking for readlink... yes
+checking for readlinkat... yes
+checking for readv... yes
+checking for realpath... yes
+checking for renameat... yes
+checking for sem_open... yes
+checking for sem_timedwait... yes
+checking for sem_clockwait... yes
+checking for sem_getvalue... yes
+checking for sem_unlink... yes
+checking for sendfile... yes
+checking for setegid... yes
+checking for seteuid... yes
+checking for setgid... yes
+checking for sethostname... yes
+checking for setlocale... yes
+checking for setregid... yes
+checking for setreuid... yes
+checking for setresuid... yes
+checking for setresgid... yes
+checking for setsid... yes
+checking for setpgid... yes
+checking for setpgrp... yes
+checking for setpriority... yes
+checking for setuid... yes
+checking for setvbuf... yes
+checking for sched_get_priority_max... yes
+checking for sched_setaffinity... yes
+checking for sched_setscheduler... yes
+checking for sched_setparam... yes
+checking for sched_rr_get_interval... yes
+checking for sigaction... yes
+checking for sigaltstack... yes
+checking for sigfillset... yes
+checking for siginterrupt... yes
+checking for sigpending... yes
+checking for sigrelse... yes
+checking for sigtimedwait... yes
+checking for sigwait... yes
+checking for sigwaitinfo... yes
+checking for snprintf... yes
+checking for splice... yes
+checking for strftime... yes
+checking for strlcpy... no
+checking for strsignal... yes
+checking for symlinkat... yes
+checking for sync... yes
+checking for sysconf... yes
+checking for tcgetpgrp... yes
+checking for tcsetpgrp... yes
+checking for tempnam... yes
+checking for timegm... yes
+checking for times... yes
+checking for tmpfile... yes
+checking for tmpnam... yes
+checking for tmpnam_r... 
