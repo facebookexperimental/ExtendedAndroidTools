@@ -5,12 +5,10 @@ github: https://github.com/iovisor/bcc
 license: Apache 2.0
 license url: https://github.com/iovisor/bcc/blob/master/LICENSE.txt
 
-Default version: 40d36888e76de0fb1abb712f629e7059664a7dc2
-- 40d36888e76de0fb1abb712f629e7059664a7dc2 added support for libs mmapped
-  directly from zip archives.
+Default version: v0.27.0
 
 Building:
-- cmake depends on flex binary, which needs to stay in sync with flex header
+- bcc depends on flex binary, which needs to stay in sync with flex header
   and library we built for Android (using host flex won't work). We build
   flex for host from the same sources as we do for android and we override
   the binary used by cmake with -DFLEX_EXECUTABLE

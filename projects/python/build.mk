@@ -4,9 +4,11 @@ PYTHON_ANDROID_DEPS = ffi
 PYTHON_HOST_DEPS = ffi
 $(eval $(call project-define,python))
 
-PYTHON_EXTRA_CONFIG_OPTIONS = --build=x86_64 --disable-ipv6 --without-ensurepip --with-system-ffi
-PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptmx=no
-PYTHON_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptc=no
+PYTHON_ANDROID_EXTRA_CONFIG_OPTIONS = --build=x86_64 --disable-ipv6 --without-ensurepip --with-system-ffi
+PYTHON_ANDROID_EXTRA_CONFIG_OPTIONS += "EXTRA_CPPFLAGS=-I$(ANDROID_SYSROOT_INCLUDE_PATH)"
+PYTHON_ANDROID_EXTRA_CONFIG_OPTIONS += "EXTRA_LDFLAGS=-L$(ANDROID_SYSROOT_LIB_PATH)"
+PYTHON_ANDROID_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptmx=no
+PYTHON_ANDROID_EXTRA_CONFIG_OPTIONS += ac_cv_file__dev_ptc=no
 
 $(PYTHON_ANDROID):
 	cd $(PYTHON_ANDROID_BUILD_DIR) && make install -j $(THREADS)
@@ -30,13 +32,13 @@ $(PYTHON_ANDROID_BUILD_DIR): $(PYTHON_HOST)
 	mkdir -p $@
 	cd $@ && $(PYTHON_SRCS)/configure \
 		$(ANDROID_EXTRA_CONFIGURE_FLAGS) \
-		$(PYTHON_EXTRA_CONFIG_OPTIONS)
+		$(PYTHON_ANDROID_EXTRA_CONFIG_OPTIONS)
 
 $(PYTHON_HOST_BUILD_DIR): $(HOST_CONFIG_SITE)
 	mkdir -p $@
 	cd $@ && $(PYTHON_SRCS)/configure \
 		$(HOST_EXTRA_CONFIGURE_FLAGS) \
-		$(PYTHON_EXTRA_CONFIG_OPTIONS)
+		--with-system-ffi
 
 PYTHON_BRANCH_OR_TAG = v3.10.6
 PYTHON_REPO = https://github.com/python/cpython.git

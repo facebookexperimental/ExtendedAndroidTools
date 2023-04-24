@@ -30,7 +30,7 @@ export ARCH="<TARGET_ARCH_ENV_VAR>"
 export BPFTRACE_CACHE_USER_SYMBOLS=0
 
 # tell python where to find bcc in case we built the package on ubuntu/debian
-export PYTHONPATH=$SYSROOT/lib/python3.10/dist-packages:$PYTHONPATH
+export PYTHONPATH=$SYSROOT/lib/python3.10/site-packages/bcc-0.27.0-py3.10.egg:$PYTHONPATH
 
 export TMPDIR=/data/local/tmp
 
