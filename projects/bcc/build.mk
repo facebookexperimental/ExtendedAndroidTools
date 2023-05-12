@@ -19,10 +19,9 @@ endif
 # generates bcc build files for Android
 $(BCC_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex
 	-mkdir $@
-	cd $@ && LDFLAGS="$(BCC_EXTRA_LDFLAGS)" $(CMAKE) $(BCC_SRCS) \
+	cd $@ && CFLAGS="$(BCC_EXTRA_CFLAGS)" CXXFLAGS="$(BCC_EXTRA_CFLAGS)" LDFLAGS="$(BCC_EXTRA_LDFLAGS)" \
+		$(CMAKE) $(BCC_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
-		-DCMAKE_C_FLAGS="$(BCC_EXTRA_CFLAGS)" \
-		-DCMAKE_CXX_FLAGS="$(BCC_EXTRA_CFLAGS)" \
 		-DFLEX_EXECUTABLE=$(abspath $(HOST_OUT_DIR)/bin/flex) \
 		-DBPS_LINK_RT=OFF \
 		-DENABLE_TESTS=OFF \
