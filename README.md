@@ -1,5 +1,5 @@
 # ExtendedAndroidTools
-Extended Android Tools is a set of makefiles and build environment cross compiling Linux tools we all love for Android. All tools are built using their native build systems (autotools, cmake, etc) and Android NDK. Reference build environment is provided via Vagrant and Docker.
+Extended Android Tools is a set of makefiles and build environment cross compiling Linux tools we all love for Android. All tools are built using their native build systems (autotools, cmake, etc) and Android NDK. Reference build environment is provided via Docker.
 
 # List of supported software
 - [bpftrace](https://github.com/iovisor/bpftrace)
@@ -12,6 +12,55 @@ Extended Android Tools is a set of makefiles and build environment cross compili
 - [argp (part of gnulib)](https://www.gnu.org/software/gnulib/)
 - [XZ Utils](https://tukaani.org/xz/)
 
+# Build environment
+## Docker (recommended)
+Provided [Dockerfile](https://github.com/facebookexperimental/ExtendedAndroidTools/blob/main/docker/Dockerfile) defines the reference build environment. You can access it using the following commands:
+```
+# Build the Docker image
+./scripts/build-docker-image.sh
+
+# Run the environment
+./scripts/run-docker-build-env.sh
+
+# Build a target of your choice from within the container
+> make python
+> make bpftools
+
+# Build and run host tools
+> make python-host
+> eval `make setup-env`
+> python3
+```
+
+## Vagrant
+ExtendedAndroidTools also provides a [Vagrantfile](https://github.com/facebookexperimental/ExtendedAndroidTools/blob/main/Vagrantfile):
+```
+# Startup (potentially provision new) VM
+vagrant up
+
+# ssh into a running VM
+vagrant ssh
+
+# Go to the shared directory
+> cd /vagrant
+
+# build the project of your choise
+> make python
+> make bpftools
+```
+
+## Setting up enviornment on your own
+ExtendedAndroidTools depends on Android NDK and few programs and libraries that are listed in [this script](https://github.com/facebookexperimental/ExtendedAndroidTools/blob/main/scripts/jammy-install-deps.sh). You should be be able to install them with a package manager of your choice. NDK can be downloaded using [this script](https://github.com/facebookexperimental/ExtendedAndroidTools/blob/main/scripts/download-ndk.sh).
+
+```
+make python NDK_PATH=<path-to-ndk>
+make bpftools NDK_PATH=<path-to-ndk>
+
+# Build and run host tools
+> make python-host
+> eval `make setup-env`
+> python3
+```
 # Sysroots
 When projects are built the resulting binaries/libraries are placed in `bin` and `lib` subdirectories of `out/android/$ARCH/` directory. To run a particular tool on an Android device it needs to be pushed together with all the libraries it depends on to the device. In addition the shell environment needs to be configured appropriately for the runtime loader to be able to locate and load those libraries when the tool is executed. To help automate these steps ExtendedAndroidTools provides helper targets preparing sysroot archives consisting of selected executables and libraries, together with scripts setting up the environment. Those archives can be pushed to a device, extracted, and used without any further setup.
 
@@ -25,41 +74,6 @@ adb shell "cd /data/local/tmp && tar xf bpftools-arm64.tar.gz"
 
 # enjoy new tools
 adb shell /data/local/tmp/bpftools/bpftrace -e 'uprobe:/system/lib64/libc.so:malloc { @ = hist(arg0); }'
-```
-
-# Build environment
-Checked in [Vagrantfile](https://github.com/facebookexperimental/ExtendedAndroidTools/blob/master/Vagrantfile) provides a reference build environment for cross compiling all the projects. To access it run the following commands:
-
-```
-# Startup (potentially provision new) VM
-vagrant up
-
-# ssh into a running VM
-vagrant ssh
-```
-
-Once you ssh into the VM you can build projects of your choice
-```
-# Go to the shared directory
-cd /vagrant
-
-# build the project of your choise
-make python
-
-# or build entire sysroot
-make bpftools
-```
-
-In addition, ExtendedAndroidTools maintains a [Dockerfile](https://github.com/facebookexperimental/ExtendedAndroidTools/blob/master/docker/Dockerfile) providing Docker based build environment. You can access it using the following commands:
-```
-# Build the image
-./scripts/build-docker-image.sh
-
-# Run the environment
-./scripts/run-docker-build-env.sh
-
-# Build a target of your choice from within the container
-make bpftools
 ```
 
 # Android device requirements
