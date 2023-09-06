@@ -5,9 +5,6 @@ github: https://github.com/iovisor/bpftrace
 license: Apache 2.0
 license url: https://github.com/iovisor/bpftrace/blob/master/LICENSE
 
-Default version: 5d181c82acba400ec64e8d95c57cdb509f7cc57a
-- Main as of 10/14/2022. Includes support for armv7 and static linking.
-
 Building:
 - we need to tell cmake to use flex version that matches the lib and
   headers we have for Android. We set FLEX_EXECUTABLE to point to
