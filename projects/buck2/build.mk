@@ -19,7 +19,7 @@ RELEASE_URL := https://github.com/facebook/$(PROJECT_NAME)/releases/download/$(P
 # Check if wget is available and install it if missing
 WGET := $(shell command -v wget 2> /dev/null)
 ifeq ($(WGET),)
-    WGET := $(shell sudo apt-get -qy install wget && command -v wget)
+    WGET := $(shell apt-get -qy install wget && command -v wget)
     ifeq ($(WGET),)
         $(error "Failed to install wget. Please install it manually and try again.")
     endif
@@ -28,7 +28,7 @@ endif
 # Check if zstd is available and install it if missing
 ZSTD := $(shell command -v zstd 2> /dev/null)
 ifeq ($(ZSTD),)
-    ZSTD := $(shell sudo apt-get -qy install zstd && command -v zstd)
+    ZSTD := $(shell apt-get -qy install zstd && command -v zstd)
     ifeq ($(ZSTD),)
         $(error "Failed to install zstd. Please install it manually and try again.")
     endif
