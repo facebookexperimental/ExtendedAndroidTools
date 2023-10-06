@@ -1,12 +1,10 @@
-# Makefile for downloading and installing the Buck2 binary
-$(eval $(call project-define,buck2))
-
 # Project-specific variables
 PROJECT_NAME := buck2
 PROJECT_VERSION := 2023-09-01
 
 # Installation directories
 INSTALL_DIR := out/host/bin
+BUCK2_DONE := build/host/buck2.done
 
 # Binary name and paths
 BINARY_NAME := buck2
@@ -45,6 +43,8 @@ $(BINARY_PATH): | $(INSTALL_DIR)
 $(INSTALL_DIR):
 	mkdir -p $@
 
+$(BUCK2_DONE): $(BINARY_PATH)
+	touch $@
 
 # Default target to fetch and install the binary
-projects/buck2/sources: $(BINARY_PATH)
+buck2-host: $(BUCK2_DONE)
