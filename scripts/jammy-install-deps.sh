@@ -22,6 +22,7 @@ apt-get install -y \
      texinfo \
      unzip \
      wget \
-     zlib1g-dev
+     zlib1g-dev \
+     zstd
 
 echo "done"
