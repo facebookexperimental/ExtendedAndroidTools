@@ -44,11 +44,12 @@ class Struct:
 class Command:
     """Command class."""
 
-    def __init__(self, name: str, id: int, out: Struct, reply: Struct):
+    def __init__(self, name: str, id: int, out: Struct, reply: Struct, error: Struct):
         self.name = name
         self.id = id
         self.out = out
         self.reply = reply
+        self.error = error
 
 
 class CommandSet:
