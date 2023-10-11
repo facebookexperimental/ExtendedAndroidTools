@@ -1,6 +1,7 @@
 """JDWP Commands for ThreadReference Command Set."""
 
 from jdwp.common import Command, CommandSet, Field, Struct, Types
+from jdwp.constants.errors import ErrorConstants
 
 Name = Command(
     name="Name",
@@ -11,11 +12,17 @@ Name = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -30,11 +37,17 @@ Suspend = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -48,11 +61,17 @@ Resume = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -79,11 +98,17 @@ Status = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -105,11 +130,17 @@ ThreadGroup = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -139,11 +170,17 @@ Frames = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -159,11 +196,17 @@ FrameCount = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -182,16 +225,22 @@ OwnedMonitors = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
             Field(
-                "NOT_IMPLEMENTED",
-                Types.STRING,
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "NOT IMPLEMENTED",
+                ErrorConstants.NOT_IMPLEMENTED,
                 "The functionality is not implemented in this virtual machine.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -213,16 +262,22 @@ CurrentContendedMonitor = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
             Field(
-                "NOT_IMPLEMENTED",
-                Types.STRING,
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "NOT IMPLEMENTED",
+                ErrorConstants.NOT_IMPLEMENTED,
                 "The functionality is not implemented in this virtual machine.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -245,15 +300,17 @@ Stop = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
             Field(
                 "INVALID_OBJECT",
-                Types.STRING,
-                "If thread is not a known ID or the asynchronous exception has been garbage collected.",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -267,11 +324,17 @@ Interrupt = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -293,11 +356,17 @@ SuspendCount = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -321,16 +390,22 @@ OwnedMonitorsStackDepthInfo = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "thread is not a known ID."),
             Field(
-                "NOT_IMPLEMENTED",
-                Types.STRING,
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
+            Field(
+                "NOT IMPLEMENTED",
+                ErrorConstants.NOT_IMPLEMENTED,
                 "The functionality is not implemented in this virtual machine.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -349,41 +424,47 @@ ForceEarlyReturn = Command(
         [
             Field(
                 "INVALID_THREAD",
-                Types.STRING,
+                ErrorConstants.INVALID_THREAD,
                 "Passed thread is null, is not a valid thread or has exited.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "Thread or value is not a known ID."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "thread is not a known ID.",
+            ),
             Field(
                 "THREAD_NOT_SUSPENDED",
-                Types.STRING,
+                ErrorConstants.THREAD_NOT_SUSPENDED,
                 "If the specified thread has not been suspended by an event.",
             ),
             Field(
                 "THREAD_NOT_ALIVE",
-                Types.STRING,
+                ErrorConstants.THREAD_NOT_ALIVE,
                 "Thread has not been started or is now dead.",
             ),
             Field(
                 "OPAQUE_FRAME",
-                Types.STRING,
+                ErrorConstants.OPAQUE_FRAME,
                 "Attempted to return early from a frame corresponding to a native method. Or the implementation is unable to provide this functionality on this frame.",
             ),
             Field(
                 "NO_MORE_FRAMES",
-                Types.STRING,
+                ErrorConstants.NO_MORE_FRAMES,
                 "There are no more Java or JNI frames on the call stack.",
             ),
             Field(
-                "NOT_IMPLEMENTED",
-                Types.STRING,
+                "NOT IMPLEMENTED",
+                ErrorConstants.NOT_IMPLEMENTED,
                 "The functionality is not implemented in this virtual machine.",
             ),
             Field(
                 "TYPE_MISMATCH",
-                Types.STRING,
+                ErrorConstants.TYPE_MISMATCH,
                 "Value is not an appropriate type for the return value of the method.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
