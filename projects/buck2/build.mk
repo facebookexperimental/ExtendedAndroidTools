@@ -1,50 +1,16 @@
-# Project-specific variables
-PROJECT_NAME := buck2
-PROJECT_VERSION := 2023-09-01
+BUCK2_VERSION := 2023-09-01
+BUCK2_ARCHIVE := buck2.zst
+BUCK2_URL := https://github.com/facebook/buck2/releases/download/$(BUCK2_VERSION)/buck2-x86_64-unknown-linux-gnu.zst
 
-# Installation directories
-INSTALL_DIR := out/host/bin
-BUCK2_DONE := build/host/buck2.done
+$(HOST_OUT_DIR)/bin/buck2: $(DOWNLOADS_DIR)/$(BUCK2_ARCHIVE) | $(HOST_OUT_DIR)
+# commands to unpack $(BUCK2_ARCHIVE) and set the executable flag
+	zstd -d $(DOWNLOADS_DIR)/$(BUCK2_ARCHIVE) -o $(HOST_OUT_DIR)/bin/buck2
+	chmod +x $(HOST_OUT_DIR)/bin/buck2
 
-# Binary name and paths
-BINARY_NAME := buck2
-BINARY_PATH := $(INSTALL_DIR)/$(BINARY_NAME)
-COMPRESSED_BINARY := $(BINARY_PATH).zst
+$(DOWNLOADS_DIR)/$(BUCK2_ARCHIVE): | $(DOWNLOADS_DIR)
+# instructions to download the archive
+	wget -q -O $(DOWNLOADS_DIR)/$(BUCK2_ARCHIVE) $(BUCK2_URL)
 
-# URL for the release asset
-RELEASE_URL := https://github.com/facebook/$(PROJECT_NAME)/releases/download/$(PROJECT_VERSION)/$(BINARY_NAME)-x86_64-unknown-linux-gnu.zst
-
-# Check if wget is available and install it if missing
-WGET := $(shell command -v wget 2> /dev/null)
-ifeq ($(WGET),)
-    WGET := $(shell apt-get -qy install wget && command -v wget)
-    ifeq ($(WGET),)
-        $(error "Failed to install wget. Please install it manually and try again.")
-    endif
-endif
-
-# Check if zstd is available and install it if missing
-ZSTD := $(shell command -v zstd 2> /dev/null)
-ifeq ($(ZSTD),)
-    ZSTD := $(shell apt-get -qy install zstd && command -v zstd)
-    ifeq ($(ZSTD),)
-        $(error "Failed to install zstd. Please install it manually and try again.")
-    endif
-endif
-
-# Target to download and install the binary
-$(BINARY_PATH): | $(INSTALL_DIR)
-	$(WGET) -q -O $(COMPRESSED_BINARY) $(RELEASE_URL)
-	$(ZSTD) -d -o $(BINARY_PATH) $(COMPRESSED_BINARY)
-	chmod +x $(BINARY_PATH)
-	rm $(COMPRESSED_BINARY)
-
-# Target to create the installation directory if it doesn't exist
-$(INSTALL_DIR):
-	mkdir -p $@
-
-$(BUCK2_DONE): $(BINARY_PATH)
-	touch $@
-
-# Default target to fetch and install the binary
-buck2-host: $(BUCK2_DONE)
+# Phony target for host
+.PHONY: buck2-host
+buck2-host: $(HOST_OUT_DIR)/bin/buck2
