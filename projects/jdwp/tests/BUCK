@@ -1,0 +1,5 @@
+jdwp_test(
+  name = "tests",
+  srcs = [],
+  deps = [],
+)

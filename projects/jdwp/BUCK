@@ -1,0 +1,11 @@
+jdwp_binary(
+  name = "main",
+  srcs = [],
+  deps = [],
+)
+
+jdwp_library(
+  name = "lib",
+  srcs = [],
+  visibility = ["PUBLIC"],
+)
