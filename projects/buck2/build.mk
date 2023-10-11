@@ -1,6 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-BUCK2_VERSION := 2023-09-01
+BUCK2_VERSION := 2023-10-01
 
 ifeq ($(HOST_OS),GNU/Linux)
 BUCK2_ARCHIVE_SUFFIX := unknown-linux-gnu
