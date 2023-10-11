@@ -1,3 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 BUCK2_VERSION := 2023-09-01
 BUCK2_ARCHIVE := buck2.zst
 BUCK2_URL := https://github.com/facebook/buck2/releases/download/$(BUCK2_VERSION)/buck2-x86_64-unknown-linux-gnu.zst
