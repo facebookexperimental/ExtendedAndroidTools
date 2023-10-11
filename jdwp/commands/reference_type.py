@@ -1,5 +1,6 @@
 """JDWP Commands for Reference Type Command Set."""
 from jdwp.common import Command, CommandSet, Field, Struct, Types
+from jdwp.constants.errors import ErrorConstants
 
 
 Signature = Command(
@@ -17,7 +18,23 @@ Signature = Command(
             ),
         ]
     ),
-    error=Struct([]),
+    error=Struct(
+        [
+            Field(
+                "INVALID_CLASS",
+                ErrorConstants.INVALID_CLASS,
+                "refType is not the ID of a reference type.",
+            ),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
+        ]
+    ),
 )
 
 ClassLoader = Command(
@@ -41,7 +58,23 @@ ClassLoader = Command(
             ),
         ]
     ),
-    error=Struct([]),
+    error=Struct(
+        [
+            Field(
+                "INVALID_CLASS",
+                ErrorConstants.INVALID_CLASS,
+                "refType is not the ID of a reference type.",
+            ),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
+        ]
+    ),
 )
 
 Modifiers = Command(
@@ -57,7 +90,23 @@ Modifiers = Command(
             ),
         ]
     ),
-    error=Struct([]),
+    error=Struct(
+        [
+            Field(
+                "INVALID_CLASS",
+                ErrorConstants.INVALID_CLASS,
+                "refType is not the ID of a reference type.",
+            ),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
+        ]
+    ),
 )
 
 Fields = Command(
@@ -81,16 +130,22 @@ Fields = Command(
         [
             Field(
                 "CLASS_NOT_PREPARED",
-                Types.STRING,
+                ErrorConstants.CLASS_NOT_PREPARED,
                 "Class has been loaded but not yet prepared.",
             ),
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -116,16 +171,22 @@ Methods = Command(
         [
             Field(
                 "CLASS_NOT_PREPARED",
-                Types.STRING,
+                ErrorConstants.CLASS_NOT_PREPARED,
                 "Class has been loaded but not yet prepared.",
             ),
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -153,12 +214,22 @@ GetValues = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("INVALID_FIELDID", Types.STRING, "Invalid field."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "INVALID_FIELDID",
+                ErrorConstants.INVALID_FIELDID,
+                "One or more fieldIDs are invalid.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -185,16 +256,22 @@ SourceFile = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
             Field(
                 "ABSENT_INFORMATION",
-                Types.STRING,
-                "The source file attribute is absent.",
+                ErrorConstants.ABSENT_INFORMATION,
+                "The source file attribute is not present.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -220,11 +297,17 @@ NestedTypes = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -246,11 +329,17 @@ Status = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -273,11 +362,17 @@ Interfaces = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -295,11 +390,17 @@ ClassObject = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -317,19 +418,27 @@ SourceDebugExtension = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
             Field(
-                "ABSENT_INFORMATION", Types.STRING, "If the extension is not specified."
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "ABSENT_INFORMATION",
+                ErrorConstants.ABSENT_INFORMATION,
+                "The source debug extension attribute is not present.",
             ),
             Field(
                 "NOT_IMPLEMENTED",
-                Types.STRING,
+                ErrorConstants.NOT_IMPLEMENTED,
                 "The functionality is not implemented in this virtual machine.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -358,11 +467,17 @@ SignatureWithGeneric = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -393,16 +508,22 @@ FieldsWithGeneric = Command(
         [
             Field(
                 "CLASS_NOT_PREPARED",
-                Types.STRING,
+                ErrorConstants.CLASS_NOT_PREPARED,
                 "Class has been loaded but not yet prepared.",
             ),
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -434,16 +555,22 @@ MethodsWithGeneric = Command(
         [
             Field(
                 "CLASS_NOT_PREPARED",
-                Types.STRING,
+                ErrorConstants.CLASS_NOT_PREPARED,
                 "Class has been loaded but not yet prepared.",
             ),
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -471,17 +598,27 @@ Instances = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
-            Field("ILLEGAL_ARGUMENT", Types.STRING, "maxInstances is less than zero."),
+            Field(
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
             Field(
                 "NOT_IMPLEMENTED",
-                Types.STRING,
+                ErrorConstants.NOT_IMPLEMENTED,
                 "The functionality is not implemented in this virtual machine.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "Illegal Argument",
+                ErrorConstants.ILLEGAL_ARGUMENT,
+                "maxInstances is less than zero.",
+            ),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -501,16 +638,22 @@ ClassFileVersion = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
             Field(
-                "ABSENT_INFORMATION",
-                Types.STRING,
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
+            ),
+            Field(
+                "ABSENT INFORMATION",
+                ErrorConstants.ABSENT_INFORMATION,
                 "The class file version information is absent for primitive and array types.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
@@ -531,21 +674,22 @@ ConstantPool = Command(
         [
             Field(
                 "INVALID_CLASS",
-                Types.STRING,
+                ErrorConstants.INVALID_CLASS,
                 "refType is not the ID of a reference type.",
             ),
-            Field("INVALID_OBJECT", Types.STRING, "refType is not a known ID."),
             Field(
-                "NOT_IMPLEMENTED",
-                Types.STRING,
-                "If the target virtual machine does not support the retrieval of constant pool information.",
+                "INVALID_OBJECT",
+                ErrorConstants.INVALID_OBJECT,
+                "refType is not a known ID.",
             ),
             Field(
-                "ABSENT_INFORMATION",
-                Types.STRING,
-                "The Constant Pool information is absent for primitive and array types.",
+                "ABSENT INFORMATION",
+                ErrorConstants.ABSENT_INFORMATION,
+                "The class file version information is absent for primitive and array types.",
             ),
-            Field("VM_DEAD", Types.STRING, "The virtual machine is not running."),
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
         ]
     ),
 )
