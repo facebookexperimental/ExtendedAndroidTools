@@ -1,84 +1,60 @@
 """Basic types for JDWP messages."""
 
-
-class Type:
-    pass
+from typing import List
 
 
-class String(Type):
-    pass
+class Types:
+    """Types class."""
+
+    STRING = str
+    INT = int
+    BYTE = float
+    BOOLEAN = bool
+    DICT = dict
+    REFERENCE_TYPE_ID = "referenceTypeID"
+    CLASS_LOADER = "classLoader"
+    FIELD_ID = "fieldID"
+    METHOD_ID = "methodID"
+    VALUE = "value"
+    INTERFACE_ID = "interfaceID"
+    CLASS_OBJECT_ID = "classObjectID"
+    TAGGED_OBJECT_ID = "taggedObjectID"
+    THREAD_ID = "threadID"
+    THREAD_GROUP_ID = "threadGroupID"
+    OBJECT_ID = "objectID"
+    LOCATION = "location"
 
 
-class Int(Type):
-    pass
-
-
-# Define Field class
 class Field:
-    def __init__(self, name, type):
+    """Field class."""
+
+    def __init__(self, name: str, type: str, description: str):
         self.name = name
         self.type = type
+        self.description = description
 
 
-# Define Struct class
 class Struct:
-    def __init__(self, fields):
+    """Struct class."""
+
+    def __init__(self, fields: List[Field]):
         self.fields = fields
 
 
-# Define Command class
 class Command:
-    def __init__(self, name, id, out, reply):
+    """Command class."""
+
+    def __init__(self, name: str, id: int, out: Struct, reply: Struct):
         self.name = name
         self.id = id
         self.out = out
         self.reply = reply
 
 
-# Define CommandSet class
 class CommandSet:
-    def __init__(self, name, id, commands):
+    """Command set class."""
+
+    def __init__(self, name: str, id: int, commands: List[Command]):
         self.name = name
         self.id = id
         self.commands = commands
-
-
-# Create JDWP message descriptions
-Version = Command(
-    name="version",
-    id=1,
-    out=None,
-    reply=Struct(
-        [
-            Field("description", String),
-            Field("jdwp major", Int),
-            Field("jdwp minor", Int),
-            Field("vm version", String),
-            Field("vm name", String),
-        ]
-    ),
-)
-
-ClassesBySignature = Command(
-    name="classes by signature",
-    id=2,
-    out=Struct(
-        [
-            Field("signature", String),
-        ]
-    ),
-    reply=Struct(
-        [
-            # ... (other fields)
-        ]
-    ),
-)
-
-VirtualMachine = CommandSet(
-    name="VirtualMachine",
-    id=1,
-    commands=[
-        Version,
-        ClassesBySignature,
-    ],
-)
