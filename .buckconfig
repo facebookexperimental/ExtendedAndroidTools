@@ -15,7 +15,3 @@ target_platform_detector_spec = target:root//...->prelude//platforms:default
 
 [project]
 ignore = .git
-
-[python]
-interpreter_path = /out/host/bin/python3
-typed_python_config = /out/host/bin/pyre
