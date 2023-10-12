@@ -1,11 +1,12 @@
-jdwp_binary(
+python_binary(
   name = "main",
-  srcs = [],
+  main = "main.py",
   deps = [],
 )
 
-jdwp_library(
-  name = "lib",
-  srcs = [],
-  visibility = ["PUBLIC"],
+
+python_library(
+    name = "lib",
+    srcs = [],
+    visibility = ["PUBLIC"],
 )
