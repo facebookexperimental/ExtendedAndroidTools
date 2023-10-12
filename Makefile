@@ -29,6 +29,9 @@ ANDROID_OUT_DIR = $(OUT_DIR)/android/$(NDK_ARCH)
 ANDROID_SYSROOTS_OUT_DIR = $(OUT_DIR)/sysroots/$(NDK_ARCH)
 HOST_OUT_DIR = $(OUT_DIR)/host
 
+HOST_OS = $(shell uname -o)
+HOST_MACHINE = $(shell uname -m)
+
 export PATH:=$(abspath $(HOST_OUT_DIR)/bin):$(PATH)
 
 all:
