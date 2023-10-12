@@ -6,4 +6,4 @@ class InvokeOptions(IntEnum):
     """Invoke options constants for JDWP."""
 
     INVOKE_SINGLE_THREADED = 0x01
-    INVOKE_NON_VIRTUAL = 0x02
+    INVOKE_NONVIRTUAL = 0x02
