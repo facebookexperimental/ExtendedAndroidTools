@@ -1,5 +1,4 @@
-jdwp_test(
+python_test(
   name = "tests",
-  srcs = [],
-  deps = [],
+  srcs = glob(["*.py"]),
 )
