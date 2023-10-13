@@ -17,6 +17,9 @@
 .vagrant/
 ubuntu-bionic-18.04-cloudimg-console.log
 
+# pyre
+.pyre/
+
 bpftools-arm64.tar.gz
 bpftools-min-arm64.tar.gz
 bpftools-x86_64.tar.gz
