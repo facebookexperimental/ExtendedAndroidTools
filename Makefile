@@ -37,7 +37,7 @@ export PATH:=$(abspath $(HOST_OUT_DIR)/bin):$(PATH)
 all:
 	@echo "Choose a project to build"
 
-include toolchain/toolchain.mk
+include toolchains/toolchains.mk
 
 $(ANDROID_BUILD_DIR) $(HOST_BUILD_DIR) $(DOWNLOADS_DIR) $(ANDROID_SYSROOTS_OUT_DIR):
 	mkdir -p $@

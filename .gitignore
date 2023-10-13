@@ -8,6 +8,7 @@
 # build files
 /build/
 /out/
+/buck-out/
 
 # sources
 /projects/*/sources
@@ -15,6 +16,9 @@
 # Vagrant files
 .vagrant/
 ubuntu-bionic-18.04-cloudimg-console.log
+
+# pyre
+.pyre/
 
 bpftools-arm64.tar.gz
 bpftools-min-arm64.tar.gz
