@@ -3,6 +3,22 @@ name: Build bpftools archives
 on: [push, pull_request]
 
 jobs:
+  build_jdwp_project:
+    name: Build and Test JDWP Project
+    runs-on: ubuntu-22.04
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Initialize Buck2 Project
+      run: make buck2-host
+    - name: Run Buck Build
+      run: buck2 run //projects/jdwp:main
+    - name: Run Buck Tests
+      run: buck2 test //projects/jdwp/tests/...
+    - name: Setup Pyre
+      run: make pyre-host
+    - name: Run Pyre Type Checking
+      run: cd projects/jdwp && pyre
   build_bpftools:
     name: Build bpftools archive
     runs-on: ubuntu-22.04
