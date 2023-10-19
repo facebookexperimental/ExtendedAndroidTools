@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Initialize JDWP Project Dependencies
-      run: make buck2-host python2-host pyre-host
+      run: make buck2-host python-host pyre-host
     - name: Setup path environment
       run: eval `make setup-env`
     - name: Run Buck2 Build
