@@ -9,10 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - name: Debug working directory
-      run: |
-          echo "Current directory: $(pwd)"
-          echo "PATH: $PATH"
+    - name: Navigate to Parent Directory
+      run: cd ..  
     - name: Initialize submodule folder
       run: git submodule init && git submodule update
     - name: Initialize JDWP Project Dependencies
