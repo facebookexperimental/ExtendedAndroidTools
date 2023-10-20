@@ -9,6 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+    - name: Initialize submodule folder
+      run: git submodule init && git submodule update
     - name: Initialize JDWP Project Dependencies
       run: make buck2-host python-host pyre-host
     - name: Setup path environment
