@@ -14,11 +14,11 @@ jobs:
     - name: Setup path environment
       run: eval `make setup-env`
     - name: Run Buck2 Build
-      run: buck2 run //projects/jdwp:main
+      run: out/host/bin/buck2 run //projects/jdwp:main
     - name: Run Buck2 Tests
-      run: buck2 test //projects/jdwp/tests/...
+      run: out/host/bin/buck2 test //projects/jdwp/tests/...
     - name: Run Pyre Type Checking
-      run: cd projects/jdwp && pyre
+      run: cd projects/jdwp && out/host/bin/pyre
   # build_bpftools:
   #   name: Build bpftools archive
   #   runs-on: ubuntu-22.04
