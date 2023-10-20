@@ -1,5 +1,6 @@
 """ JDWP serializer classes. """
 
+
 class JDWPPacketHeader:
     def __init__(self, length: int, id: int, flags: int, command_set: int, command: int):
         self.length = length
@@ -26,3 +27,5 @@ class JDWPPacket:
         header_bytes = self.header.serialize()
         return header_bytes + self.payload
 
+def serialize_jdwp_packet(packet: JDWPPacket) -> bytes:
+    return packet.serialize()
