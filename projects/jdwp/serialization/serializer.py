@@ -1,14 +1,14 @@
 """ JDWP serializer classes. """
 
-class JDWPPacketHeaders:
-    def __init__(self, length, id, flags, command_set, command):
+class JDWPPacketHeader:
+    def __init__(self, length: int, id: int, flags: int, command_set: int, command: int):
         self.length = length
         self.id = id
         self.flags = flags
         self.command_set = command_set
         self.command = command
 
-    def serialize(self):
+    def serialize(self) -> bytes:
         length_bytes = self.length.to_bytes(4, byteorder='big')
         id_bytes = self.id.to_bytes(4, byteorder='big')
         flags_bytes = self.flags.to_bytes(1, byteorder='big')
@@ -18,11 +18,11 @@ class JDWPPacketHeaders:
 
 
 class JDWPPacket:
-    def __init__(self, header, payload):
+    def __init__(self, header: JDWPPacketHeader, payload: bytes):
         self.header = header
         self.payload = payload
 
-    def serialize(self):
+    def serialize(self) -> bytes:
         header_bytes = self.header.serialize()
         return header_bytes + self.payload
 
