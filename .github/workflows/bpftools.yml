@@ -3,10 +3,6 @@ name: Build bpftools archives
 on: [push, pull_request]
 
 jobs:
-  build_jdwp_project:
-    name: Build and Test JDWP Project
-    runs-on: ubuntu-22.04
-
   build_bpftools:
     name: Build bpftools archive
     runs-on: ubuntu-22.04
