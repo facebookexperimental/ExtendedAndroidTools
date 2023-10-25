@@ -23,11 +23,11 @@ Signature = Command(
             ),
         ]
     ),
-    error=Sequence[
+    error={
         ErrorType.INVALID_CLASS,
         ErrorType.INVALID_OBJECT,
         ErrorType.VM_DEAD,
-    ],
+    },
 )
 
 
