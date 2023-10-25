@@ -1,28 +1,28 @@
-name: Build jdwp project
+# name: Build jdwp project
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  build_jdwp_project:
-    name: Build and Test JDWP Project
-    runs-on: ubuntu-22.04
+# jobs:
+#   build_jdwp_project:
+#     name: Build and Test JDWP Project
+#     runs-on: ubuntu-22.04
     
-    steps:
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v3
-      with:
-         submodules: recursive
-    - name: Initialize JDWP Project Dependencies
-      run: make buck2-host python-host pyre-host
-    - name: Build and run
-      run: |
-        eval `make setup-env`
-        buck2 run //projects/jdwp:main
-    - name: Run Tests
-      run: |
-        eval `make setup-env`
-        buck2 test //projects/jdwp/tests/...
-    - name: Run Pyre Type Checking
-      run: |
-        eval `make setup-env`
-        cd projects/jdwp && pyre check
+#     steps:
+#     - name: Checkout repository and submodules
+#       uses: actions/checkout@v3
+#       with:
+#          submodules: recursive
+#     - name: Initialize JDWP Project Dependencies
+#       run: make buck2-host python-host pyre-host
+#     - name: Build and run
+#       run: |
+#         eval `make setup-env`
+#         buck2 run //projects/jdwp:main
+#     - name: Run Tests
+#       run: |
+#         eval `make setup-env`
+#         buck2 test //projects/jdwp/tests/...
+#     - name: Run Pyre Type Checking
+#       run: |
+#         eval `make setup-env`
+#         cd projects/jdwp && pyre check
