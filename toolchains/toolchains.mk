@@ -6,8 +6,8 @@ ANDROID_TOOLCHAIN_PATH = \
     $(abspath $(NDK_PATH)/toolchains/llvm/prebuilt/linux-x86_64/bin)
 ANDROID_TOOLCHAIN_STRIP_PATH = $(ANDROID_TOOLCHAIN_PATH)/llvm-strip
 
-include toolchain/autotools.mk
-include toolchain/cmake.mk
+include toolchains/autotools.mk
+include toolchains/cmake.mk
 
 ifeq ($(NDK_ARCH), arm64)
 ANDROID_SYSROOT_LIB_SUBDIR = aarch64-linux-android

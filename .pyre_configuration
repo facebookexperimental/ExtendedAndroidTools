@@ -1,0 +1,10 @@
+{
+  "use_buck2": true,
+  "bxl_builder": "prelude//python/sourcedb/classic.bxl:build",
+  "targets": [
+    "root//projects/jdwp/..."
+  ],
+  "ignore_all_errors": [
+    "out"
+  ]
+}

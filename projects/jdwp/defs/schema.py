@@ -1,9 +1,13 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 """Basic types for JDWP messages."""
 
 from dataclasses import dataclass
-from collections.abc import Sequence
-from typing import List, Union
+from typing import Optional
 from enum import Enum
+from collections.abc import Set, Sequence
+
+from projects.jdwp.defs.constants import ErrorType
 
 
 class PrimitiveType(Enum):
@@ -42,7 +46,7 @@ class TaggedUnion(Enum):
     pass
 
 
-Types = Union[PrimitiveType, ArrayType, TaggedUnion]
+Type = PrimitiveType | ArrayType | TaggedUnion
 
 
 @dataclass(frozen=True)
@@ -50,7 +54,7 @@ class Field:
     """Field class."""
 
     name: str
-    type = Types
+    type: Type
     description: str
 
 
@@ -58,7 +62,7 @@ class Field:
 class Struct:
     """Struct class."""
 
-    fields: Sequence[Union[Field, ArrayType]]
+    fields: Sequence[Field | ArrayType]
 
 
 @dataclass(frozen=True)
@@ -67,9 +71,9 @@ class Command:
 
     name: str
     id: int
-    out: Struct
-    reply: Struct
-    error: Struct
+    out: Optional[Struct]
+    reply: Optional[Struct]
+    error: Set[ErrorType]
 
 
 @dataclass(frozen=True)
@@ -78,4 +82,4 @@ class CommandSet:
 
     name: str
     id: int
-    commands: List[Command]
+    commands: Sequence[Command]
