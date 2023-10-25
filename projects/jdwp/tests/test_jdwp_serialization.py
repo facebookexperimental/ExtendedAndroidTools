@@ -1,5 +1,5 @@
 import unittest
-from jdwp.serialization.serializer import JDWPPacketHeader, JDWPPacket, serialize_jdwp_packet
+from projects.jdwp.serializers.jdwp_packet_erializer import JDWPPacketHeader, JDWPPacket, serialize_jdwp_packet
 
 
 class TestJDWPPacketSerialization(unittest.TestCase):
