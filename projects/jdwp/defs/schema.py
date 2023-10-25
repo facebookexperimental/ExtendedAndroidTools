@@ -52,7 +52,7 @@ class Field:
     """Field class."""
 
     name: str
-    type = Type
+    type: Type
     description: str
 
 
