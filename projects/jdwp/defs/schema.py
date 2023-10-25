@@ -34,7 +34,7 @@ class PrimitiveType(Enum):
 
 
 @dataclass(frozen=True)
-class ArrayType(Enum):
+class Array(Enum):
     """Array class type."""
     base_type: PrimitiveType
     dimensions: int
@@ -46,7 +46,7 @@ class TaggedUnion(Enum):
     pass
 
 
-Type = PrimitiveType | ArrayType | TaggedUnion
+Type = PrimitiveType | Array | TaggedUnion
 
 
 @dataclass(frozen=True)
@@ -62,7 +62,7 @@ class Field:
 class Struct:
     """Struct class."""
 
-    fields: Sequence[Field | ArrayType]
+    fields: Sequence[Field | Array]
 
 
 @dataclass(frozen=True)
