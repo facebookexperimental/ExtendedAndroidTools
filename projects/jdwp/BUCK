@@ -8,7 +8,7 @@ python_binary(
 
 
 python_library(
-    name = "defs",
+    name = "lib",
     srcs = glob(["**/*.py"]),
     visibility = ["PUBLIC"],
 )
