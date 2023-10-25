@@ -9,6 +9,6 @@ python_binary(
 
 python_library(
     name = "lib",
-    srcs = [],
+    srcs = glob(["**/*.py"]),
     visibility = ["PUBLIC"],
 )
