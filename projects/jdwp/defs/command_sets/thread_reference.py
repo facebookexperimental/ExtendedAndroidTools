@@ -1,3 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 """Command Set: ThreadReference."""
 
 from jdwp.defs.schema import CommandSet

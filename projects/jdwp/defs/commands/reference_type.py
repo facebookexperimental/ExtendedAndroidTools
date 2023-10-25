@@ -1,3 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 """JDWP Commands for Reference Type Command Set."""
 from jdwp.defs.schema import Command, Field, Struct, Type
 from jdwp.constants.errors import ErrorConstants

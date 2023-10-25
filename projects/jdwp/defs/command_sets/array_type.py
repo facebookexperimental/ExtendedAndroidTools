@@ -1,3 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 """Command Set: ArrayType."""
 
 from jdwp.defs.schema import CommandSet
