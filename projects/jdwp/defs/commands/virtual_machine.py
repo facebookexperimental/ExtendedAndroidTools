@@ -5,6 +5,7 @@
 from projects.jdwp.defs.schema import Command, Field, Struct, Type, Array
 from projects.jdwp.constants.errors import ErrorConstants
 
+
 AllClasses = Command(
     name="AllClasses",
     id=3,
