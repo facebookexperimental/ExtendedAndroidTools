@@ -1,19 +1,24 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 """JDWP Commands for Reference Type Command Set."""
-from jdwp.defs.schema import Command, Field, Struct, Types
+
+
+from jdwp.defs.schema import Command, Field, Struct, Type
 from jdwp.constants.errors import ErrorConstants
+
 
 NewInstance = Command(
     name="NewInstance",
     id=1,
     out=Struct(
         [
-            Field("arrayTypeID", Types.ARRAY_TYPE_ID, "The array type of the new instance."),
-            Field("length", Types.INT, "The length of the array."),
+            Field("arrayTypeID", Type.ARRAY_TYPE_ID, "The array type of the new instance."),
+            Field("length", Type.INT, "The length of the array."),
         ]
     ),
     reply=Struct(
         [
-            Field("newArray", Types.TAGGED_OBJECT_ID, "The newly created array object."),
+            Field("newArray", Type.TAGGED_OBJECT_ID, "The newly created array object."),
         ]
     ),
     error=Struct(
