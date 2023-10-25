@@ -1,7 +1,9 @@
-from enum import Enum, IntEnum
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+from enum import Enum, Flag
 
 
-class ErrorConstants(Enum):
+class ErrorType(Enum):
     """Error constants for JDWP."""
 
     NONE = 0
@@ -102,7 +104,7 @@ class EventKind(Enum):
     VM_DISCONNECTED = 100
 
 
-class InvokeOptions(IntEnum):
+class InvokeOptions(Flag):
     """Invoke options constants for JDWP."""
 
     INVOKE_SINGLE_THREADED = 0x01
