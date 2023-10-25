@@ -1,6 +1,7 @@
 """Basic types for JDWP messages."""
 
 from dataclasses import dataclass
+from collections.abc import Sequence
 from typing import List, Union
 from enum import Enum
 
@@ -25,12 +26,14 @@ class PrimitiveType(Enum):
     THREAD_GROUP_ID = "threadGroupID"
     OBJECT_ID = "objectID"
     LOCATION = "location"
+    ARRAY_TYPE_ID = "arrayTypeID"
 
 
-class Array(Enum):
+@dataclass(frozen=True)
+class ArrayType(Enum):
     """Array class type."""
-
-    pass
+    base_type: PrimitiveType
+    dimensions: int
 
 
 class TaggedUnion(Enum):
@@ -39,7 +42,7 @@ class TaggedUnion(Enum):
     pass
 
 
-Types = Union[PrimitiveType, Array, TaggedUnion]
+Types = Union[PrimitiveType, ArrayType, TaggedUnion]
 
 
 @dataclass(frozen=True)
@@ -55,7 +58,7 @@ class Field:
 class Struct:
     """Struct class."""
 
-    fields: List[Field]
+    fields: Sequence[Union[Field, ArrayType]]
 
 
 @dataclass(frozen=True)
