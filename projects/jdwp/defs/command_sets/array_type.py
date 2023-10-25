@@ -1,7 +1,7 @@
 """Command Set: ArrayType."""
 
 from jdwp.defs.schema import CommandSet
-from jdwp.defs.commands.reference_type import (
+from jdwp.defs.commands.array_type import (
     NewInstance,
 )
 
