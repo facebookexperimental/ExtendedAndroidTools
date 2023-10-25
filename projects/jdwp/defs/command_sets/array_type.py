@@ -4,6 +4,7 @@
 
 from projects.jdwp.defs.schema import CommandSet
 from projects.jdwp.defs.commands.array_type import (
+
     NewInstance,
 )
 
