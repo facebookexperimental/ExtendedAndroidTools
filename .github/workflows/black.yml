@@ -1,0 +1,12 @@
+name: Lint Codebase
+
+on: [push, pull_request]
+
+jobs:
+  lint_codebase:
+    name: Lint and format codebase
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
