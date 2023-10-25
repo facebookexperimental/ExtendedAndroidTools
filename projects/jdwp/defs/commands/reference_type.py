@@ -666,7 +666,13 @@ ConstantPool = Command(
     out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The class.")]),
     reply=Struct(
         [
+<<<<<<< HEAD
             Field("count", Type.INT, "Total number of constant pool entries plus one."),
+=======
+            Field(
+                "count", Type.INT, "Total number of constant pool entries plus one."
+            ),
+>>>>>>> 7667236 (rename types)
             Field("bytes", Type.BYTE, "Raw bytes of constant pool"),
         ]
     ),

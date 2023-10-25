@@ -5,6 +5,7 @@
 from projects.jdwp.defs.schema import Command, Field, Struct, Type
 from projects.jdwp.constants.errors import ErrorConstants
 
+
 Name = Command(
     name="Name",
     id=1,
