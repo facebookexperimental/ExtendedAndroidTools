@@ -2,10 +2,9 @@
 
 """Command Set: ReferenceType."""
 
-from jdwp.defs.schema import CommandSet, Type
-from jdwp.defs.schema import Command, Field, Struct
+
+from projects.jdwp.defs.schema import Command, Field, Struct, CommandSet, Type
 from projects.jdwp.defs.constants import ErrorType
-from collections.abc import Sequence
 
 
 Signature = Command(
