@@ -198,3 +198,17 @@ define project-define =
   .PHONY: remove-$(1)-sources
   remove-$(1)-sources: ; rm -rf projects/$(1)/sources
 endef
+
+# Macro defining rules installing a python library/tool via pip
+define pip-project =
+  $(call project-to-var,$(1))_HOST := \
+      $(call project-host-target,$(1))
+
+  $(1)-host: $(call project-host-target,$(1))
+
+  $(call project-host-target,$(1)): \
+      $(call project-host-target,python) \
+      | $(HOST_BUILD_DIR)
+	python3 -m pip install $(if $(2),$(2),$(1))
+	touch $$@
+endef

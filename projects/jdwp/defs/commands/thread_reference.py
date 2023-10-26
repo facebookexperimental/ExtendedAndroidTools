@@ -1,13 +1,15 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 """JDWP Commands for ThreadReference Command Set."""
 
-from jdwp.defs.schema import Command, Field, Struct, Types
-from jdwp.constants.errors import ErrorConstants
+from projects.jdwp.defs.schema import Command, Field, Struct, Type
+from projects.jdwp.constants.errors import ErrorConstants
 
 Name = Command(
     name="Name",
     id=1,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
-    reply=Struct([Field("threadName", Types.STRING, "The thread name.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
+    reply=Struct([Field("threadName", Type.STRING, "The thread name.")]),
     error=Struct(
         [
             Field(
@@ -31,7 +33,7 @@ Name = Command(
 Suspend = Command(
     name="Suspend",
     id=2,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct([]),
     error=Struct(
         [
@@ -55,7 +57,7 @@ Suspend = Command(
 Resume = Command(
     name="Resume",
     id=3,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct([]),
     error=Struct(
         [
@@ -79,17 +81,17 @@ Resume = Command(
 Status = Command(
     name="Status",
     id=4,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
         [
             Field(
                 "threadStatus",
-                Types.INT,
+                Type.INT,
                 "One of the thread status codes. See JDWP.ThreadStatus",
             ),
             Field(
                 "suspendStatus",
-                Types.INT,
+                Type.INT,
                 "One of the suspend status codes. See JDWP.SuspendStatus",
             ),
         ]
@@ -116,12 +118,12 @@ Status = Command(
 ThreadGroup = Command(
     name="Thread group",
     id=5,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
         [
             Field(
                 "threadGroupID",
-                Types.THREAD_GROUP_ID,
+                Type.THREAD_GROUP_ID,
                 "The thread group of this thread.",
             )
         ]
@@ -150,20 +152,20 @@ Frames = Command(
     id=6,
     out=Struct(
         [
-            Field("threadID", Types.THREAD_ID, "The thread object ID."),
-            Field("startFrame", Types.INT, "The index of the first frame to retrieve."),
+            Field("threadID", Type.THREAD_ID, "The thread object ID."),
+            Field("startFrame", Type.INT, "The index of the first frame to retrieve."),
             Field(
                 "length",
-                Types.INT,
+                Type.INT,
                 "The count of frames to retrieve (-1 means all remaining).",
             ),
         ]
     ),
     reply=Struct(
         [
-            Field("frames", Types.INT, "The number of frames retrieved"),
-            Field("frameID", Types.FRAME_ID, "The ID of this frame."),
-            Field("location", Types.LOCATION, "The location of this frame."),
+            Field("frames", Type.INT, "The number of frames retrieved"),
+            Field("frameID", Type.FRAME_ID, "The ID of this frame."),
+            Field("location", Type.LOCATION, "The location of this frame."),
         ]
     ),
     error=Struct(
@@ -188,9 +190,9 @@ Frames = Command(
 FrameCount = Command(
     name="Frame count",
     id=7,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
-        [Field("frameCount", Types.INT, "The count of frames on this thread's stack.")]
+        [Field("frameCount", Type.INT, "The count of frames on this thread's stack.")]
     ),
     error=Struct(
         [
@@ -214,11 +216,11 @@ FrameCount = Command(
 OwnedMonitors = Command(
     name="Owned monitors",
     id=8,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
         [
-            Field("owned", Types.INT, "The number of owned monitors"),
-            Field("monitor", Types.TAGGED_OBJECT_ID, "An owned monitor"),
+            Field("owned", Type.INT, "The number of owned monitors"),
+            Field("monitor", Type.TAGGED_OBJECT_ID, "An owned monitor"),
         ]
     ),
     error=Struct(
@@ -248,12 +250,12 @@ OwnedMonitors = Command(
 CurrentContendedMonitor = Command(
     name="Current contended monitor",
     id=9,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
         [
             Field(
                 "monitor",
-                Types.OBJECT_ID,
+                Type.OBJECT_ID,
                 "The contended monitor, or null if there is no current contended monitor.",
             )
         ]
@@ -287,10 +289,10 @@ Stop = Command(
     id=10,
     out=Struct(
         [
-            Field("threadID", Types.THREAD_ID, "The thread object ID."),
+            Field("threadID", Type.THREAD_ID, "The thread object ID."),
             Field(
                 "throwable",
-                Types.OBJECT_ID,
+                Type.OBJECT_ID,
                 "Asynchronous exception. This object must be an instance of java.lang.Throwable or a subclass",
             ),
         ]
@@ -318,7 +320,7 @@ Stop = Command(
 Interrupt = Command(
     name="Interrupt",
     id=11,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct([]),
     error=Struct(
         [
@@ -342,12 +344,12 @@ Interrupt = Command(
 SuspendCount = Command(
     name="Suspend count",
     id=12,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
         [
             Field(
                 "suspendCount",
-                Types.INT,
+                Type.INT,
                 "The number of outstanding suspends of this thread.",
             )
         ]
@@ -374,14 +376,14 @@ SuspendCount = Command(
 OwnedMonitorsStackDepthInfo = Command(
     name="Owned monitors stack depth info",
     id=13,
-    out=Struct([Field("threadID", Types.THREAD_ID, "The thread object ID.")]),
+    out=Struct([Field("threadID", Type.THREAD_ID, "The thread object ID.")]),
     reply=Struct(
         [
-            Field("owned", Types.INT, "The number of owned monitors"),
-            Field("monitor", Types.TAGGED_OBJECT_ID, "An owned monitor"),
+            Field("owned", Type.INT, "The number of owned monitors"),
+            Field("monitor", Type.TAGGED_OBJECT_ID, "An owned monitor"),
             Field(
                 "stack_depth",
-                Types.INT,
+                Type.INT,
                 "Stack depth location where monitor was acquired",
             ),
         ]
@@ -415,8 +417,8 @@ ForceEarlyReturn = Command(
     id=14,
     out=Struct(
         [
-            Field("threadID", Types.THREAD_ID, "The thread object ID."),
-            Field("value", Types.VALUE, "The value to return."),
+            Field("threadID", Type.THREAD_ID, "The thread object ID."),
+            Field("value", Type.VALUE, "The value to return."),
         ]
     ),
     reply=Struct([]),

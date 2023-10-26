@@ -1,0 +1,14 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+python_binary(
+  name = "main",
+  main = "main.py",
+  deps = [],
+)
+
+
+python_library(
+    name = "lib",
+    srcs = glob(["**/*.py"]),
+    visibility = ["PUBLIC"],
+)
