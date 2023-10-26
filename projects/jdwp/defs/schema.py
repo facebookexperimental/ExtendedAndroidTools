@@ -37,6 +37,7 @@ class PrimitiveType(Enum):
 @dataclass(frozen=True)
 class Array(Enum):
     """Array class type."""
+
     base_type: PrimitiveType
     dimensions: int
 

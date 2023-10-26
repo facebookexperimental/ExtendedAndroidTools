@@ -12,8 +12,11 @@ AllClasses = Command(
     reply=Struct(
         fields=[
             Field("classes", Type.INT, "Number of reference types that follow."),
-            Field("referenceTypes", Array(Type.BYTE, Type.INT),
-                  "Array of reference types."),
+            Field(
+                "referenceTypes",
+                Array(Type.BYTE, Type.INT),
+                "Array of reference types.",
+            ),
         ]
     ),
     error=Struct(
@@ -22,5 +25,5 @@ AllClasses = Command(
                 "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
             ),
         ]
-    )
+    ),
 )

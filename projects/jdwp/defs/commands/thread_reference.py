@@ -153,8 +153,7 @@ Frames = Command(
     out=Struct(
         [
             Field("threadID", Type.THREAD_ID, "The thread object ID."),
-            Field("startFrame", Type.INT,
-                  "The index of the first frame to retrieve."),
+            Field("startFrame", Type.INT, "The index of the first frame to retrieve."),
             Field(
                 "length",
                 Type.INT,

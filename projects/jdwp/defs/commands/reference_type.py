@@ -82,8 +82,7 @@ ClassLoader = Command(
 Modifiers = Command(
     name="Modifiers",
     id=3,
-    out=Struct(
-        [Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
+    out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
     reply=Struct(
         [
             Field(
@@ -115,8 +114,7 @@ Modifiers = Command(
 Fields = Command(
     name="Fields",
     id=4,
-    out=Struct(
-        [Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
+    out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
     reply=Struct(
         [
             Field("declared", Type.INT, "Number of declared fields."),
@@ -157,8 +155,7 @@ Fields = Command(
 Methods = Command(
     name="Methods",
     id=5,
-    out=Struct(
-        [Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
+    out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
     reply=Struct(
         [
             Field("declared", Type.INT, "Number of declared methods."),
@@ -291,8 +288,7 @@ NestedType = Command(
     ),
     reply=Struct(
         [
-            Field("classes", Type.INT,
-                  "The number of nested classes and interfaces"),
+            Field("classes", Type.INT, "The number of nested classes and interfaces"),
             Field("refTypeTag", Type.BYTE, "Kind of following reference type."),
             Field(
                 "typeID", Type.REFERENCE_TYPE_ID, "The nested class or interface ID."
@@ -391,8 +387,7 @@ ClassObject = Command(
             Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID."),
         ]
     ),
-    reply=Struct(
-        [Field("classObject", Type.CLASS_OBJECT_ID, "Class object.")]),
+    reply=Struct([Field("classObject", Type.CLASS_OBJECT_ID, "Class object.")]),
     error=Struct(
         [
             Field(
@@ -588,8 +583,7 @@ Instances = Command(
     out=Struct(
         [
             Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID."),
-            Field("maxInstances", Type.INT,
-                  "Maximum number of instances to return."),
+            Field("maxInstances", Type.INT, "Maximum number of instances to return."),
         ]
     ),
     reply=Struct(
@@ -672,9 +666,7 @@ ConstantPool = Command(
     out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The class.")]),
     reply=Struct(
         [
-            Field(
-                "count", Type.INT, "Total number of constant pool entries plus one."
-            ),
+            Field("count", Type.INT, "Total number of constant pool entries plus one."),
             Field("bytes", Type.BYTE, "Raw bytes of constant pool"),
         ]
     ),
