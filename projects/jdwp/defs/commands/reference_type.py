@@ -1,8 +1,8 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
 """JDWP Commands for Reference Type Command Set."""
-from jdwp.defs.schema import Command, Field, Struct, Type
-from jdwp.constants.errors import ErrorConstants
+from projects.jdwp.defs.schema import Command, Field, Struct, Type
+from projects.jdwp.constants.errors import ErrorConstants
 
 
 Signature = Command(
@@ -82,7 +82,8 @@ ClassLoader = Command(
 Modifiers = Command(
     name="Modifiers",
     id=3,
-    out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
+    out=Struct(
+        [Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
     reply=Struct(
         [
             Field(
@@ -114,7 +115,8 @@ Modifiers = Command(
 Fields = Command(
     name="Fields",
     id=4,
-    out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
+    out=Struct(
+        [Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
     reply=Struct(
         [
             Field("declared", Type.INT, "Number of declared fields."),
@@ -155,7 +157,8 @@ Fields = Command(
 Methods = Command(
     name="Methods",
     id=5,
-    out=Struct([Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
+    out=Struct(
+        [Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID.")]),
     reply=Struct(
         [
             Field("declared", Type.INT, "Number of declared methods."),
@@ -288,7 +291,8 @@ NestedType = Command(
     ),
     reply=Struct(
         [
-            Field("classes", Type.INT, "The number of nested classes and interfaces"),
+            Field("classes", Type.INT,
+                  "The number of nested classes and interfaces"),
             Field("refTypeTag", Type.BYTE, "Kind of following reference type."),
             Field(
                 "typeID", Type.REFERENCE_TYPE_ID, "The nested class or interface ID."
@@ -387,7 +391,8 @@ ClassObject = Command(
             Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID."),
         ]
     ),
-    reply=Struct([Field("classObject", Type.CLASS_OBJECT_ID, "Class object.")]),
+    reply=Struct(
+        [Field("classObject", Type.CLASS_OBJECT_ID, "Class object.")]),
     error=Struct(
         [
             Field(
@@ -583,7 +588,8 @@ Instances = Command(
     out=Struct(
         [
             Field("refType", Type.REFERENCE_TYPE_ID, "The reference type ID."),
-            Field("maxInstances", Type.INT, "Maximum number of instances to return."),
+            Field("maxInstances", Type.INT,
+                  "Maximum number of instances to return."),
         ]
     ),
     reply=Struct(

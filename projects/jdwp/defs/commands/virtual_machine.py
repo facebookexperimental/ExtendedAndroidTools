@@ -2,8 +2,8 @@
 
 """JDWP Commands for ThreadReference Command Set."""
 
-from jdwp.defs.schema import Command, Field, Struct, Type, Array
-from jdwp.constants.errors import ErrorConstants
+from projects.jdwp.defs.schema import Command, Field, Struct, Type, Array
+from projects.jdwp.constants.errors import ErrorConstants
 
 AllClasses = Command(
     name="AllClasses",
@@ -12,10 +12,15 @@ AllClasses = Command(
     reply=Struct(
         fields=[
             Field("classes", Type.INT, "Number of reference types that follow."),
-            Field("referenceTypes", Array(Type.BYTE), "Array of reference types."),
+            Field("referenceTypes", Array(Type.BYTE, Type.INT),
+                  "Array of reference types."),
         ]
     ),
-    error={
-        ErrorConstants.VM_DEAD: "The virtual machine is not running."
-    }
+    error=Struct(
+        [
+            Field(
+                "VM_DEAD", ErrorConstants.VM_DEAD, "The virtual machine is not running."
+            ),
+        ]
+    )
 )

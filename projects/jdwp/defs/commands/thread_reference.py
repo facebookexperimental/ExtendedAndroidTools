@@ -2,8 +2,8 @@
 
 """JDWP Commands for ThreadReference Command Set."""
 
-from jdwp.defs.schema import Command, Field, Struct, Type
-from jdwp.constants.errors import ErrorConstants
+from projects.jdwp.defs.schema import Command, Field, Struct, Type
+from projects.jdwp.constants.errors import ErrorConstants
 
 Name = Command(
     name="Name",
@@ -153,7 +153,8 @@ Frames = Command(
     out=Struct(
         [
             Field("threadID", Type.THREAD_ID, "The thread object ID."),
-            Field("startFrame", Type.INT, "The index of the first frame to retrieve."),
+            Field("startFrame", Type.INT,
+                  "The index of the first frame to retrieve."),
             Field(
                 "length",
                 Type.INT,

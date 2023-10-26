@@ -2,8 +2,8 @@
 
 """Command Set: ThreadReference."""
 
-from jdwp.defs.schema import CommandSet
-from jdwp.defs.commands.thread_reference import (
+from projects.jdwp.defs.schema import CommandSet
+from projects.jdwp.defs.commands.thread_reference import (
     Name,
     Suspend,
     Resume,

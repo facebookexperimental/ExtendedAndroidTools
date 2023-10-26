@@ -3,10 +3,11 @@
 """Basic types for JDWP messages."""
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Dict
+from typing_extensions import Literal
 from enum import Enum
 from collections.abc import Set, Sequence
-
+from projects.jdwp.constants.errors import ErrorConstants
 from projects.jdwp.defs.constants import ErrorType
 
 
@@ -46,7 +47,7 @@ class TaggedUnion(Enum):
     pass
 
 
-Type = PrimitiveType | Array | TaggedUnion
+Type = PrimitiveType | Array | TaggedUnion | ErrorConstants
 
 
 @dataclass(frozen=True)
@@ -73,7 +74,7 @@ class Command:
     id: int
     out: Optional[Struct]
     reply: Optional[Struct]
-    error: Set[ErrorType]
+    error: Dict[ErrorType, str] | Struct | Set[ErrorType]
 
 
 @dataclass(frozen=True)
