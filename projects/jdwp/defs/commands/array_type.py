@@ -19,7 +19,8 @@ NewInstance = Command(
     ),
     reply=Struct(
         [
-            Field("newArray", Type.TAGGED_OBJECT_ID, "The newly created array object."),
+            Field("newArray", Type.TAGGED_OBJECT_ID,
+                  "The newly created array object."),
         ]
     ),
     error=Struct(
