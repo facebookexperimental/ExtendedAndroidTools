@@ -95,5 +95,5 @@ from projects.jdwp.defs.command_sets.{self._convert_to_snake_case(command_set.na
         print(f"Generated serializer code saved to {serializer_file_name}")
 
 
-serializer_generator = CommandSerializerGenerator() 
+serializer_generator = CommandSerializerGenerator()
 gen_file = serializer_generator.generate_serializer_file(ReferenceType)
