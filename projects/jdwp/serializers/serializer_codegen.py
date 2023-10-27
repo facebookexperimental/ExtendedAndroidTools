@@ -1,6 +1,7 @@
 import re
 import os
 from projects.jdwp.defs.schema import Type, Struct, CommandSet, Command, Field
+from projects.jdwp.defs.command_sets.reference_type import ReferenceType
 
 
 class CommandSerializerGenerator:
@@ -36,13 +37,13 @@ class CommandSerializerGenerator:
             for subfield in field.fields:
                 deserializer_code += self.generate_field_deserializer(subfield)
         elif field.type == Type.INT:
-            deserializer_code = f"command.{field.name} = int.from_bytes(data[:4], 'big')\n        data = data[4:]"
+            deserializer_code = f"        command.{field.name} = int.from_bytes(data[:4], 'big')\n        data = data[4:]"
         elif field.type == Type.STRING:
-            deserializer_code = f"null_terminator = data.index(0)\n        command.{field.name} = data[:null_terminator].decode('utf-8')\n\t\tdata = data[null_terminator + 1:]"
+            deserializer_code = f"        null_terminator = data.index(0)\n        command.{field.name} = data[:null_terminator].decode('utf-8')\n\t\tdata = data[null_terminator + 1:]"
         elif field.type == Type.OBJECT_ID:
-            deserializer_code = f"command.{field.name} = int.from_bytes(data[:8], 'big')\n        data = data[8:]"
+            deserializer_code = f"        command.{field.name} = int.from_bytes(data[:8], 'big')\n        data = data[8:]"
         elif field.type == Type.REFERENCE_TYPE_ID:
-            deserializer_code = f"command.{field.name} = int.from_bytes(data[:8], 'big')\n        data = data[8:]"
+            deserializer_code = f"        command.{field.name} = int.from_bytes(data[:8], 'big')\n        data = data[8:]"
         return deserializer_code
 
     def generate_command_serializer(self, command: Command) -> str:
@@ -92,3 +93,7 @@ from projects.jdwp.defs.command_sets.{self._convert_to_snake_case(command_set.na
         with open(file_path, "w") as output_file:
             output_file.write(command_set_code)
         print(f"Generated serializer code saved to {serializer_file_name}")
+
+
+serializer_generator = CommandSerializerGenerator() 
+gen_file = serializer_generator.generate_serializer_file(ReferenceType)
