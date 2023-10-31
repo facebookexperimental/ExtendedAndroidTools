@@ -2,6 +2,7 @@
 
 """Basic types for JDWP messages."""
 
+from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional, Generic, TypeVar
 from enum import Enum
@@ -13,6 +14,8 @@ from projects.jdwp.defs.constants import ErrorType
 class PrimitiveType(Enum):
     """Primitive type class."""
 
+    STRING = "string"
+    BOOLEAN = "boolean"
     DICT = "dict"
     REFERENCE_TYPE_ID = "referenceTypeID"
     CLASS_LOADER = "classLoader"
@@ -31,10 +34,8 @@ class PrimitiveType(Enum):
 class IntegralType(Enum):
     """Integral type class."""
 
-    STRING = "string"
     INT = "int"
     BYTE = "byte"
-    BOOLEAN = "boolean"
 
 
 @dataclass(frozen=True)
@@ -44,20 +45,11 @@ class ArrayLength:
     type: IntegralType
 
 
-class Field:
-    """Forward declaration of Field"""
-
-    name: str
-    type: "Type"
-    description: str
-
-
 @dataclass(frozen=True)
 class Array(Enum):
     """Array class type."""
 
-    base_type: PrimitiveType
-    dimensions: int
+    element_type: PrimitiveType
     length: Field[ArrayLength]
 
 
@@ -67,9 +59,9 @@ class TaggedUnion(Enum):
     pass
 
 
-Type = PrimitiveType | Array | TaggedUnion
+Type = PrimitiveType | Array | TaggedUnion | IntegralType | ArrayLength
 
-T = TypeVar("T")
+T = TypeVar("T", bound=Type)
 
 
 @dataclass(frozen=True)
@@ -77,7 +69,7 @@ class Field(Generic[T]):
     """Field class."""
 
     name: str
-    type: Type
+    type: T
     description: str
 
 

@@ -16,7 +16,7 @@ AllClasses = Command(
             Field("classes", Type.INT, "Number of reference types that follow."),
             Field(
                 "referenceTypes",
-                Array(Type.BYTE, Type.INT, Type.INT),
+                Array(Type.BYTE, Type.INT),
                 "Array of reference types.",
             ),
         ]
