@@ -25,7 +25,7 @@ $(LIBBPF_ANDROID): $(ANDROID_OUT_DIR)/lib/pkgconfig/zlib.pc
 $(LIBBPF_ANDROID_BUILD_DIR):
 	mkdir -p $@
 
-LIBBPF_TAG = v1.0.0
+LIBBPF_TAG = v1.2.2
 LIBBPF_REPO = https://github.com/libbpf/libbpf
 projects/libbpf/sources:
 	git clone $(LIBBPF_REPO) $@ -b $(LIBBPF_TAG)
