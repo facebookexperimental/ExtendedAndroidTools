@@ -46,10 +46,10 @@ class ArrayLength:
 
 
 @dataclass(frozen=True)
-class Array(Enum):
+class Array:
     """Array class type."""
 
-    element_type: PrimitiveType
+    element_type: Struct
     length: Field[ArrayLength]
 
 
