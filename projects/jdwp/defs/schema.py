@@ -46,23 +46,6 @@ class TaggedUnion(Enum):
 
 Type = PrimitiveType | Array | TaggedUnion
 
-String = NewType("String", str)
-Int = NewType("Int", int)
-Byte = NewType("Byte", bytes)
-Boolean = NewType("Boolean", bool)
-ReferenceTypeID = NewType("ReferenceTypeID", str)
-ClassLoader = NewType("ClassLoader", str)
-FieldID = NewType("FieldID", str)
-MethodID = NewType("MethodID", str)
-Value = NewType("Value", str)
-InterfaceID = NewType("InterfaceID", str)
-ClassObjectID = NewType("ClassObjectID", str)
-TaggedObjectID = NewType("TaggedObjectID", str)
-ThreadId = NewType("ThreadId", str)
-ThreadGroupID = NewType("ThreadGroupID", str)
-ObjectID = NewType("ObjectID", str)
-Location = NewType("location", str)
-
 
 @dataclass(frozen=True)
 class Field:
