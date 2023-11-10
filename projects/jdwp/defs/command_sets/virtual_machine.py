@@ -47,8 +47,8 @@ __AllClasses_reply = Struct(
 AllClasses = Command(
     name="AllClasses",
     id=3,
-    out=__AllClasses_reply,
-    reply=None,
+    out=None,
+    reply=__AllClasses_reply,
     error={
         ErrorType.VM_DEAD,
     },
