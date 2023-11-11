@@ -3,9 +3,9 @@
 """Basic types for JDWP messages."""
 
 from __future__ import annotations
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional, Generic, TypeVar, Type as TypeAlias, Union
-from collections.abc import Mapping
+from typing import Optional, Generic, TypeVar
 from enum import Enum
 from collections.abc import Set, Sequence
 from projects.jdwp.defs.constants import ErrorType
@@ -26,6 +26,7 @@ Type = Union[
 class OpaqueType(Enum):
     """Opaque types whose implementation is provided by debugger runtime library or language."""
 
+    STRING = "string"
     BOOLEAN = "boolean"
     # TAGGED_OBJECT_ID = "tagged-objectID"
     LOCATION = "location"
@@ -69,15 +70,26 @@ class ArrayLength:
     type: IntegralType
 
 
+class IntegralType(Enum):
+    """Integral type class."""
+
+    INT = "int"
+    BYTE = "byte"
+
+
+@dataclass(frozen=True)
+class ArrayLength:
+    """Array length class."""
+
+    type: IntegralType
+
+
 @dataclass(frozen=True)
 class Array:
     """Array class type."""
 
     element_type: Struct
     length: Field[ArrayLength]
-
-
-EnumT = TypeVar("EnumT", bound=Enum)
 
 
 @dataclass(frozen=True)
@@ -96,15 +108,17 @@ class UnionTag(Generic[EnumT]):
     value: TypeAlias[EnumT]
 
 
-TypeT = TypeVar("TypeT", bound=Type, covariant=True)
+Type = PrimitiveType | Array | TaggedUnion | IntegralType | ArrayLength
+
+T = TypeVar("T", bound=Type)
 
 
 @dataclass(frozen=True)
-class Field(Generic[TypeT]):
+class Field(Generic[T]):
     """Field class."""
 
     name: str
-    type: TypeT
+    type: T
     description: str
 
 
