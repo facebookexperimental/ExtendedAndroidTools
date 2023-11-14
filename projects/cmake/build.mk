@@ -13,7 +13,7 @@ $(CMAKE_HOST_BUILD_DIR):
 CMAKE_VERSION = 3.22.2
 CMAKE_URL = https://github.com/Kitware/CMake/releases/download/v$(CMAKE_VERSION)/cmake-$(CMAKE_VERSION).tar.gz
 $(DOWNLOADS_DIR)/cmake-$(CMAKE_VERSION).tar.gz: | $(DOWNLOADS_DIR)
-	cd $(DOWNLOADS_DIR) && wget $(CMAKE_URL)
+	cd $(DOWNLOADS_DIR) && curl -L -O $(CMAKE_URL)
 
 projects/cmake/sources: $(DOWNLOADS_DIR)/cmake-$(CMAKE_VERSION).tar.gz
 	-mkdir $@

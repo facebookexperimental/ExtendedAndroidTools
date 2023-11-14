@@ -9,6 +9,7 @@ apt-get install -y \
      automake \
      autopoint \
      bison \
+     curl \
      flex \
      g++ \
      gettext \

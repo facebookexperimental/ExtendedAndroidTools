@@ -26,7 +26,7 @@ $(ANDROID_BUILD_DIR)/elfutils: $(ANDROID_OUT_DIR)/lib/pkgconfig/zlib.pc
 ELFUTILS_VERSION = 0.186
 ELFUTILS_URL = http://sourceware.org/pub/elfutils/$(ELFUTILS_VERSION)/elfutils-$(ELFUTILS_VERSION).tar.bz2
 projects/elfutils/sources: | $(DOWNLOADS_DIR)
-	wget $(ELFUTILS_URL) -O $(DOWNLOADS_DIR)/elfutils-$(ELFUTILS_VERSION).tar.bz2
+	curl -L $(ELFUTILS_URL) -o $(DOWNLOADS_DIR)/elfutils-$(ELFUTILS_VERSION).tar.bz2
 	-mkdir $@
 	tar xf $(DOWNLOADS_DIR)/elfutils-$(ELFUTILS_VERSION).tar.bz2 -C $@ \
 		--transform="s|^elfutils-$(ELFUTILS_VERSION)||"
