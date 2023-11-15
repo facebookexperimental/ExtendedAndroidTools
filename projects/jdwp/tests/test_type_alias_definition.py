@@ -7,7 +7,7 @@ class TestTypeAliasDefinition(unittest.TestCase):
     def test_type_alias_definitions(self):
         for jdwp_type in PrimitiveType:
             with self.subTest(jdwp_type=jdwp_type):
-                expected_start = f"{jdwp_type.name.capitalize()}Type = NewType"
+                expected_start = f"{jdwp_type.name.capitalize()}Type = typing.NewType"
                 definition = get_type_alias_definition(jdwp_type)
                 self.assertTrue(
                     definition.startswith(expected_start),
