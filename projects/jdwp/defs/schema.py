@@ -16,6 +16,8 @@ class PrimitiveType(Enum):
 
     STRING = "string"
     BOOLEAN = "boolean"
+    INT = "int"
+    BYTE = "int"
     DICT = "dict"
     REFERENCE_TYPE_ID = "referenceTypeID"
     CLASS_LOADER = "classLoader"
