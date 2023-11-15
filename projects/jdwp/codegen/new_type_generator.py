@@ -13,8 +13,14 @@ def get_python_type(jdwp_type: PrimitiveType) -> str:
     return mapping.get(jdwp_type, "int")
 
 
+def get_type_alias_definition(jdwp_type: PrimitiveType) -> str:
+    """Return the type alias definition for a given JDWP type."""
+    python_type = get_python_type(jdwp_type)
+    new_type_name = f"{jdwp_type.name.capitalize()}Type"
+    return f"{new_type_name} = NewType('{new_type_name}', {python_type})"
+
+
 def generate_new_types():
-    for type_name, jdwp_type in PrimitiveType.__members__.items():
-        python_type = get_python_type(jdwp_type.value)
-        newtype_name = f"{type_name.capitalize()}Type"
-        print(f"{newtype_name} = NewType('{newtype_name}', {python_type})")
+    for jdwp_type in PrimitiveType:
+        type_alias_definition = get_type_alias_definition(jdwp_type)
+        print(type_alias_definition)
