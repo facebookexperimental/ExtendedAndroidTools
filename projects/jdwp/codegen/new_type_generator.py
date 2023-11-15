@@ -2,16 +2,15 @@
 from projects.jdwp.defs.schema import PrimitiveType
 
 
-def get_python_type(jdwp_type: str) -> str:
+def get_python_type(jdwp_type: PrimitiveType) -> str:
     """Map JDWP type to Python type."""
     mapping = {
-        "string": "str",
-        "int": "int",
-        "byte": "bytes",
-        "boolean": "bool",
-        "dict": "dict",
+        PrimitiveType.STRING: "str",
+        PrimitiveType.INT: "int",
+        PrimitiveType.BYTE: "int",
+        PrimitiveType.BOOLEAN: "bool",
     }
-    return mapping.get(jdwp_type, "str")
+    return mapping.get(jdwp_type, "int")
 
 
 def generate_new_types():
