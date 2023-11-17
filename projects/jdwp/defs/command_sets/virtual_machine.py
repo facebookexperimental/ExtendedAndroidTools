@@ -54,11 +54,20 @@ AllClasses = Command(
     },
 )
 
+Dispose = Command(
+    name="Dispose",
+    id=6,
+    out=None,
+    reply=None,
+    error=set(),
+)
+
 
 VirtualMachine = CommandSet(
     name="VirtualMachine",
     id=1,
     commands=[
         AllClasses,
+        Dispose,
     ],
 )
