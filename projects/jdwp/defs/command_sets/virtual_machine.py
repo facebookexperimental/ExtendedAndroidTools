@@ -54,11 +54,29 @@ AllClasses = Command(
     },
 )
 
+__IDSizes_reply = Struct(
+    [
+        Field("fieldIDSize", IntegralType.INT, "fieldID size in bytes"),
+        Field("methodIDSize", IntegralType.INT, "methodID size in bytes"),
+        Field("objectIDSize", IntegralType.INT, "objectID size in bytes"),
+        Field("referenceTypeIDSize", IntegralType.INT, "referenceTypeID size in bytes"),
+        Field("frameIDSize", IntegralType.INT, "frameID size in bytes"),
+    ]
+)
+
+IDSizes = Command(
+    name="IDSizes",
+    id=7,
+    out=None,
+    reply=__IDSizes_reply,
+    error={ErrorType.VM_DEAD},
+)
 
 VirtualMachine = CommandSet(
     name="VirtualMachine",
     id=1,
     commands=[
         AllClasses,
+        IDSizes,
     ],
 )
