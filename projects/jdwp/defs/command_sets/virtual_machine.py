@@ -80,11 +80,71 @@ IDSizes = Command(
     error={ErrorType.VM_DEAD},
 )
 
+__ClassPaths_reply_ClassPaths = Field(
+    "classpaths",
+    ArrayLength(IntegralType.INT),
+    "Number of paths in classpath",
+)
+
+__ClassPaths_replyArray_element = Struct(
+    [
+        Field("classpaths", Type.STRING, "List of classpath entries"),
+    ]
+)
+
+__BootClassPaths_reply_bootClassPaths = Field(
+    "bootclasspaths",
+    ArrayLength(IntegralType.INT),
+    "Number of paths in bootclasspath",
+)
+
+__BootClassPaths_replyArray_element = Struct(
+    [
+        Field("bootclasspaths", Type.STRING, "List of bootclasspath entries"),
+    ]
+)
+
+__ClassPaths_reply = Struct(
+    [
+        Field(
+            "baseDir",
+            Type.STRING,
+            "Base directory used to resolve relative paths in either of the following lists.",
+        ),
+        __ClassPaths_reply_ClassPaths,
+        Field(
+            "classpaths Array",
+            Array(__ClassPaths_replyArray_element, __ClassPaths_reply_ClassPaths),
+            "Array of classpath.",
+        ),
+        __BootClassPaths_reply_bootClassPaths,
+        Field(
+            "bootclasspaths Array",
+            Array(
+                __BootClassPaths_replyArray_element,
+                __BootClassPaths_reply_bootClassPaths,
+            ),
+            "Array of bootclasspath.",
+        ),
+    ]
+)
+
+ClassPaths = Command(
+    name="ClassPaths",
+    id=13,
+    out=None,
+    reply=__ClassPaths_reply,
+    error={
+        ErrorType.VM_DEAD,
+    },
+)
+
 VirtualMachine = CommandSet(
     name="VirtualMachine",
     id=1,
     commands=[
         AllClasses,
         IDSizes,
+        ClassPaths,
     ],
 )
