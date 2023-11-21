@@ -7,8 +7,6 @@ def get_python_type(jdwp_type: PrimitiveType) -> str:
     """Map JDWP type to Python type."""
     mapping = {
         PrimitiveType.STRING: "str",
-        PrimitiveType.INT: "int",
-        PrimitiveType.BYTE: "int",
         PrimitiveType.BOOLEAN: "bool",
     }
     return mapping.get(jdwp_type, "int")
