@@ -1,3 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 import unittest
 from projects.jdwp.codegen.new_type_generator import get_python_type
 from projects.jdwp.defs.schema import PrimitiveType

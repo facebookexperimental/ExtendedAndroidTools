@@ -1,4 +1,5 @@
-"""New type Generator."""
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 from projects.jdwp.defs.schema import PrimitiveType
 import typing
 
