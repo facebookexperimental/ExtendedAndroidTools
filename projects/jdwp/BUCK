@@ -3,7 +3,9 @@
 python_binary(
   name = "main",
   main = "main.py",
-  deps = [],
+  deps = [
+    "//projects/jdwp/runtime:runtime",
+  ],
 )
 
 
