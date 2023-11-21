@@ -54,6 +54,14 @@ AllClasses = Command(
     },
 )
 
+Dispose = Command(
+    name="Dispose",
+    id=6,
+    out=None,
+    reply=None,
+    error=set(),
+)
+
 __IDSizes_reply = Struct(
     [
         Field("fieldIDSize", IntegralType.INT, "fieldID size in bytes"),
@@ -77,6 +85,7 @@ VirtualMachine = CommandSet(
     id=1,
     commands=[
         AllClasses,
+        Dispose,
         IDSizes,
     ],
 )
