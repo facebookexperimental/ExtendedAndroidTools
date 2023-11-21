@@ -1,0 +1,5 @@
+python_library(
+    name = "defs",
+    srcs = glob(["**/*.py"]),
+    deps = [],
+)
