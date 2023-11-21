@@ -24,7 +24,7 @@ $(HOST_OUT_DIR)/bin/buck2: $(DOWNLOADS_DIR)/$(BUCK2_ARCHIVE) | $(HOST_OUT_DIR)
 
 $(DOWNLOADS_DIR)/$(BUCK2_ARCHIVE): | $(DOWNLOADS_DIR)
 # instructions to download the archive
-	wget -q -O $@ $(BUCK2_URL)
+	curl -L -s -o $@ $(BUCK2_URL)
 
 # Phony target for host
 .PHONY: buck2-host

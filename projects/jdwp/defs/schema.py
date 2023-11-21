@@ -4,10 +4,10 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional, Generic, TypeVar
+from typing import Optional, Generic, TypeVar, Type as TypeAlias
+from collections.abc import Mapping
 from enum import Enum
 from collections.abc import Set, Sequence
-
 from projects.jdwp.defs.constants import ErrorType
 
 
@@ -53,13 +53,28 @@ class Array:
     length: Field[ArrayLength]
 
 
-class TaggedUnion(Enum):
+EnumT = TypeVar("EnumT", bound=Enum)
+
+
+@dataclass(frozen=True)
+class TaggedUnion(Generic[EnumT]):
     """Tagged Union class type"""
 
-    pass
+    tag: Field[UnionTag[EnumT]]
+    cases: Mapping[EnumT, Struct]
 
 
-Type = PrimitiveType | Array | TaggedUnion | IntegralType | ArrayLength
+@dataclass(frozen=True)
+class UnionTag(Generic[EnumT]):
+    """Union tag class type."""
+
+    tag: IntegralType
+    value: TypeAlias[EnumT]
+
+
+Type = (
+    PrimitiveType | Array | TaggedUnion | IntegralType | ArrayLength | Struct | UnionTag
+)
 
 T = TypeVar("T", bound=Type)
 
