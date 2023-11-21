@@ -2,8 +2,8 @@
 
 python_test(
   name = "tests",
-  srcs = glob(["*.py"]),
   deps = [
-       "//projects/jdwp:lib",
-    ],
+    "//projects/jdwp:lib",
+  ],
+  srcs = glob(["**/*.py"]),
 )
