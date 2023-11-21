@@ -9,5 +9,7 @@ python_library(
   srcs = [
     ":type-aliases",
   ],
+  visibility = ["PUBLIC"],
+
   deps = [],
 )

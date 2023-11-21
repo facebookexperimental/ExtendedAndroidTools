@@ -4,6 +4,9 @@ python_test(
   name = "tests",
   deps = [
     "//projects/jdwp:lib",
+    "//projects/jdwp/codegen:codegen",
+
+
   ],
   srcs = glob(["**/*.py"]),
 )
