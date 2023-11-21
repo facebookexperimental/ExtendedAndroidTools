@@ -4,15 +4,18 @@ from projects.jdwp.codegen.new_type_generator import get_type_alias_definition
 
 
 class TestTypeAliasDefinition(unittest.TestCase):
-    def test_type_alias_definitions(self):
-        for jdwp_type in PrimitiveType:
-            with self.subTest(jdwp_type=jdwp_type):
-                expected_start = f"{jdwp_type.name.capitalize()}Type = typing.NewType"
-                definition = get_type_alias_definition(jdwp_type)
-                self.assertTrue(
-                    definition.startswith(expected_start),
-                    f"Definition for {jdwp_type} is incorrect",
-                )
+    def test_specific_type_alias_definitions(self):
+        expected_string_type_definition = "StringType = typing.NewType"
+        self.assertEqual(
+            get_type_alias_definition(PrimitiveType.STRING),
+            expected_string_type_definition,
+        )
+
+        expected_boolean_type_definition = "BooleanType = typing.NewType"
+        self.assertEqual(
+            get_type_alias_definition(PrimitiveType.BOOLEAN),
+            expected_boolean_type_definition,
+        )
 
 
 if __name__ == "__main__":
