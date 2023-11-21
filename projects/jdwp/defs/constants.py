@@ -177,3 +177,18 @@ class TypeTag(Enum):
     CLASS = 1
     INTERFACE = 2
     ARRAY = 3
+
+
+class ModifierKind(Enum):
+    COUNT = 1
+    CONDITIONAL = 2
+    THREAD_ONLY = 3
+    CLASS_ONLY = 4
+    CLASS_MATCH = 5
+    CLASS_EXCLUDE = 6
+    LOCATION_ONLY = 7
+    EXCEPTION_ONLY = 8
+    FIELD_ONLY = 9
+    STEP = 10
+    INSTANCE_ONLY = 11
+    SOURCE_NAME_MATCH = 12
