@@ -4,11 +4,22 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional, Generic, TypeVar, Type as TypeAlias
+from typing import Optional, Generic, TypeVar, Type as TypeAlias, Union
 from collections.abc import Mapping
 from enum import Enum
 from collections.abc import Set, Sequence
 from projects.jdwp.defs.constants import ErrorType
+
+
+Type = Union[
+    "PrimitiveType",
+    "Array",
+    "TaggedUnion",
+    "IntegralType",
+    "ArrayLength",
+    "Struct",
+    "UnionTag",
+]
 
 
 class PrimitiveType(Enum):
@@ -72,19 +83,15 @@ class UnionTag(Generic[EnumT]):
     value: TypeAlias[EnumT]
 
 
-Type = (
-    PrimitiveType | Array | TaggedUnion | IntegralType | ArrayLength | Struct | UnionTag
-)
-
-T = TypeVar("T", bound=Type)
+TypeT = TypeVar("TypeT", bound=Type, covariant=True)
 
 
 @dataclass(frozen=True)
-class Field(Generic[T]):
+class Field(Generic[TypeT]):
     """Field class."""
 
     name: str
-    type: T
+    type: TypeT
     description: str
 
 
@@ -92,7 +99,7 @@ class Field(Generic[T]):
 class Struct:
     """Struct class."""
 
-    fields: Sequence[Field]
+    fields: Sequence[Field[Type]]
 
 
 @dataclass(frozen=True)
