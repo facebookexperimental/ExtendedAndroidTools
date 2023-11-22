@@ -12,41 +12,54 @@ from projects.jdwp.defs.constants import ErrorType
 
 
 Type = Union[
-    "PrimitiveType",
     "Array",
-    "TaggedUnion",
-    "IntegralType",
     "ArrayLength",
+    "IdType",
+    "IntegralType",
+    "OpaqueType",
     "Struct",
+    "TaggedUnion",
     "UnionTag",
 ]
 
 
-class PrimitiveType(Enum):
-    """Primitive type class."""
+class OpaqueType(Enum):
+    """Opaque types whose implementation is provided by debugger runtime library or language."""
 
-    STRING = "string"
     BOOLEAN = "boolean"
-    DICT = "dict"
-    REFERENCE_TYPE_ID = "referenceTypeID"
-    CLASS_LOADER = "classLoader"
-    FIELD_ID = "fieldID"
-    METHOD_ID = "methodID"
-    VALUE = "value"
-    INTERFACE_ID = "interfaceID"
-    CLASS_OBJECT_ID = "classObjectID"
-    TAGGED_OBJECT_ID = "taggedObjectID"
+    # TAGGED_OBJECT_ID = "tagged-objectID"
+    LOCATION = "location"
+    STRING = "string"
+    # VALUE = "value"
+    # UNTAGGED_VALUE = "untagged-value"
+    # ARRAY_REGION = "arrayregion"
+
+
+class IdType(Enum):
+    """Types representing numeric IDs of internal VM objects."""
+
+    OBJECT_ID = "objectID"
     THREAD_ID = "threadID"
     THREAD_GROUP_ID = "threadGroupID"
-    OBJECT_ID = "objectID"
-    LOCATION = "location"
+    STRING_ID = "stringId"
+    CLASS_LOADER_ID = "classLoaderID"
+    CLASS_OBJECT_ID = "classObjectID"
+    ARRAY_ID = "arrayID"
+    REFERENCE_TYPE_ID = "referenceTypeID"
+    CLASS_ID = "classID"
+    INTERFACE_ID = "interfaceID"
+    ARRAY_TYPE_ID = "arrayTypeID"
+    METHOD_ID = "methodID"
+    FIELD_ID = "fieldID"
+    FRAME_ID = "frameID"
 
 
 class IntegralType(Enum):
-    """Integral type class."""
+    """Integer types of different precision."""
 
-    INT = "int"
     BYTE = "byte"
+    INT = "int"
+    LONG = "long"
 
 
 @dataclass(frozen=True)

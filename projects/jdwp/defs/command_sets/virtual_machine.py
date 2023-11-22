@@ -6,7 +6,8 @@ from projects.jdwp.defs.schema import (
     Command,
     Field,
     Struct,
-    Type,
+    IdType,
+    OpaqueType,
     Array,
     CommandSet,
     ArrayLength,
@@ -25,9 +26,11 @@ __AllClasses_reply_classes = Field(
 __AllClasses_reply_classesArray_element = Struct(
     [
         Field("refTypeTag", IntegralType.BYTE, "Kind of following reference type"),
-        Field("typeID", Type.REFERENCE_TYPE_ID, "Loaded reference type"),
+        Field("typeID", IdType.REFERENCE_TYPE_ID, "Loaded reference type"),
         Field(
-            "signature", Type.STRING, "The JNI signature of the loaded reference type"
+            "signature",
+            OpaqueType.STRING,
+            "The JNI signature of the loaded reference type",
         ),
         Field("status", IntegralType.INT, "The current class status"),
     ]
@@ -56,15 +59,19 @@ AllClasses = Command(
 
 __Version_reply = Struct(
     [
-        Field("description", Type.STRING, "Text information on the VM version"),
+        Field("description", OpaqueType.STRING, "Text information on the VM version"),
         Field("jdwpMajor", IntegralType.INT, "JDWP major version number"),
         Field("jdwpMinor", IntegralType.INT, "JDWP minor version number"),
         Field(
             "vmVersion",
-            Type.STRING,
+            OpaqueType.STRING,
             "Target VM JRE version, as in the java.version property",
         ),
-        Field("vmName", Type.STRING, "Target VM name, as in the java.vm.name property"),
+        Field(
+            "vmName",
+            OpaqueType.STRING,
+            "Target VM name, as in the java.vm.name property",
+        ),
     ]
 )
 
@@ -110,7 +117,7 @@ __ClassPaths_reply_ClassPaths = Field(
 
 __ClassPaths_replyArray_element = Struct(
     [
-        Field("classpaths", Type.STRING, "List of classpath entries"),
+        Field("classpaths", OpaqueType.STRING, "List of classpath entries"),
     ]
 )
 
@@ -122,7 +129,7 @@ __BootClassPaths_reply_bootClassPaths = Field(
 
 __BootClassPaths_replyArray_element = Struct(
     [
-        Field("bootclasspaths", Type.STRING, "List of bootclasspath entries"),
+        Field("bootclasspaths", OpaqueType.STRING, "List of bootclasspath entries"),
     ]
 )
 
@@ -130,7 +137,7 @@ __ClassPaths_reply = Struct(
     [
         Field(
             "baseDir",
-            Type.STRING,
+            OpaqueType.STRING,
             "Base directory used to resolve relative paths in either of the following lists.",
         ),
         __ClassPaths_reply_ClassPaths,
