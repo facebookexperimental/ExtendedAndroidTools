@@ -10,7 +10,8 @@ from projects.jdwp.defs.schema import (
     Array,
     TaggedUnion,
     UnionTag,
-    Type,
+    IdType,
+    OpaqueType,
 )
 from projects.jdwp.defs.constants import ErrorType, ModifierKind
 
@@ -21,53 +22,55 @@ CountModifier = Struct(
 
 ConditionalModifier = Struct([Field("exprID", IntegralType.INT, "For the future")])
 
-ThreadOnlyModifier = Struct([Field("thread", Type.THREAD_ID, "Required thread")])
+ThreadOnlyModifier = Struct([Field("thread", IdType.THREAD_ID, "Required thread")])
 
-ClassOnlyModifier = Struct([Field("clazz", Type.REFERENCE_TYPE_ID, "Required class")])
+ClassOnlyModifier = Struct([Field("clazz", IdType.REFERENCE_TYPE_ID, "Required class")])
 
 ClassMatchModifier = Struct(
-    [Field("classPattern", Type.STRING, "Restricted class pattern")]
+    [Field("classPattern", OpaqueType.STRING, "Restricted class pattern")]
 )
 
 StepModifier = Struct(
     [
-        Field("thread", Type.THREAD_ID, "Required thread"),
+        Field("thread", IdType.THREAD_ID, "Required thread"),
         Field("size", IntegralType.INT, "Size of each step"),
         Field("depth", IntegralType.INT, "Relative call stack limit"),
     ]
 )
 
 ClassExcludeModifier = Struct(
-    [Field("classPattern", Type.STRING, "Disallowed class pattern")]
+    [Field("classPattern", OpaqueType.STRING, "Disallowed class pattern")]
 )
 
-LocationOnlyModifier = Struct([Field("loc", Type.LOCATION, "Required location")])
+LocationOnlyModifier = Struct([Field("loc", OpaqueType.LOCATION, "Required location")])
 
 ExceptionOnlyModifier = Struct(
     [
         Field(
             "exceptionOrNull",
-            Type.REFERENCE_TYPE_ID,
+            IdType.REFERENCE_TYPE_ID,
             "Exception to report. Null (0) means report exceptions of all types.",
         ),
-        Field("caught", Type.BOOLEAN, "True if exception was caught"),
-        Field("uncaught", Type.BOOLEAN, "True if exception was uncaught"),
+        Field("caught", OpaqueType.BOOLEAN, "True if exception was caught"),
+        Field("uncaught", OpaqueType.BOOLEAN, "True if exception was uncaught"),
     ]
 )
 
 FieldOnlyModifier = Struct(
     [
-        Field("declaring", Type.REFERENCE_TYPE_ID, "Type in which field is declared."),
+        Field(
+            "declaring", IdType.REFERENCE_TYPE_ID, "Type in which field is declared."
+        ),
         Field("fieldID", IntegralType.INT, "Required field"),
     ]
 )
 
 InstanceOnlyModifier = Struct(
-    [Field("instance", Type.OBJECT_ID, "Required 'this' object")]
+    [Field("instance", IdType.OBJECT_ID, "Required 'this' object")]
 )
 
 SourceNameMatchModifier = Struct(
-    [Field("sourceNamePattern", Type.STRING, "	Required source name pattern")]
+    [Field("sourceNamePattern", OpaqueType.STRING, "Required source name pattern")]
 )
 
 __SetCommand_out_modKind = Field(

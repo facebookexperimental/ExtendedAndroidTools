@@ -3,7 +3,14 @@
 """Command Set: ReferenceType."""
 
 
-from projects.jdwp.defs.schema import Command, Field, Struct, CommandSet, Type
+from projects.jdwp.defs.schema import (
+    Command,
+    Field,
+    Struct,
+    CommandSet,
+    IdType,
+    OpaqueType,
+)
 from projects.jdwp.defs.constants import ErrorType
 
 
@@ -12,13 +19,15 @@ Signature = Command(
     id=1,
     out=Struct(
         [
-            Field("refType", Type.REFERENCE_TYPE_ID, "The Reference type ID."),
+            Field("refType", IdType.REFERENCE_TYPE_ID, "The Reference type ID."),
         ]
     ),
     reply=Struct(
         [
             Field(
-                "signature", Type.STRING, "The JNI signature for the reference type."
+                "signature",
+                OpaqueType.STRING,
+                "The JNI signature for the reference type.",
             ),
         ]
     ),
