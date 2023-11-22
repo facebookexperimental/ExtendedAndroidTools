@@ -12,6 +12,7 @@ python_library(
     name = "codegen",
     srcs = glob(["**/*.py"]),
     deps = ["//projects/jdwp/defs:defs"],
-    visibility = ["PUBLIC"],
+    visibility = ["PUBLIC", "//projects/jdwp/runtime/...",
+],
 
 )
