@@ -11,6 +11,7 @@ def get_type_alias_definition(jdwp_type: IdType) -> str:
 
 
 def generate_new_types():
+    print("import typing")
     for id_type in IdType:
         type_alias_definition = get_type_alias_definition(id_type)
         print(type_alias_definition)
