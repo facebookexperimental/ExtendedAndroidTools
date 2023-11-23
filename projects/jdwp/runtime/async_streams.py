@@ -5,8 +5,6 @@ import abc
 
 
 class JDWPInputStreamBase(abc.ABC):
-    def __init__(self, reader: asyncio.StreamReader) -> None:
-        self.reader = reader
 
     # Methods for OpaqueType
     @abc.abstractmethod
@@ -95,8 +93,6 @@ class JDWPInputStreamBase(abc.ABC):
 
 
 class JDWPOutputStreamBase(abc.ABC):
-    def __init__(self, writer: asyncio.StreamWriter) -> None:
-        self.writer = writer
 
     # Methods for OpaqueType
     @abc.abstractmethod
