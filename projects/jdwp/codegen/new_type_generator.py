@@ -14,3 +14,7 @@ def generate_new_types():
     for id_type in IdType:
         type_alias_definition = get_type_alias_definition(id_type)
         print(type_alias_definition)
+
+
+if "__main__" == __name__:
+    generate_new_types()

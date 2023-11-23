@@ -1,0 +1,6 @@
+python_library(
+    name = "defs",
+    srcs = glob(["**/*.py"]),
+    visibility = ["PUBLIC"],
+    deps = [],
+)

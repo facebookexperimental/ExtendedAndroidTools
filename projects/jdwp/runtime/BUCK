@@ -1,0 +1,16 @@
+genrule(
+  name = "type-aliases",
+  out = "type_aliases.py",
+  cmd = "$(exe //projects/jdwp/codegen:generate-new-types) > $OUT",
+)
+
+python_library(
+  name = "runtime",
+  srcs = [
+    ":type-aliases",
+  ],
+  visibility = ["PUBLIC", ],
+  
+
+  deps = [],
+)
