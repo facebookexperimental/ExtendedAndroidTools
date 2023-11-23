@@ -1,11 +1,9 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-import asyncio
 import abc
 
 
 class JDWPInputStreamBase(abc.ABC):
-
     # Methods for OpaqueType
     @abc.abstractmethod
     async def read_boolean(self) -> bool:
@@ -93,7 +91,6 @@ class JDWPInputStreamBase(abc.ABC):
 
 
 class JDWPOutputStreamBase(abc.ABC):
-
     # Methods for OpaqueType
     @abc.abstractmethod
     def write_boolean(self, value: bool) -> None:
