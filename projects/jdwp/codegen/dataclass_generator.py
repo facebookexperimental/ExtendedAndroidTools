@@ -1,3 +1,5 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 from textwrap import dedent
 
 from projects.jdwp.defs.schema import (
