@@ -1,0 +1,19 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+python_binary(
+    name="generate-new-types",
+    main_module="projects.jdwp.codegen.new_type_generator",
+    deps=[
+        ":codegen",
+    ],
+    visibility=["//projects/jdwp/runtime/..."],
+)
+
+python_library(
+    name="codegen",
+    srcs=glob(["**/*.py"]),
+    deps=["//projects/jdwp/defs:defs"],
+    visibility=[
+        "PUBLIC",
+    ],
+)
