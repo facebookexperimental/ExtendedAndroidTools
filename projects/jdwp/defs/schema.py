@@ -95,7 +95,7 @@ class TaggedUnion(Generic[EnumT]):
 class UnionTag(Generic[EnumT]):
     """Union tag class type."""
 
-    tag: IntegralType
+    type: IntegralType
     value: TypeAlias[EnumT]
 
 

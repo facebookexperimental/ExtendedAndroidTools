@@ -1,0 +1,28 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+python_binary(
+    name = "check-uniontypes",
+    deps = [
+        ":jdwp-tools"
+    ],
+    main_module = "projects.jdwp.tools.check_union_types",
+
+)
+
+python_binary(
+    name = "cmd-order-check",
+    deps = [
+        ":jdwp-tools"
+    ],
+    main_module = "projects.jdwp.tools.check_command_ids_order",
+    
+)
+
+python_library(
+    name="jdwp-tools",
+    srcs=glob(["**/*.py"]),
+    deps=["//projects/jdwp/defs:defs"],
+    visibility=[
+        "PUBLIC",
+    ],
+)
