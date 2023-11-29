@@ -64,7 +64,7 @@ def nested_structs(root: Struct) -> typing.Generator[StructLink, None, None]:
         type = field.type
         match type:
             case Array():
-                yield root, field, type.element_type
+                yield root, field, typing.cast(Array, type).element_type
                 yield from nested_structs(typing.cast(Array, type).element_type)
             case TaggedUnion():
                 for struct in typing.cast(TaggedUnion, type).cases.values():
@@ -85,7 +85,7 @@ def compute_struct_names(root: Struct, name: str) -> typing.Mapping[Struct, str]
             case Array():
                 names[nested] = f"{names[parent]}{field.name.capitalize()}Element"
             case TaggedUnion():
-                for case_value, case_struct in field.type.cases.items():
+                for case_value, case_struct in typing.cast(TaggedUnion, type).cases.items():
                     case_name = format_enum_name(case_value)
                     names[
                         case_struct
