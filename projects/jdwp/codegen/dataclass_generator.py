@@ -1,6 +1,7 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
 from textwrap import dedent
+from projects.jdwp.codegen.types import python_type_for
 
 from projects.jdwp.defs.schema import (
     Array,
@@ -20,48 +21,10 @@ def format_enum_name(enum_value):
     return f"{formatted_name}Type"
 
 
-def map_id_type(id_type: IdType):
-    match id_type:
-        case IdType.OBJECT_ID:
-            return "ObjectIdType"
-        case IdType.THREAD_ID:
-            return "ThreadIdType"
-        case IdType.THREAD_GROUP_ID:
-            return "ThreadGroupIdType"
-        case IdType.STRING_ID:
-            return "StringIdType"
-        case IdType.CLASS_LOADER_ID:
-            return "ClassLoaderIdType"
-        case IdType.CLASS_OBJECT_ID:
-            return "ClassObjectIdType"
-        case IdType.ARRAY_ID:
-            return "ArrayIdType"
-        case IdType.REFERENCE_TYPE_ID:
-            return "ReferenceTypeIdType"
-        case IdType.CLASS_ID:
-            return "ClassIdType"
-        case IdType.INTERFACE_ID:
-            return "InterfaceIdType"
-        case IdType.ARRAY_TYPE_ID:
-            return "ArrayTypeIdType"
-        case IdType.METHOD_ID:
-            return "MethodIdType"
-        case IdType.FIELD_ID:
-            return "FieldIdType"
-        case IdType.FRAME_ID:
-            return "FrameIdType"
-        case _:
-            return f"Unrecognized type: {id_type}"
-
-
 def get_python_type_for_field(field_type, parent_struct_name="", field_name=""):
     if isinstance(field_type, IdType):
-        return map_id_type(field_type)
-    elif (
-        isinstance(field_type, IntegralType)
-        or isinstance(field_type, ArrayLength)
-        or isinstance(field_type, UnionTag)
-    ):
+        return python_type_for(field_type)
+    elif isinstance(field_type, IntegralType):
         return "int"
     elif isinstance(field_type, Array):
         element_type = get_python_type_for_field(
@@ -82,6 +45,8 @@ def get_python_type_for_field(field_type, parent_struct_name="", field_name=""):
             else "NestedStruct"
         )
         return nested_struct_name
+    elif isinstance(field_type, (ArrayLength, UnionTag)):
+        return None
     else:
         raise Exception(f"Unrecognized type: {field_type}")
 
@@ -104,15 +69,28 @@ def generate_dataclass_for_command(command: Command) -> str:
 
 
 def generate_dataclass_for_struct(struct: Struct, class_name: str) -> str:
-    fields_def = "\n".join(
-        f"    {field.name}: {get_python_type_for_field(field.type, class_name, field.name)}"
-        for field in struct.fields
+    dataclass_definitions = []
+    fields_def = []
+
+    for field in struct.fields:
+        if isinstance(field.type, Struct):
+            nested_class_name = f"{class_name}{field.name.capitalize()}"
+            nested_class_def = generate_dataclass_for_struct(
+                field.type, nested_class_name
+            )
+            dataclass_definitions.append(nested_class_def)
+            field_type = nested_class_name
+        else:
+            field_type = get_python_type_for_field(field.type, class_name, field.name)
+
+        fields_def.append(f"    {field.name}: {field_type}")
+
+    class_def = (
+        "@dataclasses.dataclass(frozen=True)\n"
+        + f"class {class_name}:\n"
+        + "\n".join(fields_def)
     )
-    class_def = dedent(
-        f"""
-        @dataclasses.dataclass(frozen=True)
-        class {class_name}:
-{fields_def}
-        """
-    )
-    return class_def
+
+    dataclass_definitions.append(dedent(class_def))
+
+    return "\n\n".join(dataclass_definitions)
