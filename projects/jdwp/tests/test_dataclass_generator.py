@@ -15,7 +15,6 @@ from projects.jdwp.defs.schema import (
 )
 from projects.jdwp.codegen.dataclass_generator import (
     format_enum_name,
-    map_id_type,
     get_python_type_for_field,
     generate_dataclass_for_struct,
     generate_dataclass_for_command,
@@ -36,20 +35,15 @@ class TestJDWPSchema(unittest.TestCase):
             format_enum_name(MockEnum.THREAD_GROUP_ID), "ThreadGroupIdType"
         )
 
-    def test_map_id_type(self):
-        self.assertEqual(map_id_type(IdType.OBJECT_ID), "ObjectIdType")
-        self.assertEqual(map_id_type(IdType.THREAD_ID), "ThreadIdType")
-        self.assertEqual(map_id_type(IdType.THREAD_GROUP_ID), "ThreadGroupIdType")
-
     def test_id_type(self):
-        self.assertEqual(get_python_type_for_field(IdType.OBJECT_ID), "ObjectIdType")
+        self.assertEqual(get_python_type_for_field(IdType.OBJECT_ID), "ObjectIDType")
 
     def test_integral_type(self):
         self.assertEqual(get_python_type_for_field(IntegralType.INT), "int")
 
     def test_array_type(self):
         array_type = Array(element_type=IdType.OBJECT_ID, length=1)
-        self.assertEqual(get_python_type_for_field(array_type), "List[ObjectIdType]")
+        self.assertEqual(get_python_type_for_field(array_type), "List[ObjectIDType]")
 
     def test_tagged_union_type(self):
         union_tag = UnionTag(tag=IntegralType.INT, value=IdType.OBJECT_ID)
@@ -76,8 +70,8 @@ class TestJDWPSchema(unittest.TestCase):
         expected_class_def = dedent(
             """
             @dataclasses.dataclass(frozen=True)
-                class SimpleStruct:
-            simpleField: ObjectIdType
+            class SimpleStruct:
+                simpleField: ObjectIDType
             """
         ).strip()
         self.assertEqual(
@@ -85,35 +79,32 @@ class TestJDWPSchema(unittest.TestCase):
             expected_class_def,
         )
 
-    def test_complex_struct(self):
-        struct = Struct(
+    def test_nested_struct(self):
+        nested_struct = Struct(
             fields=[
-                Field(name="idField", type=IdType.OBJECT_ID, description=""),
-                Field(name="intField", type=IntegralType.INT, description=""),
                 Field(
-                    name="arrayField",
-                    type=Array(element_type=IntegralType.INT, length=1),
+                    name="nestedField",
+                    type=Struct(
+                        fields=[
+                            Field(
+                                name="innerField", type=IntegralType.INT, description=""
+                            )
+                        ]
+                    ),
                     description="",
-                ),
-                Field(
-                    name="unionField",
-                    type=TaggedUnion(tag=None, cases={}),
-                    description="",
-                ),
+                )
             ]
         )
-        expected_class_def = dedent(
-            """
-            @dataclasses.dataclass(frozen=True)
-                class ComplexStruct:
-            idField: ObjectIdType
-            intField: int
-            arrayField: List[int]
-            unionField: typing.Union[]
-            """
-        ).strip()
+        expected_class_def = (
+            "@dataclasses.dataclass(frozen=True)\n"
+            "class NestedStructNestedfield:\n"
+            "    innerField: int\n\n"
+            "@dataclasses.dataclass(frozen=True)\n"
+            "class NestedStruct:\n"
+            "    nestedField: NestedStructNestedfield"
+        )
         self.assertEqual(
-            generate_dataclass_for_struct(struct, "ComplexStruct").strip(),
+            generate_dataclass_for_struct(nested_struct, "NestedStruct").strip(),
             expected_class_def,
         )
 
@@ -132,13 +123,11 @@ class TestJDWPSchema(unittest.TestCase):
         expected_output = dedent(
             """
             @dataclasses.dataclass(frozen=True)
-                class SampleCommandCommand:
-            idField: ObjectIdType
-
-            
-                @dataclasses.dataclass(frozen=True)
-                class SampleCommandResponse:
-            status: int
+            class SampleCommandCommand:
+                idField: ObjectIDType
+            @dataclasses.dataclass(frozen=True)
+            class SampleCommandResponse:
+                status: int
             """
         ).strip()
 
