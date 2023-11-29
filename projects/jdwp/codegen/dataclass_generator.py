@@ -26,11 +26,13 @@ class StructGenerator:
             case Struct():
                 return self.__struct_to_name[type]
             case Array():
-                return f"typing.List[{self.__struct_to_name[typing.cast(Array, type).element_type]}]"
+                array_type = typing.cast(Array, type)
+                return f"typing.List[{self.__struct_to_name[array_type.element_type]}]"
             case TaggedUnion():
+                tagged_union_type = typing.cast(TaggedUnion, type)
                 union_types = [
                     self.__struct_to_name[case_struct]
-                    for case_struct in typing.cast(TaggedUnion, type).cases.values()
+                    for case_struct in tagged_union_type.cases.values()
                 ]
                 union_types_str = ", ".join(union_types)
                 return f"typing.Union[{union_types_str}]"
@@ -64,10 +66,12 @@ def nested_structs(root: Struct) -> typing.Generator[StructLink, None, None]:
         type = field.type
         match type:
             case Array():
-                yield root, field, typing.cast(Array, type).element_type
-                yield from nested_structs(typing.cast(Array, type).element_type)
+                array_type = typing.cast(Array, type)
+                yield root, field, array_type.element_type
+                yield from nested_structs(array_type.element_type)
             case TaggedUnion():
-                for struct in typing.cast(TaggedUnion, type).cases.values():
+                tagged_union_type = typing.cast(TaggedUnion, type)
+                for struct in tagged_union_type.cases.values():
                     yield root, field, struct
                     yield from nested_structs(struct)
             case Struct():
@@ -85,7 +89,8 @@ def compute_struct_names(root: Struct, name: str) -> typing.Mapping[Struct, str]
             case Array():
                 names[nested] = f"{names[parent]}{field.name.capitalize()}Element"
             case TaggedUnion():
-                for case_value, case_struct in typing.cast(TaggedUnion, type).cases.items():
+                tagged_union_type = typing.cast(TaggedUnion, type)
+                for case_value, case_struct in tagged_union_type.cases.items():
                     case_name = format_enum_name(case_value)
                     names[
                         case_struct
