@@ -41,7 +41,7 @@ class IdType(Enum):
     OBJECT_ID = "objectID"
     THREAD_ID = "threadID"
     THREAD_GROUP_ID = "threadGroupID"
-    STRING_ID = "stringId"
+    STRING_ID = "stringID"
     CLASS_LOADER_ID = "classLoaderID"
     CLASS_OBJECT_ID = "classObjectID"
     ARRAY_ID = "arrayID"
