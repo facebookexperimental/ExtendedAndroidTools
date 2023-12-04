@@ -5,6 +5,7 @@ python_test(
   deps = [
     "//projects/jdwp/defs:defs",
     "//projects/jdwp/codegen:codegen",
+    "//projects/jdwp/runtime:runtime",
   ],
   srcs = glob(["**/*.py"]),
 )

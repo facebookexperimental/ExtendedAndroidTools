@@ -11,6 +11,7 @@ python_library(
   srcs = [
     ":type-aliases",
     "async_streams.py",
+    "jdwpstruct.py",
   ],
   visibility = ["PUBLIC", ],
   deps = [],
