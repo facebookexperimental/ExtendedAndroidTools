@@ -19,7 +19,9 @@ python_library(
     ":type-aliases",
     "async_streams.py",
     "jdwpstruct.py",
+    "jdwp_streams.py",
+    "jvm_connection.py",
   ],
   visibility = ["PUBLIC", ],
-  deps = [],
+  deps = ["//projects/jdwp/defs:defs"],
 )

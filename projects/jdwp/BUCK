@@ -3,7 +3,7 @@
 python_binary(
   name = "main",
   main = "main.py",
-  deps = [],
+  deps = [":lib"],
 )
 
 
@@ -11,4 +11,5 @@ python_library(
     name = "lib",
     srcs = glob(["**/*.py"]),
     visibility = ["PUBLIC"],
+    deps = [ "//projects/jdwp/runtime:runtime"]
 )
