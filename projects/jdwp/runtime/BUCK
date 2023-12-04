@@ -10,6 +10,7 @@ python_library(
   name = "runtime",
   srcs = [
     ":type-aliases",
+    "async_streams.py",
   ],
   visibility = ["PUBLIC", ],
   deps = [],

@@ -3,7 +3,7 @@
 import abc
 import typing
 
-from projects.jdwp.defs.schema import IdType
+from projects.jdwp.runtime.type_aliases import *
 
 
 class JDWPInputStreamBase(abc.ABC):
@@ -22,59 +22,59 @@ class JDWPInputStreamBase(abc.ABC):
 
     # Methods for IdType
     @abc.abstractmethod
-    async def read_object_id(self) -> IdType.OBJECT_ID:
+    async def read_object_id(self) -> ObjectIDType:
         pass
 
     @abc.abstractmethod
-    async def read_thread_id(self) -> IdType.THREAD_ID:
+    async def read_thread_id(self) -> ThreadIDType:
         pass
 
     @abc.abstractmethod
-    async def read_thread_group_id(self) -> IdType.THREAD_GROUP_ID:
+    async def read_thread_group_id(self) -> ThreadGroupIDType:
         pass
 
     @abc.abstractmethod
-    async def read_string_id(self) -> IdType.STRING_ID:
+    async def read_string_id(self) -> StringIDType:
         pass
 
     @abc.abstractmethod
-    async def read_class_loader_id(self) -> IdType.CLASS_LOADER_ID:
+    async def read_class_loader_id(self) -> ClassLoaderIDType:
         pass
 
     @abc.abstractmethod
-    async def read_class_object_id(self) -> IdType.CLASS_OBJECT_ID:
+    async def read_class_object_id(self) -> ClassObjectIDType:
         pass
 
     @abc.abstractmethod
-    async def read_array_id(self) -> IdType.ARRAY_ID:
+    async def read_array_id(self) -> ArrayIDType:
         pass
 
     @abc.abstractmethod
-    async def read_reference_type_id(self) -> IdType.REFERENCE_TYPE_ID:
+    async def read_reference_type_id(self) -> ReferenceTypeIDType:
         pass
 
     @abc.abstractmethod
-    async def read_class_id(self) -> IdType.CLASS_ID:
+    async def read_class_id(self) -> ClassIDType:
         pass
 
     @abc.abstractmethod
-    async def read_interface_id(self) -> IdType.INTERFACE_ID:
+    async def read_interface_id(self) -> InterfaceIDType:
         pass
 
     @abc.abstractmethod
-    async def read_array_type_id(self) -> IdType.ARRAY_TYPE_ID:
+    async def read_array_type_id(self) -> ArrayTypeIDType:
         pass
 
     @abc.abstractmethod
-    async def read_method_id(self) -> IdType.METHOD_ID:
+    async def read_method_id(self) -> MethodIDType:
         pass
 
     @abc.abstractmethod
-    async def read_field_id(self) -> IdType.FIELD_ID:
+    async def read_field_id(self) -> FieldIDType:
         pass
 
     @abc.abstractmethod
-    async def read_frame_id(self) -> IdType.FRAME_ID:
+    async def read_frame_id(self) -> FrameIDType:
         pass
 
     # Methods for IntegralType
@@ -109,59 +109,59 @@ class JDWPOutputStreamBase(abc.ABC):
 
     # Methods for IdType
     @abc.abstractmethod
-    def write_object_id(self, value: IdType.OBJECT_ID) -> None:
+    def write_object_id(self, value: ObjectIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_thread_id(self, value: IdType.THREAD_ID) -> None:
+    def write_thread_id(self, value: ThreadIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_thread_group_id(self, value: IdType.THREAD_GROUP_ID) -> None:
+    def write_thread_group_id(self, value: ThreadGroupIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_string_id(self, value: IdType.STRING_ID) -> None:
+    def write_string_id(self, value: StringIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_class_loader_id(self, value: IdType.CLASS_LOADER_ID) -> None:
+    def write_class_loader_id(self, value: ClassLoaderIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_class_object_id(self, value: IdType.CLASS_OBJECT_ID) -> None:
+    def write_class_object_id(self, value: ClassObjectIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_array_id(self, value: IdType.ARRAY_ID) -> None:
+    def write_array_id(self, value: ArrayIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_reference_type_id(self, value: IdType.REFERENCE_TYPE_ID) -> None:
+    def write_reference_type_id(self, value: ReferenceTypeIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_class_id(self, value: IdType.CLASS_ID) -> None:
+    def write_class_id(self, value: ClassIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_interface_id(self, value: IdType.INTERFACE_ID) -> None:
+    def write_interface_id(self, value: InterfaceIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_array_type_id(self, value: IdType.ARRAY_TYPE_ID) -> None:
+    def write_array_type_id(self, value: ArrayTypeIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_method_id(self, value: IdType.METHOD_ID) -> None:
+    def write_method_id(self, value: MethodIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_field_id(self, value: IdType.FIELD_ID) -> None:
+    def write_field_id(self, value: FieldIDType) -> None:
         pass
 
     @abc.abstractmethod
-    def write_frame_id(self, value: IdType.FRAME_ID) -> None:
+    def write_frame_id(self, value: FrameIDType) -> None:
         pass
 
     # Methods for IntegralType
