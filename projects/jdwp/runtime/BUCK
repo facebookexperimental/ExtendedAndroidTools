@@ -12,7 +12,5 @@ python_library(
     ":type-aliases",
   ],
   visibility = ["PUBLIC", ],
-  
-
   deps = [],
 )
