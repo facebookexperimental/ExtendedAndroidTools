@@ -11,7 +11,7 @@ from projects.jdwp.runtime.async_streams import (
 
 class JDWPStruct(abc.ABC):
     @abc.abstractmethod
-    async def serialize(self, output: JDWPOutputStreamBase):
+    def serialize(self, output: JDWPOutputStreamBase):
         pass
 
     @staticmethod
