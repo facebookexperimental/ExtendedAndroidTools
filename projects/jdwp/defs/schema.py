@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional, Generic, TypeVar, Type as TypeAlias, Union
+from typing import Optional, Generic, Tuple, TypeVar, Type as TypeAlias, Union
 from collections.abc import Mapping
 from enum import Enum
 from collections.abc import Set, Sequence
@@ -85,7 +85,10 @@ class TaggedUnion(Generic[EnumT]):
     """Tagged Union class type"""
 
     tag: Field[UnionTag[EnumT]]
-    cases: Mapping[EnumT, Struct]
+    cases: Sequence[Tuple[EnumT, Struct]]
+
+    def __post_init__(self):
+        object.__setattr__(self, "cases", tuple(self.cases))
 
 
 @dataclass(frozen=True)
@@ -114,6 +117,9 @@ class Struct:
 
     fields: Sequence[Field[Type]]
 
+    def __post_init__(self):
+        object.__setattr__(self, "fields", tuple(self.fields))
+
 
 @dataclass(frozen=True)
 class Command:
@@ -125,6 +131,9 @@ class Command:
     reply: Optional[Struct]
     error: Set[ErrorType]
 
+    def __post_init__(self):
+        object.__setattr__(self, "error", frozenset(self.error))
+
 
 @dataclass(frozen=True)
 class CommandSet:
@@ -133,3 +142,6 @@ class CommandSet:
     name: str
     id: int
     commands: Sequence[Command]
+
+    def __post_init__(self):
+        object.__setattr__(self, "commands", tuple(self.commands))
