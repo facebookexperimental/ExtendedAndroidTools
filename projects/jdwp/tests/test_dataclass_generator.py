@@ -1,5 +1,7 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
 import unittest
-from projects.jdwp.defs.schema import Struct, Field, Array, TaggedUnion
+from projects.jdwp.defs.schema import Struct, Field, Array
 from projects.jdwp.codegen.dataclass_generator import StructGenerator
 
 
@@ -64,7 +66,3 @@ class TestStructGenerator(unittest.TestCase):
             "    arrayField: typing.List[ArrayStructArrayFieldElement]",
         ]
         self.assertEqual(generator.generate(), expected)
-
-
-if __name__ == "__main__":
-    unittest.main()
