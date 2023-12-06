@@ -1,5 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
+import enum
 from textwrap import dedent
 from projects.jdwp.codegen.types import python_type_for
 import typing
@@ -7,6 +8,8 @@ import typing
 from projects.jdwp.defs.schema import (
     Array,
     ArrayLength,
+    Command,
+    CommandSet,
     Field,
     Struct,
     TaggedUnion,
@@ -59,14 +62,13 @@ class StructGenerator:
         class_def = f"@dataclasses.dataclass(frozen=True)\nclass {name}:\n{fields_def}"
         return dedent(class_def)
 
-    def generate(self):
-        return [
-            self.__generate_dataclass(nested)
-            for _, _, nested in reversed(list(nested_structs(self.__root)))
-        ] + [self.__generate_dataclass(self.__root)]
+    def generate(self) -> typing.Generator[str, None, None]:
+        for _, _, nested in reversed(list(nested_structs(self.__root))):
+            yield self.__generate_dataclass(nested)
+        yield self.__generate_dataclass(self.__root)
 
 
-def format_enum_name(enum_value):
+def format_enum_name(enum_value: enum.Enum) -> str:
     words = enum_value.name.split("_")
     formatted_name = "".join(word.capitalize() for word in words)
     return f"{formatted_name}Type"
@@ -110,3 +112,42 @@ def compute_struct_names(root: Struct, name: str) -> typing.Mapping[Struct, str]
                         case_struct
                     ] = f"{names[parent]}{sanitized_field_name}Case{case_name}"
     return names
+
+
+def generate_for_command(command: Command) -> typing.Generator[str, None, None]:
+    if command.out:
+        yield from StructGenerator(command.out, f"{command.name}Out").generate()
+    if command.reply:
+        yield from StructGenerator(command.reply, f"{command.name}Reply").generate()
+
+
+def generate_for_command_set(
+    command_set: CommandSet,
+) -> typing.Generator[str, None, None]:
+    for command in command_set.commands:
+        yield from generate_for_command(command)
+
+
+def generate_for_all_command_sets() -> typing.Generator[str, None, None]:
+    # TODO: refactor this once PR90 is merged
+    from projects.jdwp.defs.command_sets.virtual_machine import VirtualMachine
+    from projects.jdwp.defs.command_sets.reference_type import ReferenceType
+    from projects.jdwp.defs.command_sets.event_request import EventRequest
+
+    yield from generate_for_command_set(VirtualMachine)
+    yield from generate_for_command_set(ReferenceType)
+    yield from generate_for_command_set(EventRequest)
+
+
+def main():
+    print("import dataclasses")
+    print("import typing")
+    print("from projects.jdwp.runtime.type_aliases import *")
+
+    for struct_definition in generate_for_all_command_sets():
+        print()
+        print(struct_definition)
+
+
+if __name__ == "__main__":
+    main()

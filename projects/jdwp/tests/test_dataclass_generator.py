@@ -23,7 +23,7 @@ class TestStructGenerator(unittest.TestCase):
             "    id: int"
         ]
 
-        self.assertEqual(result, expected)
+        self.assertSequenceEqual(list(result), expected)
 
     def test_nested_struct(self):
         inner_struct = Struct(
@@ -54,7 +54,7 @@ class TestStructGenerator(unittest.TestCase):
             "    nested: OuterStructNested",
         ]
 
-        self.assertEqual(result, expected)
+        self.assertSequenceEqual(list(result), expected)
 
     def test_struct_in_array(self):
         # Define a structure
@@ -101,4 +101,4 @@ class TestStructGenerator(unittest.TestCase):
             "    arrayOfElements: typing.List[ArrayStructArrayOfElementsElement]",
         ]
 
-        self.assertEqual(result, expected)
+        self.assertSequenceEqual(list(result), expected)
