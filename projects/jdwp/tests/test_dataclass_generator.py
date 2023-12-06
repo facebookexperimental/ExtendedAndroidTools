@@ -68,20 +68,23 @@ class TestStructGenerator(unittest.TestCase):
             ]
         )
 
-        array_length = ArrayLength(type=IntegralType.INT)
+        array_length = Field(
+            name="length",
+            type=ArrayLength(type=IntegralType.INT),
+            description="Array length",
+        )
 
         array_struct = Struct(
             fields=[
+                array_length,
                 Field(
                     name="array",
                     type=Array(
                         element_type=element_struct,
-                        length=Field(
-                            name="length", type=array_length, description="Array length"
-                        ),
+                        length=array_length,
                     ),
                     description="Array of structures",
-                )
+                ),
             ]
         )
 

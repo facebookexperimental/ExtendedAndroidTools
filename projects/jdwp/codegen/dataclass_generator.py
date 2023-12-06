@@ -6,9 +6,11 @@ import typing
 
 from projects.jdwp.defs.schema import (
     Array,
+    ArrayLength,
     Field,
     Struct,
     TaggedUnion,
+    UnionTag,
 )
 
 
@@ -39,11 +41,15 @@ class StructGenerator:
             case _:
                 return python_type_for(type)
 
+    def __is_explicit_field(self, field: Field) -> bool:
+        return not isinstance(field.type, (ArrayLength, UnionTag))
+
     def __generate_dataclass(self, struct: Struct) -> str:
         name = self.__struct_to_name[struct]
         fields_def = "\n".join(
             f"    {field.name}: {self.__get_python_type_for(struct, field)}"
             for field in struct.fields
+            if self.__is_explicit_field(field)
         )
         class_def = f"@dataclasses.dataclass(frozen=True)\nclass {name}:\n{fields_def}"
         return dedent(class_def)
