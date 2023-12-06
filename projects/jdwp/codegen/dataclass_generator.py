@@ -63,20 +63,20 @@ def format_enum_name(enum_value):
 
 def nested_structs(root: Struct) -> typing.Generator[StructLink, None, None]:
     for field in root.fields:
-        type = field.type
-        match type:
+        field_type = field.type
+        match field_type:
             case Array():
-                array_type = typing.cast(Array, type)
+                array_type = typing.cast(Array, field_type)
                 yield root, field, array_type.element_type
                 yield from nested_structs(array_type.element_type)
             case TaggedUnion():
-                tagged_union_type = typing.cast(TaggedUnion, type)
-                for struct in tagged_union_type.cases:
+                tagged_union_type = typing.cast(TaggedUnion, field_type)
+                for _, struct in tagged_union_type.cases:
                     yield root, field, struct
                     yield from nested_structs(struct)
             case Struct():
-                yield root, field, type
-                yield from nested_structs(type)
+                yield root, field, field_type
+                yield from nested_structs(field_type)
 
 
 def compute_struct_names(root: Struct, name: str) -> typing.Mapping[Struct, str]:
