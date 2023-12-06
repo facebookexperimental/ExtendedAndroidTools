@@ -32,7 +32,12 @@ class StructGenerator:
                 return self.__struct_to_name[type]
             case Array():
                 array_type = typing.cast(Array, type)
-                return f"typing.List[{self.__struct_to_name[array_type.element_type]}]"
+                if isinstance(array_type.element_type, Struct):
+                    return (
+                        f"typing.List[{self.__struct_to_name[array_type.element_type]}]"
+                    )
+                else:
+                    return f"typing.List[{python_type_for(array_type.element_type)}]"
             case TaggedUnion():
                 tagged_union_type = typing.cast(TaggedUnion, type)
                 union_types = [
@@ -84,8 +89,9 @@ def nested_structs(root: Struct) -> typing.Generator[StructLink, None, None]:
         match field_type:
             case Array():
                 array_type = typing.cast(Array, field_type)
-                yield root, field, array_type.element_type
-                yield from nested_structs(array_type.element_type)
+                if isinstance(array_type.element_type, Struct):
+                    yield root, field, array_type.element_type
+                    yield from nested_structs(array_type.element_type)
             case TaggedUnion():
                 tagged_union_type = typing.cast(TaggedUnion, field_type)
                 for _, struct in tagged_union_type.cases:
