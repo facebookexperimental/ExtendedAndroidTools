@@ -9,6 +9,15 @@ python_binary(
     visibility=["//projects/jdwp/runtime/..."],
 )
 
+python_binary(
+    name="generate-dataclasses",
+    main_module="projects.jdwp.codegen.dataclass_generator",
+    deps=[
+        ":codegen",
+    ],
+    visibility=["//projects/jdwp/runtime/..."],
+)
+
 python_library(
     name="codegen",
     srcs=glob(["**/*.py"]),
