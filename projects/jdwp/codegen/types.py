@@ -1,6 +1,13 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-from projects.jdwp.defs.schema import OpaqueType, IdType, IntegralType, Type
+from projects.jdwp.defs.schema import (
+    ArrayLength,
+    OpaqueType,
+    IdType,
+    IntegralType,
+    Type,
+    UnionTag,
+)
 import typing
 
 
@@ -17,7 +24,7 @@ def python_type_for(jdwp_type: Type) -> str:
             return __OPAQUE_TYPE_MAPPING[jdwp_type]
         case IdType():
             return jdwp_type.value[0].upper() + jdwp_type.value[1:] + "Type"
-        case IntegralType():
+        case IntegralType() | ArrayLength() | UnionTag():
             return "int"
         case _:
             raise Exception("not implemented")

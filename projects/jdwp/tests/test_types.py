@@ -2,7 +2,7 @@
 
 import unittest
 from projects.jdwp.codegen.types import python_type_for
-from projects.jdwp.defs.schema import IdType
+from projects.jdwp.defs.schema import ArrayLength, IdType, IntegralType
 
 
 class TestTypesMapping(unittest.TestCase):
@@ -13,3 +13,8 @@ class TestTypesMapping(unittest.TestCase):
                 self.assertIsInstance(
                     result, str, f"Mapping for {id_type} is missing or not a string"
                 )
+
+    def test_array_length(self):
+        from projects.jdwp.defs.schema import ArrayLength, IntegralType
+
+        self.assertEqual(python_type_for(ArrayLength(IntegralType.LONG)), "int")
