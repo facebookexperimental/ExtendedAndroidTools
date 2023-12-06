@@ -34,7 +34,7 @@ class StructGenerator:
                 tagged_union_type = typing.cast(TaggedUnion, type)
                 union_types = [
                     self.__struct_to_name[case_struct]
-                    for case_struct in tagged_union_type.cases
+                    for (_, case_struct) in tagged_union_type.cases
                 ]
                 union_types_str = ", ".join(union_types)
                 return f"typing.Union[{union_types_str}]"
