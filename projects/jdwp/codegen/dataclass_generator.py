@@ -59,7 +59,11 @@ class StructGenerator:
             for field in struct.fields
             if self.__is_explicit_field(field)
         )
+
         class_def = f"@dataclasses.dataclass(frozen=True)\nclass {name}:\n{fields_def}"
+        class_def += "\n\n" + self.__generate_serialize_method(struct)
+        class_def += "\n\n" + self.__generate_parse_method(struct)
+
         return dedent(class_def)
 
     def generate(self) -> typing.Generator[str, None, None]:
