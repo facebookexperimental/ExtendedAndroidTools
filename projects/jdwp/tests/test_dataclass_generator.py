@@ -78,7 +78,7 @@ class TestStructGenerator(unittest.TestCase):
             fields=[
                 array_length,
                 Field(
-                    name="array",
+                    name="array of elements",
                     type=Array(
                         element_type=element_struct,
                         length=array_length,
@@ -94,11 +94,11 @@ class TestStructGenerator(unittest.TestCase):
 
         expected = [
             "@dataclasses.dataclass(frozen=True)\n"
-            "class ArrayStructArrayElement:\n"
+            "class ArrayStructArrayOfElementsElement:\n"
             "    element_field: int",
             "@dataclasses.dataclass(frozen=True)\n"
             "class ArrayStruct:\n"
-            "    array: typing.List[ArrayStructArrayElement]",
+            "    arrayOfElements: typing.List[ArrayStructArrayOfElementsElement]",
         ]
 
         self.assertEqual(result, expected)

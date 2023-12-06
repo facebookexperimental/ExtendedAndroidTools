@@ -44,10 +44,15 @@ class StructGenerator:
     def __is_explicit_field(self, field: Field) -> bool:
         return not isinstance(field.type, (ArrayLength, UnionTag))
 
+    def __get_field_name(self, field: Field) -> str:
+        words = field.name.split(" ")
+        words = [words[0]] + [word.capitalize() for word in words[1:]]
+        return "".join(words)
+
     def __generate_dataclass(self, struct: Struct) -> str:
         name = self.__struct_to_name[struct]
         fields_def = "\n".join(
-            f"    {field.name}: {self.__get_python_type_for(struct, field)}"
+            f"    {self.__get_field_name(field)}: {self.__get_python_type_for(struct, field)}"
             for field in struct.fields
             if self.__is_explicit_field(field)
         )
@@ -88,17 +93,20 @@ def nested_structs(root: Struct) -> typing.Generator[StructLink, None, None]:
 def compute_struct_names(root: Struct, name: str) -> typing.Mapping[Struct, str]:
     names = {root: name}
     for parent, field, nested in nested_structs(root):
+        sanitized_field_name = "".join(
+            word.capitalize() for word in field.name.split(" ")
+        )
         type = field.type
         match type:
             case Struct():
-                names[nested] = f"{names[parent]}{field.name.capitalize()}"
+                names[nested] = f"{names[parent]}{sanitized_field_name}"
             case Array():
-                names[nested] = f"{names[parent]}{field.name.capitalize()}Element"
+                names[nested] = f"{names[parent]}{sanitized_field_name}Element"
             case TaggedUnion():
                 tagged_union_type = typing.cast(TaggedUnion, type)
                 for case_value, case_struct in tagged_union_type.cases:
                     case_name = format_enum_name(case_value)
                     names[
                         case_struct
-                    ] = f"{names[parent]}{field.name.capitalize()}Case{case_name}"
+                    ] = f"{names[parent]}{sanitized_field_name}Case{case_name}"
     return names
