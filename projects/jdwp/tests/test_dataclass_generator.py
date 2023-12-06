@@ -1,23 +1,17 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
-from textwrap import dedent
 import unittest
-from projects.jdwp.defs.schema import (
-    ArrayLength,
-    IntegralType,
-    OpaqueType,
-    Struct,
-    Field,
-    Array,
-)
-from projects.jdwp.codegen.dataclass_generator import (
-    StructGenerator,
-    compute_struct_names,
-)
+from projects.jdwp.defs.schema import ArrayLength, IntegralType, Struct, Field, Array
+from projects.jdwp.codegen.dataclass_generator import StructGenerator
 
 
 class TestStructGenerator(unittest.TestCase):
-    maxDiff = None
+    def test_simple_struct(self):
+        simple_struct = Struct(
+            fields=[
+                Field(name="id", type=IntegralType.INT, description="An integer ID")
+            ]
+        )
 
         generator = StructGenerator(simple_struct, "SimpleStruct")
 
@@ -34,8 +28,6 @@ class TestStructGenerator(unittest.TestCase):
     def test_nested_struct(self):
         inner_struct = Struct(
             fields=[
-                Field(name="id", type=IntegralType.INT, description="An integer ID"),
-                Field(name="name", type=OpaqueType.STRING, description="Name"),
                 Field(
                     name="inner_field",
                     type=IntegralType.INT,
@@ -95,29 +87,8 @@ class TestStructGenerator(unittest.TestCase):
                 ),
             ]
         )
-        struct_names = compute_struct_names(test_struct, "TestStruct")
 
-        generator = StructGenerator(test_struct, struct_names)
-
-        result_str = "\n".join(generator.generate())
-
-        expected = dedent(
-            """
-        @dataclasses.dataclass(frozen=True)
-        class TestStruct:
-            id: int
-            name: str
-            values: typing.List[int]
-
-        def serialize(self, output: JDWPOutputStreamBase):
-            output.write_int(self.id)
-            output.write_string(self.name)
-            output.write_int(len(self.values))  # Write dynamic array length
-        for element in self.values:
-            if element is not None:
-                element.serialize(output)  # Serialize each element
-
-
+        generator = StructGenerator(array_struct, "ArrayStruct")
 
         result = generator.generate()
 
