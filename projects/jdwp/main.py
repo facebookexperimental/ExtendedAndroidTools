@@ -8,13 +8,13 @@ async def main():
     host = "localhost"
     port = 8880
 
-    connection = JVMConnection(host, port)
+    # connection = JVMConnection(host, port)
 
-    await connection.connect()
+    # await connection.connect()
 
-    await connection.handshake()
+    # await connection.handshake()
 
-    await connection.close()
+    # await connection.close()
 
 
 if __name__ == "__main__":

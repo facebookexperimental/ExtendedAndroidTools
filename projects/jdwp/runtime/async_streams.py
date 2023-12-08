@@ -96,85 +96,85 @@ class JDWPInputStreamBase(abc.ABC):
 class JDWPOutputStreamBase(abc.ABC):
     # Methods for OpaqueType
     @abc.abstractmethod
-    async def write_boolean(self, value: bool) -> None:
+    def write_boolean(self, value: bool) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_location(self, value: typing.Any) -> None:
+    def write_location(self, value: typing.Any) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_string(self, value: str) -> None:
+    def write_string(self, value: str) -> None:
         pass
 
     # Methods for IdType
     @abc.abstractmethod
-    async def write_object_id(self, value: ObjectIDType) -> None:
+    def write_object_id(self, value: ObjectIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_thread_id(self, value: ThreadIDType) -> None:
+    def write_thread_id(self, value: ThreadIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_thread_group_id(self, value: ThreadGroupIDType) -> None:
+    def write_thread_group_id(self, value: ThreadGroupIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_string_id(self, value: StringIDType) -> None:
+    def write_string_id(self, value: StringIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_class_loader_id(self, value: ClassLoaderIDType) -> None:
+    def write_class_loader_id(self, value: ClassLoaderIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_class_object_id(self, value: ClassObjectIDType) -> None:
+    def write_class_object_id(self, value: ClassObjectIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_array_id(self, value: ArrayIDType) -> None:
+    def write_array_id(self, value: ArrayIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_reference_type_id(self, value: ReferenceTypeIDType) -> None:
+    def write_reference_type_id(self, value: ReferenceTypeIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_class_id(self, value: ClassIDType) -> None:
+    def write_class_id(self, value: ClassIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_interface_id(self, value: InterfaceIDType) -> None:
+    def write_interface_id(self, value: InterfaceIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_array_type_id(self, value: ArrayTypeIDType) -> None:
+    def write_array_type_id(self, value: ArrayTypeIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_method_id(self, value: MethodIDType) -> None:
+    def write_method_id(self, value: MethodIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_field_id(self, value: FieldIDType) -> None:
+    def write_field_id(self, value: FieldIDType) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_frame_id(self, value: FrameIDType) -> None:
+    def write_frame_id(self, value: FrameIDType) -> None:
         pass
 
     # Methods for IntegralType
     @abc.abstractmethod
-    async def write_byte(self, value: int) -> None:
+    def write_byte(self, value: int) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_int(self, value: int) -> None:
+    def write_int(self, value: int) -> None:
         pass
 
     @abc.abstractmethod
-    async def write_long(
+    def write_long(
         self,
         value: int,
     ) -> None:

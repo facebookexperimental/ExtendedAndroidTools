@@ -23,5 +23,5 @@ python_library(
     "jvm_connection.py",
   ],
   visibility = ["PUBLIC", ],
-  deps = ["//projects/jdwp/defs:defs"],
+  deps = [],
 )
