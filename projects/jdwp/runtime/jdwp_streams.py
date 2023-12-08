@@ -9,16 +9,28 @@ from projects.jdwp.runtime.async_streams import (
     JDWPOutputStreamBase,
 )
 
-
-class JDWPInputStream(JDWPInputStreamBase):
-    __tcp_connection: asyncio.StreamReader
-
-    def __init__(self, stream_reader: asyncio.StreamReader):
+class JDWPInputStreamBuffer(JDWPInputStreamBase):
+    def __init__(self, stream_reader: asyncio.StreamReader, size: int):
         super().__init__()
         self.__tcp_connection = stream_reader
+        self.__size = size
+
+    async def read_bytes(self, size: int) -> bytes:
+        try:
+            return await self.__tcp_connection.readexactly(size)
+        except Exception as e:
+            print(f"Error during data receiving: {e}")
+            return b""
+
+
+class JDWPInputStream(JDWPInputStreamBase):
+
+    def __init__(self):
+        super().__init__()
+        self.__buffer = JDWPInputStreamBuffer()
 
     async def read_boolean(self) -> bool:
-        data = await self._read_bytes(1)
+        data = await self.__buffer.read_bytes(1)
         return bool(data[0])
 
     async def read_location(self) -> typing.Any:
@@ -26,7 +38,7 @@ class JDWPInputStream(JDWPInputStreamBase):
 
     async def read_string(self) -> str:
         length = await self.read_int()
-        string_data = await self._read_bytes(length)
+        string_data = await self.__buffer.read_bytes(length)
         return string_data.decode("utf-8")
 
     async def read_object_id(self) -> ObjectIDType:
@@ -72,32 +84,51 @@ class JDWPInputStream(JDWPInputStreamBase):
         return FrameIDType(0)
 
     async def read_byte(self) -> int:
-        data = await self._read_bytes(1)
+        data = await self.__buffer.read_bytes(1)
         return int.from_bytes(data, byteorder="big")
 
     async def read_int(self) -> int:
-        data = await self._read_bytes(4)
+        data = await self.__buffer.read_bytes(4)
         return struct.unpack("!I", data)[0]
 
     async def read_long(self) -> int:
-        data = await self._read_bytes(8)
+        data = await self.__buffer.read_bytes(8)
         return struct.unpack("!Q", data)[0]
 
-    async def _read_bytes(self, size: int) -> bytes:
-        try:
-            return await self.__tcp_connection.readexactly(size)
-        except Exception as e:
-            print(f"Error during data receiving: {e}")
-            return b""
+
+class JDWPOutputStreamBuffer(JDWPOutputStreamBase):
+    def __init__(self):
+        super().__init__()
+        self.__buffer = bytes()
+        self.__size = 0
+
+    def get_buffer_size(self) -> int:
+        return self.__size
+
+    def get_buffer(self) -> bytes:
+        return self.__buffer
+
+    async def flush(self, target_stream: asyncio.StreamWriter) -> None:
+        message_size = self.__size
+        header_bytes = struct.pack("!I", message_size)
+
+        await target_stream.write(header_bytes)
+        await target_stream.drain()
+
+        await target_stream.write(self.__buffer)
+        await target_stream.drain()
+        self.__buffer = bytes()
+        self.__size = 0
+
+    def write(self, data: bytes) -> None:
+        self.__buffer += data
+        self.__size += len(data)
 
 
 class JDWPOutputStream(JDWPOutputStreamBase):
-    __tcp_connection: asyncio.StreamWriter
-
-    def __init__(self, socket_connection: asyncio.StreamWriter):
+    def __init__(self):
         super().__init__()
-        self.__tcp_connection = socket_connection
-        self.__buffer = JDWPBufferOutputStream()
+        self.__buffer = JDWPOutputStreamBuffer()
 
     def write_boolean(self, value: bool) -> None:
         self._write_bytes(struct.pack("!B", int(value)))
@@ -167,31 +198,6 @@ class JDWPOutputStream(JDWPOutputStreamBase):
     def _write_bytes(self, data: bytes):
         self.__buffer.write(data)
 
-    def buffered_data(self):
-        message_size = self.__buffer.get_buffer_size()
-        header_bytes = struct.pack("!I", message_size)
-        return header_bytes + self.__buffer.get_buffer()
-
     def _write_id(self, value: typing.Any) -> None:
         self._write_bytes(struct.pack("B", value))
         self._write_bytes(value.to_bytes(value, byteorder="big"))
-
-
-class JDWPBufferOutputStream:
-    def __init__(self):
-        self.__buffer = bytes()
-        self.__size = 0
-
-    def write(self, data: bytes) -> None:
-        self.__buffer += data
-        self.__size += len(data)
-
-    def get_buffer(self) -> bytes:
-        return self.__buffer
-
-    def get_buffer_size(self) -> int:
-        return self.__size
-
-    def clear(self) -> None:
-        self.__buffer = bytes()
-        self.__size = 0

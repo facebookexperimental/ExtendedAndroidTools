@@ -3,7 +3,7 @@
 import asyncio
 import typing
 import struct
-from projects.jdwp.runtime.jdwp_streams import JDWPInputStream, JDWPOutputStream
+from projects.jdwp.runtime.jdwp_streams import JDWPInputStream, JDWPOutputStream, JDWPInputStreamBuffer, JDWPOutputStreamBuffer
 
 
 class PacketHeader(typing.NamedTuple):
@@ -26,8 +26,8 @@ class JVMConnection:
         self.next_packet_id: int = 0
         self.__reader: typing.Optional[asyncio.StreamReader] = None
         self.__writer: typing.Optional[asyncio.StreamWriter] = None
-        self.__input_stream: typing.Optional[JDWPInputStream] = None
-        self.__output_stream: typing.Optional[JDWPOutputStream] = None
+        self.__input_stream: typing.Optional[JDWPInputStreamBuffer] = None
+        self.__output_stream: typing.Optional[JDWPOutputStreamBuffer] = None
 
     async def connect(self) -> None:
         try:
@@ -35,11 +35,12 @@ class JVMConnection:
                 self.host, self.port
             )
 
-            self.__output_stream = JDWPOutputStream(self.__writer)
-
+            if self.__writer is None:
+                raise Exception("Stream writer not initialized")
+            self.__output_stream = JDWPOutputStreamBuffer(stream_writer=self.__writer, size=0)
             if self.__reader is None:
-                raise Exception("Reader not initialized")
-            self.__input_stream = JDWPInputStream(self.__reader)
+                raise Exception("Stream reader not initialized")
+            self.__input_stream = JDWPInputStreamBuffer(stream_reader=self.__reader,  size=0)
 
         except Exception as e:
             print(f"Error during connection: {e}")
@@ -55,11 +56,15 @@ class JVMConnection:
             handshake_bytes = b"JDWP-Handshake"
             if self.__output_stream is None:
                 raise Exception("Output stream not initialized")
-            await self.__output_stream._write_bytes(handshake_bytes)
+            __stream = self.__output_stream
+            __stream.write(handshake_bytes)
+            if self.__writer is None:
+                raise Exception("Stream writer not initialized")
+            await __stream.flush(self.__writer)
 
             if self.__input_stream is None:
                 raise Exception("Input stream not initialized")
-            response_bytes = await self.__input_stream._read_bytes(len(handshake_bytes))
+            response_bytes = await self.__input_stream.read_bytes(len(handshake_bytes))
 
             if response_bytes != handshake_bytes:
                 raise Exception("Invalid handshake response")
@@ -73,13 +78,13 @@ class JVMConnection:
         if self.__input_stream is None:
             raise Exception("Input stream not initialized")
 
-        header_data = await self.__input_stream._read_bytes(10)
+        header_data = await self.__input_stream.read_bytes(10)
         return PacketHeader(*struct.unpack("!IIcBB", header_data))
 
     async def __read_packet_data(self, length: int) -> bytes:
         if self.__input_stream is None:
             raise Exception("Input stream not initialized")
-        return await self.__input_stream._read_bytes(length)
+        return await self.__input_stream.read_bytes(length)
 
     async def __write_packet_header(
         self, length: int, flags: bytes, command_set: int, command: int
@@ -90,7 +95,11 @@ class JVMConnection:
             header_data = packet_header.write()
             if self.__output_stream is None:
                 raise Exception("Output stream not initialized")
-            await self.__output_stream._write_bytes(header_data)
+            __stream = self.__output_stream
+            __stream.write(header_data)
+            if self.__writer is None:
+                raise Exception("Stream writer not initialized")
+            await __stream.flush(self.__writer)
 
         except Exception as e:
             print(f"Error writing packet header: {e}")
@@ -98,8 +107,12 @@ class JVMConnection:
 
     async def __write_packet_data(self, data: bytes) -> None:
         if self.__output_stream is None:
-            raise Exception("Output stream not initialized")
-        await self.__output_stream._write_bytes(data)
+                raise Exception("Output stream not initialized")
+        __stream = self.__output_stream
+        __stream.write(data)
+        if self.__writer is None:
+                raise Exception("Stream writer not initialized")
+        await __stream.flush(self.__writer)
 
     def __get_next_packet_id(self) -> int:
         self.next_packet_id += 1
