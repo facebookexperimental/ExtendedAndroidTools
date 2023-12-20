@@ -5,7 +5,7 @@ github: https://github.com/iovisor/bcc
 license: Apache 2.0
 license url: https://github.com/iovisor/bcc/blob/master/LICENSE.txt
 
-Default version: v0.27.0
+Default version: v0.29.1
 
 Building:
 - bcc depends on flex binary, which needs to stay in sync with flex header
