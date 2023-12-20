@@ -7,6 +7,8 @@ $(eval $(call project-define,bcc))
 BCC_EXTRA_CFLAGS += "-I$(abspath $(ANDROID_OUT_DIR))/include"
 BCC_EXTRA_LDFLAGS = "-L$(abspath $(ANDROID_OUT_DIR))/lib"
 
+$(BCC_ANDROID): \
+    export PYTHONPATH=$(abspath $(ANDROID_OUT_DIR)/lib/python3.10/site-packages/)
 $(BCC_ANDROID):
 ifeq ($(BUILD_TYPE), Debug)
 	cd $(ANDROID_BUILD_DIR)/bcc && $(MAKE) install -j $(THREADS)
