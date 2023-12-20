@@ -8,6 +8,7 @@ import typing
 
 
 INTERPRETER = "<HOST_OUT_DIR>/bin/python3.10"
+PYTHONPATH = "<ANDROID_OUT_DIR>/lib/python3.10/site-packages/"
 INSTALL_LAYOUT = "--install-layout"
 
 
@@ -36,7 +37,7 @@ def main():
         case _:
             args = [INTERPRETER] + sys.argv[1:]
 
-    os.execv(INTERPRETER, args)
+    os.execve(INTERPRETER, args, {"PYTHONPATH": PYTHONPATH})
 
 
 if __name__ == "__main__":
