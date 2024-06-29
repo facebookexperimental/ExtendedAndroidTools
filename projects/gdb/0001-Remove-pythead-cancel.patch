@@ -1,0 +1,129 @@
+From 98a6ccec8b6f1be7dc7a496776fc65e7319a0b32 Mon Sep 17 00:00:00 2001
+From: Konrad Eisele <konrad.eisele@aptiv.com>
+Date: Sat, 29 Jun 2024 15:30:02 +0200
+Subject: [PATCH] Remove pythead cancel
+
+---
+ gdb/arch/amd64-linux-tdesc.c |  1 +
+ gdb/arch/i386-linux-tdesc.c  |  1 +
+ gdbserver/linux-low.cc       | 44 ++++++++++++++++++------------------
+ gprofng/libcollector/iolib.c |  6 ++---
+ 4 files changed, 27 insertions(+), 25 deletions(-)
+
+diff --git a/gdb/arch/amd64-linux-tdesc.c b/gdb/arch/amd64-linux-tdesc.c
+index e9c4a99806d..df479ed54d0 100644
+--- a/gdb/arch/amd64-linux-tdesc.c
++++ b/gdb/arch/amd64-linux-tdesc.c
+@@ -17,6 +17,7 @@
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+ 
++#include <unordered_map>
+ #include "arch/x86-linux-tdesc.h"
+ #include "arch/amd64-linux-tdesc.h"
+ #include "arch/amd64.h"
+diff --git a/gdb/arch/i386-linux-tdesc.c b/gdb/arch/i386-linux-tdesc.c
+index 9f12e59d214..444e54e1fb5 100644
+--- a/gdb/arch/i386-linux-tdesc.c
++++ b/gdb/arch/i386-linux-tdesc.c
+@@ -17,6 +17,7 @@
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+ 
++#include <unordered_map>
+ #include "arch/x86-linux-tdesc.h"
+ #include "arch/i386-linux-tdesc.h"
+ #include "arch/i386.h"
+diff --git a/gdbserver/linux-low.cc b/gdbserver/linux-low.cc
+index 266c7de8fb8..8e812c07ba5 100644
+--- a/gdbserver/linux-low.cc
++++ b/gdbserver/linux-low.cc
+@@ -105,32 +105,32 @@
+ 
+ #ifndef HAVE_ELF32_AUXV_T
+ /* Copied from glibc's elf.h.  */
+-typedef struct
+-{
+-  uint32_t a_type;		/* Entry type */
+-  union
+-    {
+-      uint32_t a_val;		/* Integer value */
+-      /* We use to have pointer elements added here.  We cannot do that,
+-	 though, since it does not work when using 32-bit definitions
+-	 on 64-bit platforms and vice versa.  */
+-    } a_un;
+-} Elf32_auxv_t;
++/* typedef struct */
++/* { */
++/*   uint32_t a_type;		/\* Entry type *\/ */
++/*   union */
++/*     { */
++/*       uint32_t a_val;		/\* Integer value *\/ */
++/*       /\* We use to have pointer elements added here.  We cannot do that, */
++/* 	 though, since it does not work when using 32-bit definitions */
++/* 	 on 64-bit platforms and vice versa.  *\/ */
++/*     } a_un; */
++/* } Elf32_auxv_t; */
+ #endif
+ 
+ #ifndef HAVE_ELF64_AUXV_T
+ /* Copied from glibc's elf.h.  */
+-typedef struct
+-{
+-  uint64_t a_type;		/* Entry type */
+-  union
+-    {
+-      uint64_t a_val;		/* Integer value */
+-      /* We use to have pointer elements added here.  We cannot do that,
+-	 though, since it does not work when using 32-bit definitions
+-	 on 64-bit platforms and vice versa.  */
+-    } a_un;
+-} Elf64_auxv_t;
++/* typedef struct */
++/* { */
++/*   uint64_t a_type;		/\* Entry type *\/ */
++/*   union */
++/*     { */
++/*       uint64_t a_val;		/\* Integer value *\/ */
++/*       /\* We use to have pointer elements added here.  We cannot do that, */
++/* 	 though, since it does not work when using 32-bit definitions */
++/* 	 on 64-bit platforms and vice versa.  *\/ */
++/*     } a_un; */
++/* } Elf64_auxv_t; */
+ #endif
+ 
+ /* See nat/linux-nat.h.  */
+diff --git a/gprofng/libcollector/iolib.c b/gprofng/libcollector/iolib.c
+index 9f210589dfa..b048408885b 100644
+--- a/gprofng/libcollector/iolib.c
++++ b/gprofng/libcollector/iolib.c
+@@ -582,7 +582,7 @@ remapBlock (DataHandle *hndl, unsigned iflow, unsigned ichunk)
+ 
+   /* 6618470: disable thread cancellation */
+   int old_cstate;
+-  pthread_setcancelstate (PTHREAD_CANCEL_DISABLE, &old_cstate);
++  //pthread_setcancelstate (PTHREAD_CANCEL_DISABLE, &old_cstate);
+ 
+   /* Open the file. */
+   int iter = 0;
+@@ -684,7 +684,7 @@ remapBlock (DataHandle *hndl, unsigned iflow, unsigned ichunk)
+ 	       1, hndl->fname);
+ exit:
+   /* Restore the previous cancellation state */
+-  pthread_setcancelstate (old_cstate, NULL);
++  //pthread_setcancelstate (old_cstate, NULL);
+ 
+   return rc;
+ }
+@@ -1069,7 +1069,7 @@ __collector_write_string (DataHandle *hndl, char *src, int len)
+ 
+       /* 6618470: disable thread cancellation */
+       int old_cstate;
+-      pthread_setcancelstate (PTHREAD_CANCEL_DISABLE, &old_cstate);
++      //pthread_setcancelstate (PTHREAD_CANCEL_DISABLE, &old_cstate);
+       /* block all signals */
+       CALL_UTIL (sigprocmask)(SIG_SETMASK, &new_mask, &old_mask);
+ 
+-- 
+2.34.1
+
