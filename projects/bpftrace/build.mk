@@ -28,7 +28,7 @@ endif
 	touch $@
 
 $(BPFTRACE_ANDROID_BUILD_DIR): $(HOST_OUT_DIR)/bin/flex $(STRIP_THUNK)
-	-mkdir $@
+	-mkdir -p $@
 	cd $@ && LDFLAGS="$(BPFTRACE_EXTRA_LDFLAGS)" $(CMAKE) $(BPFTRACE_SRCS) \
 		$(ANDROID_EXTRA_CMAKE_FLAGS) \
 		$(BPFTRACE_EXTRA_CMAKE_FLAGS) \
@@ -43,8 +43,10 @@ $(STRIP_THUNK): projects/bpftrace/strip-thunk | $(HOST_OUT_DIR)
 	@sed -e "s+<STRIP_PATH>+$(ANDROID_TOOLCHAIN_STRIP_PATH)+g" $< > $@
 	chmod +x $@
 
-BPFTRACE_COMMIT = v0.19.1
+BPFTRACE_COMMIT = v0.21.2
 BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@
 	cd $@ && git checkout $(BPFTRACE_COMMIT)
+	# Fix some C++ warnings found by clang
+	cd $@ && git cherry-pick --no-commit 65a08f4c38505d327862d52404be85469168966a
