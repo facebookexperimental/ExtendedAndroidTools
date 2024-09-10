@@ -10,7 +10,7 @@ jdwp-check: jdwp-host-prepare
 	buck2 run //projects/jdwp:main
 	buck2 test //projects/jdwp/...
 	pyre check
-	black projects/jdwp --check
+	black projects/jdwp --check --extend-exclude "codegen"
 
 jdwp-format: black-host
 	black projects/jdwp
