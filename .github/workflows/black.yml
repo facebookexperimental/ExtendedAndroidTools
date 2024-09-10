@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: psf/black@stable
         with:
-          options: "--check --verbose --extend-exclude \"codegen\""
+          options: "--check --verbose
           src: "./projects/jdwp"
 
 

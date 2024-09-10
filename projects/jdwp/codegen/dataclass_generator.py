@@ -108,9 +108,9 @@ def compute_struct_names(root: Struct, name: str) -> typing.Mapping[Struct, str]
                 tagged_union_type = typing.cast(TaggedUnion, type)
                 for case_value, case_struct in tagged_union_type.cases:
                     case_name = format_enum_name(case_value)
-                    names[
-                        case_struct
-                    ] = f"{names[parent]}{sanitized_field_name}Case{case_name}"
+                    names[case_struct] = (
+                        f"{names[parent]}{sanitized_field_name}Case{case_name}"
+                    )
     return names
 
 
