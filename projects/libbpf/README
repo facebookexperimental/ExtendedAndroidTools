@@ -3,5 +3,5 @@ libbpf
 license: LGPL-2.1/BSD-2-Clause
 license url: https://github.com/libbpf/libbpf/blob/master/LICENSE
 
-Default version: 1.0.0
+Default version: 1.4.6
 https://github.com/libbpf/libbpf
