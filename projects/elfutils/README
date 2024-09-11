@@ -5,7 +5,7 @@ It provides utils for working with elf files and includes bpf specific backed.
 license: GPLv2+/LGPLv3+ for libs, GPLv3+ for utils
 license url: https://sourceware.org/elfutils/
 
-Default version: 0.186
+Default version: 0.191
 Most recent elfutils release available here:
 http://sourceware.org/pub/elfutils/0.186/elfutils-0.186.tar.bz2
 
