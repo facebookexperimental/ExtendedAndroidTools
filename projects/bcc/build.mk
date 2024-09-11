@@ -4,7 +4,7 @@ BCC_ANDROID_DEPS = llvm libbpf flex elfutils python xz
 BCC_HOST_DEPS = cmake flex python
 $(eval $(call project-define,bcc))
 
-BCC_EXTRA_CFLAGS += "-I$(abspath $(ANDROID_OUT_DIR))/include"
+BCC_EXTRA_CFLAGS += "-I$(abspath $(ANDROID_OUT_DIR))/include" -include strings.h
 BCC_EXTRA_LDFLAGS = "-L$(abspath $(ANDROID_OUT_DIR))/lib"
 
 $(BCC_ANDROID):
