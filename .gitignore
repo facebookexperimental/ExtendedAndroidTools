@@ -24,5 +24,9 @@ bpftools-arm64.tar.gz
 bpftools-min-arm64.tar.gz
 bpftools-x86_64.tar.gz
 bpftools-min-x86_64.tar.gz
+bpftools-armv7.tar.gz
+bpftools-min-armv7.tar.gz
+bpftools-86.tar.gz
+bpftools-min-x86.tar.gz
 
 .flake8
