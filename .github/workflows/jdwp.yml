@@ -6,7 +6,7 @@ jobs:
   build_jdwp_project:
     name: Build and Test JDWP Project
     runs-on: ubuntu-22.04
-    
+
     steps:
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
@@ -25,4 +25,4 @@ jobs:
     - name: Run Pyre Type Checking
       run: |
         eval `make setup-env`
-        cd projects/jdwp && pyre check
+        cd projects/jdwp && pyre --version=client check
