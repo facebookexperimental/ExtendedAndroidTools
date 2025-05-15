@@ -20,7 +20,7 @@ jobs:
       - name: Build
         env: ${{matrix.env}}
         run: make bpftools NDK_PATH=`pwd`/android-ndk-r27b NDK_ARCH=${{ matrix.env['ARCH'] }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: bpftools-android-${{ matrix.env['ARCH'] }}.tar.gz
           path: bpftools-${{ matrix.env['ARCH'] }}.tar.gz
@@ -41,7 +41,7 @@ jobs:
         run: ./scripts/download-ndk.sh
       - name: Build
         run: make bpftools-min NDK_PATH=`pwd`/android-ndk-r27b NDK_ARCH=${{ matrix.env['ARCH'] }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: bpftools-min-android-${{ matrix.env['ARCH'] }}.tar.gz
           path: bpftools-min-${{ matrix.env['ARCH'] }}.tar.gz
@@ -63,7 +63,7 @@ jobs:
         run: ./scripts/download-ndk.sh
       - name: Build
         run: make bpftrace NDK_PATH=`pwd`/android-ndk-r27b NDK_ARCH=${{ matrix.env['ARCH'] }} STATIC_LINKING=true LLVM_BPF_ONLY=true
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: bpftrace-android-${{ matrix.env['ARCH'] }}
           path: out/android/${{ matrix.env['ARCH'] }}/bin/bpftrace
