@@ -12,7 +12,7 @@ jobs:
           - ARCH: arm64
           - ARCH: x86_64
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: sudo ./scripts/jammy-install-deps.sh
       - name: Setup NDK
@@ -34,7 +34,7 @@ jobs:
           - ARCH: arm64
           - ARCH: x86_64
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: sudo ./scripts/jammy-install-deps.sh
       - name: Setup NDK
@@ -56,7 +56,7 @@ jobs:
           - ARCH: x86_64
           - ARCH: armv7
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: sudo ./scripts/jammy-install-deps.sh
       - name: Setup NDK
