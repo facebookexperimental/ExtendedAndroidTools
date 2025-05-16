@@ -73,9 +73,10 @@ $(LLVM_HOST_BUILD_DIR):
 	-mkdir $@
 	cd $@ && $(CMAKE) $(LLVM_SRCS)/llvm \
 		$(LLVM_EXTRA_CMAKE_FLAGS) \
-		$(LLVM_EXTRA_HOST_FLAGS)
+		$(LLVM_EXTRA_HOST_FLAGS) \
+		-DCMAKE_BUILD_TYPE=Debug
 
-LLVM_BRANCH_OR_TAG = llvmorg-14.0.6
+LLVM_BRANCH_OR_TAG = llvmorg-18.1.8
 LLVM_REPO = https://github.com/llvm/llvm-project
 projects/llvm/sources:
 	git clone $(LLVM_REPO) $@ --depth=1 -b $(LLVM_BRANCH_OR_TAG)
