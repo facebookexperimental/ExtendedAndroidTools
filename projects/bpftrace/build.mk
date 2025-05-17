@@ -44,7 +44,7 @@ $(STRIP_THUNK): projects/bpftrace/strip-thunk | $(HOST_OUT_DIR)
 	chmod +x $@
 
 BPFTRACE_COMMIT = v0.23.2
-BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
+BPFTRACE_REPO = https://github.com/simpleton/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@
-	cd $@ && git checkout $(BPFTRACE_COMMIT)
+	cd $@ && git checkout $(BPFTRACE_COMMIT) && git cherry-pick 458b4221619c7bdf24e7160f5695864162a930ef --no-commit
