@@ -49,4 +49,4 @@ projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@ && \
 	cd $@ && \
 	git checkout $(BPFTRACE_COMMIT) && \
-    git cherry-pick 4b5cbe120f581846d5397fa4b2a0cbd34e15c77a --no-commit
+	git cherry-pick 4b5cbe120f581846d5397fa4b2a0cbd34e15c77a --no-commit
