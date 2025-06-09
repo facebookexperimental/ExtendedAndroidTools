@@ -2,5 +2,5 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
 pushd scripts
-docker build -t extended-android-tools -f ../docker/Dockerfile .
+docker build --pull --no-cache -t extended-android-tools -f ../docker/Dockerfile .
 popd
