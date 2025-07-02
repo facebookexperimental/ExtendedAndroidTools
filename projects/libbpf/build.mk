@@ -18,7 +18,8 @@ $(LIBBPF_ANDROID): $(ANDROID_OUT_DIR)/lib/pkgconfig/zlib.pc
 		OBJDIR=$(abspath $(LIBBPF_ANDROID_BUILD_DIR)) \
 		AR=$(abspath $(ANDROID_TOOLCHAIN_PATH)/llvm-ar) \
 		CC=$(abspath $(ANDROID_TOOLCHAIN_PATH)/$(ANDROID_TRIPLE)$(NDK_API)-clang) \
-		EXTRA_CFLAGS="$(LIBBPF_EXTRA_CFLAGS)"
+		EXTRA_CFLAGS="$(LIBBPF_EXTRA_CFLAGS)" \
+		EXTRA_LDFLAGS="-Wl,-z,max-page-size=$(ANDROID_MAX_PAGE_SIZE)"
 	cp $(LIBBPF_SRCS)/LICENSE $(ANDROID_OUT_DIR)/licenses/libbpf
 	touch $@
 

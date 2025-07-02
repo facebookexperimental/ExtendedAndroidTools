@@ -22,6 +22,7 @@ $(ANDROID_CONFIG_SITE): | $(ANDROID_OUT_DIR)
 	@sed -ibkp -e "s+<TRIPLE>+$(ANDROID_TRIPLE)+g" $@
 	@sed -ibkp -e "s+<SITE_PATH>+$(abspath $(ANDROID_OUT_DIR))+g" $@
 	@sed -ibkp -e "s+<API>+$(NDK_API)+g" $@
+	@sed -ibkp -e "s+<MAX_PAGE_SIZE>+$(ANDROID_MAX_PAGE_SIZE)+g" $@
 
 $(HOST_CONFIG_SITE): | $(HOST_OUT_DIR)
 	cp toolchains/config.site.host.template $@
