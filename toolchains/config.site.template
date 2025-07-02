@@ -12,4 +12,4 @@ test -z "$STRIP" && STRIP=<BIN_PATH>/llvm-strip
 test -z "$PKG_CONFIG_LIBDIR" && PKG_CONFIG_LIBDIR=<SITE_PATH>/lib/pkgconfig
 test -z "$CPPFLAGS" && CPPFLAGS="-I<SITE_PATH>/include $EXTRA_CPPFLAGS"
 test -z "$CFLAGS" && CFLAGS="-fPIC $EXTRA_CFLAGS"
-test -z "$LDFLAGS" && LDFLAGS="-L<SITE_PATH>/lib -L<SITE_PATH>/lib64 $EXTRA_LDFLAGS"
+test -z "$LDFLAGS" && LDFLAGS="-L<SITE_PATH>/lib -L<SITE_PATH>/lib64 -Wl,-z,max-page-size=<MAX_PAGE_SIZE> $EXTRA_LDFLAGS"
