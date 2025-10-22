@@ -43,10 +43,9 @@ $(STRIP_THUNK): projects/bpftrace/strip-thunk | $(HOST_OUT_DIR)
 	@sed -e "s+<STRIP_PATH>+$(ANDROID_TOOLCHAIN_STRIP_PATH)+g" $< > $@
 	chmod +x $@
 
-BPFTRACE_COMMIT = v0.23.4
+BPFTRACE_COMMIT = v0.24.1
 BPFTRACE_REPO = https://github.com/iovisor/bpftrace.git/
 projects/bpftrace/sources:
 	git clone $(BPFTRACE_REPO) $@ && \
 	cd $@ && \
-	git checkout $(BPFTRACE_COMMIT) && \
-	git cherry-pick 4b5cbe120f581846d5397fa4b2a0cbd34e15c77a 665b754a5800d80d44a95699a6d5ec545a7b7065 --no-commit -X theirs
+	git checkout $(BPFTRACE_COMMIT)
