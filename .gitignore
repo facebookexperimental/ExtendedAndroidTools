@@ -8,7 +8,6 @@
 # build files
 /build/
 /out/
-/buck-out/
 
 # sources
 /projects/*/sources
