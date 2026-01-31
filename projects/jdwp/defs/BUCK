@@ -1,8 +1,0 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-
-python_library(
-    name = "defs",
-    srcs = glob(["**/*.py"]),
-    visibility = ["PUBLIC"],
-    deps = [],
-)
