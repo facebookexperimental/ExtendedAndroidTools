@@ -19,6 +19,10 @@ STATIC_LINKING = false
 # requires support for the $NDK_ARCH target)
 LLVM_BPF_ONLY = false
 
+# Set to true to avoid stripping the final bpftrace binary even in the Release
+# build configuration.
+BPFTRACE_NO_STRIP = false
+
 BUILD_DIR = build
 ANDROID_BUILD_DIR = $(BUILD_DIR)/android/$(NDK_ARCH)
 HOST_BUILD_DIR = $(BUILD_DIR)/host

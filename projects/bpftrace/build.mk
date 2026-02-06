@@ -16,10 +16,14 @@ BPFTRACE_EXTRA_CMAKE_FLAGS = -DSTATIC_LINKING=ON
 BPFTRACE_EXTRA_LDFLAGS += "$(abspath $(ANDROID_OUT_DIR))/lib/liblzma.a"
 endif
 
+ifeq ($(BUILD_TYPE),Debug)
+BPFTRACE_NO_STRIP := true
+endif
+
 STRIP_THUNK = $(HOST_OUT_DIR)/bpftrace-strip-thunk
 
 $(BPFTRACE_ANDROID): $(ANDROID_OUT_DIR)/lib/libc++_shared.so
-ifeq ($(BUILD_TYPE), Debug)
+ifeq ($(BPFTRACE_NO_STRIP),true)
 	cd $(BPFTRACE_ANDROID_BUILD_DIR) && $(MAKE) install -j $(THREADS)
 else
 	cd $(BPFTRACE_ANDROID_BUILD_DIR) && $(MAKE) install/strip -j $(THREADS)
